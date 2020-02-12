@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 django-grappelli = "*"
 django-filebrowser = "*"
-django = "==2.2.8"
+django = "==2.2.10"
 "beautifulsoup4" = "*"
 django-crispy-forms = "*"
 django-debug-toolbar = "*"
