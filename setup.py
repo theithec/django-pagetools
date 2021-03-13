@@ -24,9 +24,9 @@ setup(
         "django-model-utils==4.0.*",
         "django-mptt==0.11.*",
         "django-sekizai==1.1.*",
-        "django-simple-captcha==0.5.12",
+        "django-simple-captcha==0.5.*",
         "djangoajax==3.*",
-        "Pillow==7.*",
+        "Pillow==8.*",
     ],
 
     long_description=README,
