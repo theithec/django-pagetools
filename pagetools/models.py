@@ -1,6 +1,5 @@
-"""Core models for pagetools
+"""Core models, managers and querysets for pagetools
 """
-
 import warnings
 
 from django.conf import settings
@@ -13,13 +12,10 @@ from model_utils.models import StatusModel, TimeStampedModel
 from . import settings as ptsettings
 
 
-class LangManager(models.Manager):
-    """
-    Manager for models with a lang-field
-    """
+class LangQueryset(models.QuerySet):
 
     def __init__(self, *args, **kwargs):
-        super(LangManager, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.use_lang = bool(getattr(settings, "LANGUAGES", False))
 
     def lfilter(self, lang=False, **kwargs):
@@ -31,6 +27,18 @@ class LangManager(models.Manager):
                 lang = get_language() or ""
             kwargs.update(lang__in=(lang, lang.split("-")[0], ""))
         return self.filter(**kwargs)
+
+
+class LangManager(models.Manager):
+    """
+    Manager for models with a lang-field
+    """
+
+    def get_queryset(self):
+        return LangQueryset(self.model, using=self._db)
+
+    def lfilter(self, lang=False, **kwargs):
+        return self.get_queryset().lfilter(lang=lang, **kwargs)
 
 
 class LangModel(models.Model):
@@ -60,10 +68,7 @@ class LangModel(models.Model):
         abstract = True
 
 
-class PublishableLangManager(LangManager):
-    """
-    Manager that finds published content language filtered
-    """
+class PublishableLangQueryset(LangQueryset):
 
     def lfilter(self, **kwargs):
         """
@@ -75,7 +80,15 @@ class PublishableLangManager(LangManager):
         user = kwargs.pop("user", None)
         if not user or not user.is_authenticated:
             kwargs["status"] = ptsettings.STATUS_PUBLISHED
-        return LangManager.lfilter(self, **kwargs)
+        return LangQueryset.lfilter(self, **kwargs)
+
+
+class PublishableLangManager(LangManager):
+    """
+    Manager that finds published content language filtered
+    """
+    def get_queryset(self):
+        return PublishableLangQueryset(self.model, using=self._db)
 
 
 class PublishableLangModel(LangModel, StatusModel):
