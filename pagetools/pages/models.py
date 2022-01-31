@@ -7,7 +7,7 @@ from django.db import models
 from django.forms import Form
 from django.urls import reverse
 from django.utils.html import strip_tags
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from pagetools.models import PagelikeModel
 from pagetools.widgets.models import PageType

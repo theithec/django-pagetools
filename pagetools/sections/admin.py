@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from grappelli.forms import GrappelliSortableHiddenMixin
 
 from pagetools.admin import AdminLinkMixin, PagelikeAdmin
@@ -32,7 +32,7 @@ class BasePageNodePosAdmin(AdminLinkMixin, GrappelliSortableHiddenMixin, admin.T
 
     admin_link.short_description = _("Admin link")  # type: ignore
 
-    def has_add_permission(self, request):
+    def has_add_permission(self, request, obj=None):
         return True
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):

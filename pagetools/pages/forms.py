@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.forms import widgets
 from django.utils.text import slugify
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from pagetools.pages.validators import validate_emails_str
 from pagetools.settings import SUBMIT_BUTTON_CLASSES
