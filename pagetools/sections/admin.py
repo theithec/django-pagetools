@@ -4,7 +4,6 @@ from django.db.models.fields import BLANK_CHOICE_DASH
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from grappelli.forms import GrappelliSortableHiddenMixin
-
 from pagetools.admin import AdminLinkMixin, PagelikeAdmin
 
 from .models import PageNode, PageNodePos
@@ -55,7 +54,7 @@ class BasePageNodePosAdmin(AdminLinkMixin, GrappelliSortableHiddenMixin, admin.T
                 queryset = queryset.order_by("title")
                 cache["choices"] = [("", BLANK_CHOICE_DASH)] + [(obj.id, str(obj)) for obj in queryset]
                 cache["queryset"] = queryset
-                request._cache = cache
+                request._cache = cache  # pylint: disable=protected-access
             kwargs["queryset"] = cache["queryset"]
         field = super(BasePageNodePosAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
         if is_content_with_choices:
@@ -73,16 +72,16 @@ class BasePageNodeAdmin(PagelikeAdmin):
 
     def get_queryset(self, request):
         real_pk = self.model.get_contenttype_pk()
-        qs = self.model._default_manager.filter(content_type_pk=real_pk).prefetch_related("content_object")
-        return qs
+        manager = self.model._default_manager  # pylint: disable=protected-access
+        return manager.filter(content_type_pk=real_pk).prefetch_related("content_object")
 
     def containing_nodes(self, instance):
         parents = instance.in_nodes.all()
         txt = ", ".join([self.admin_link(p.content_object, str(p.content_object)) for p in parents])
         return mark_safe(txt)
 
-    containing_nodes.short_description = _("Parents")
-    containing_nodes.allow_tags = _("Parents")
+    containing_nodes.short_description = _("Parents")  # type: ignore
+    containing_nodes.allow_tags = _("Parents")  # type: ignore
 
 
 admin.site.register([PageNode, PageNodePos])

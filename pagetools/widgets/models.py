@@ -100,7 +100,7 @@ class PageType(models.Model):
 
 
 class PageTypeDescription(LangModel):
-    """ The description is meant to be used for the meta description tag"""
+    """The description is meant to be used for the meta description tag"""
 
     pagetype = models.ForeignKey(PageType, on_delete=models.CASCADE)
     description = models.CharField(

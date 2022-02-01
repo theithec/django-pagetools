@@ -150,6 +150,8 @@ class MenuAdmin(TinyMCEMixin, admin.ModelAdmin):
 
     class Media:
         js = (
+            "pagetools/admin/js/jquery.min.js",
+            "pagetools/admin/js/jquery-ui.min.js",
             "pagetools/admin/js/jquery.mjs.nestedSortable.js",
             "pagetools/admin/js/menuentries.js",
         )
@@ -208,7 +210,7 @@ class EntrieableAdmin(admin.ModelAdmin):
     form = EntrieableForm
     is_menu_entrieable = True
 
-    def get_fields(self, request, obj):
+    def get_fields(self, request, obj=None):
         """
         See :func:`pagetools.menus.admin.entrieable_admin_get_fields`
         """
@@ -222,9 +224,9 @@ class EntrieableAdmin(admin.ModelAdmin):
             fields = fields + type(fields)(("menus",))
         return fields
 
-    get_fields.for_entrieable = True
+    get_fields.for_entrieable = True  # type: ignore
 
-    def get_fieldsets(self, request, obj):
+    def get_fieldsets(self, request, obj=None):
         superfunc = super(self.__class__, self).get_fieldsets
         if not getattr(superfunc, "for_entrieable", False):
             self.fieldsets = superfunc(request, obj)
@@ -242,7 +244,7 @@ class EntrieableAdmin(admin.ModelAdmin):
 
         return self.fieldsets
 
-    get_fieldsets.for_entrieable = True
+    get_fieldsets.for_entrieable = True  # type: ignore
 
     def save_related(self, request, form, formsets, change):
         """Entrieable save_related (for monkeypatching)"""
@@ -277,7 +279,7 @@ class EntrieableAdmin(admin.ModelAdmin):
                 entry.save()
 
             elif found and not is_selected:
-                entry.delete()
+                entry.delete()  # pylint: disable=undefined-loop-variable
 
     save_related.for_entrieable = True  # type: ignore
 

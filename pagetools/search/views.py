@@ -2,11 +2,11 @@ import json
 import operator
 import os
 from functools import reduce
+from typing import Any, Dict, List
 
 from django.db.models.query_utils import Q
 from django.urls import reverse
 from django.utils.html import strip_tags
-
 from pagetools.search import extra_filter, search_mods
 from pagetools.views import PaginatorMixin
 
@@ -18,20 +18,19 @@ class SearchResultsView(PaginatorMixin):
 
     template_name = "search_results.html"
     context_object_name = "results"
-    search_params = {}
-    _search_mods = search_mods[:]
-    sep = ""
+    search_params: Dict[str, Any] = {}
+    _search_mods: List = search_mods[:]
     form_cls = AdvSearchForm
     _thisdir = os.path.dirname(os.path.realpath(__file__))
     if settings.SEARCH_REPLACEMENTS:
-        replacements = json.load(open(os.path.join(_thisdir, settings.SEARCH_REPLACEMENTS_FILE)))
+        with open(os.path.join(_thisdir, settings.SEARCH_REPLACEMENTS_FILE), encoding="utf8") as fobj:
+            replacements = json.load(fobj)
 
     def get(self, request, *args, **kwargs):
         self.form = self.form_cls(request.GET)
         if self.form.is_valid():
             cleaned_data = self.form.cleaned_data
             if any(cleaned_data.values()):
-                self.sep = "?%s&" % ("&".join(["%s=%s" % (k, v) for k, v in list(cleaned_data.items()) if v]))
                 self.search_params = cleaned_data
                 model_pks = cleaned_data.get("models")
                 if model_pks:

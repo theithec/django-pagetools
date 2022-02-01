@@ -1,8 +1,10 @@
+# pylint: disable=protected-access, consider-using-f-string
+# because a) better in utils b) not now
 import importlib
 from datetime import datetime, timedelta
-from typing import List
 
-from django.shortcuts import reverse
+from django.db.models import Model
+from django.urls import reverse
 
 
 # http://code.activestate.com/recipes/576949-find-all-subclasses-of-a-given-class/
@@ -32,7 +34,7 @@ def itersubclasses(cls, _seen=None):
     """
 
     if not isinstance(cls, type):
-        raise TypeError("itersubclasses must be called with " "new-style classes, not %.100r" % cls)
+        raise TypeError("itersubclasses must be called with new-style classes, not %.100r" % cls)
     if _seen is None:
         _seen = set()
     try:
@@ -60,10 +62,10 @@ def get_adminadd_url(cls):
     return adminurl
 
 
-def get_adminedit_url(obj):
+def get_adminedit_url(model: Model) -> str:
     return reverse(
-        "admin:%s_%s_change" % (obj.__class__._meta.app_label, obj.__class__.__name__.lower()),
-        args=(obj.id,),
+        "admin:%s_%s_change" % (model.__class__._meta.app_label, model.__class__.__name__.lower()),
+        args=(model.pk,),
     )
 
 

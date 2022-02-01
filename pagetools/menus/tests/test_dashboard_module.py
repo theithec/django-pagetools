@@ -10,7 +10,7 @@ class DashboardTests(MenuDataTestCase):
         self.module = MenuModule(menu_title=self.menu.title)
 
     def test_admin_index(self):
-        """ test index because customdashboard with MenuModule is may used"""
+        """test index because customdashboard with MenuModule is may used"""
         adminindex = reverse("admin:index", args=[])
         response = self.client.get(adminindex, {})
         self.assertTrue(response.status_code in (200, 302))

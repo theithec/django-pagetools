@@ -43,7 +43,7 @@ class MenuAdminTests(TestCase):
         }
 
     def test_admin_index(self):
-        """ test index because customdashboard with MenuModule is may used"""
+        """test index because customdashboard with MenuModule is may used"""
         adminindex = reverse("admin:index")
         response = self.client.get(adminindex, follow=True, extra={"app_label": "admin"})
         self.assertIn(response.status_code, (200, 302))

@@ -49,7 +49,7 @@ class IncludedFormMixin:
     def form_invalid(self, form):
         if self.request.is_ajax():
             return JsonResponse(form.errors, status=400)
-        messages.error(self.request, _("An error occured"))
+        messages.error(self.request, form.get_error_msg())
         return self.get(self.request, form=form)
 
     def get_form_kwargs(self):
