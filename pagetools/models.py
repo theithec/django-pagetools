@@ -125,12 +125,12 @@ class PagelikeModel(TimeStampedModel, PublishableLangModel):
         blank=True,
     )
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         """Dummy"""
-        return "/%s" % self.slug
+        return f"/{self.slug}"
 
-    def __str__(self):
-        return self.title
+    def __str__(self) -> str:
+        return str(self.title)
 
     class Meta:
         abstract = True

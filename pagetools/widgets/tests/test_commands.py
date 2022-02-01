@@ -7,7 +7,7 @@ from pagetools.widgets.settings import TEMPLATETAG_WIDGETS
 
 class CommandsTestCase(TestCase):
     def test_mycommand(self):
-        " Test my custom command."
+        "Test my custom command."
 
         args = []
         opts = {}
