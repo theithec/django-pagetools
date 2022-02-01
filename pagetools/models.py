@@ -13,7 +13,6 @@ from . import settings as ptsettings
 
 
 class LangQueryset(models.QuerySet):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.use_lang = bool(getattr(settings, "LANGUAGES", False))
@@ -68,8 +67,18 @@ class LangModel(models.Model):
         abstract = True
 
 
-class PublishableLangQueryset(LangQueryset):
+class PublishableQueryset(LangQueryset):
+    def lfilter(self, **kwargs):
+        """
+        For non authenticated users returns only published content
+        """
+        user = kwargs.pop("user", None)
+        if not user or not user.is_authenticated:
+            kwargs["status"] = ptsettings.STATUS_PUBLISHED
+        return LangQueryset.lfilter(self, **kwargs)
 
+
+class PublishableLangQueryset(LangQueryset):
     def lfilter(self, **kwargs):
         """
         For non authenticated users returns only published content
@@ -87,6 +96,7 @@ class PublishableLangManager(LangManager):
     """
     Manager that finds published content language filtered
     """
+
     def get_queryset(self):
         return PublishableLangQueryset(self.model, using=self._db)
 
