@@ -16,6 +16,7 @@ from pagetools.settings import SUBMIT_BUTTON_CLASSES
 
 from .settings import MAILFORM_RECEIVERS, MAILFORM_SENDER
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -82,6 +83,9 @@ class SendEmailForm(forms.Form):
         if not self.mailreceivers:
             raise ValidationError(_("An error occured"))
         validate_emails_str(",".join(self.mailreceivers))
+
+    def get_error_msg(self):
+        return _("An error occured")
 
 
 class ContactForm(SendEmailForm):
