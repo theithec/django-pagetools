@@ -2,7 +2,7 @@ from django.apps import apps
 from django.core.exceptions import MultipleObjectsReturned
 from django.urls import reverse
 from django.utils.http import urlquote
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from grappelli.dashboard.modules import DashboardModule
 
 from pagetools.utils import get_classname

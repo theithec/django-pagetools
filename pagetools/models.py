@@ -5,7 +5,7 @@ import warnings
 from django.conf import settings
 from django.db import models
 from django.utils.translation import get_language
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from model_utils.choices import Choices
 from model_utils.models import StatusModel, TimeStampedModel
 
@@ -148,12 +148,12 @@ class PagelikeModel(TimeStampedModel, PublishableLangModel):
         blank=True,
     )
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         """Dummy"""
-        return "/%s" % self.slug
+        return f"/{self.slug}"
 
-    def __str__(self):
-        return self.title
+    def __str__(self) -> str:
+        return str(self.title)
 
     class Meta:
         abstract = True

@@ -4,13 +4,14 @@ A PageNode is a model which may contains other PageNodes.
 Inheritated models with own fields needs concrete inheritance,
 otherwise a proxy model is sufficient.
 """
+from typing import List, Type
+
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
-
+from django.utils.translation import gettext_lazy as _
 from pagetools.models import PagelikeModel, PublishableLangManager
 from pagetools.utils import get_adminadd_url, get_classname, importer
 
@@ -53,7 +54,7 @@ class PageNode(PagelikeModel):
         symmetrical=False,
     )
     objects = PageNodeManager()
-    allowed_children_classes = []
+    allowed_children_classes: List[Type[models.Model]] = []
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -91,7 +92,7 @@ class PageNode(PagelikeModel):
         return get_classname(obj)
 
     def __str__(self):
-        return "%s(%s)" % (self.title, self.get_classname())
+        return f"{self.title}({self.get_classname()})"
 
     def clean(self):
         objs = PageNode.objects.filter(slug=self.slug, lang=self.lang)
@@ -130,7 +131,7 @@ class PageNodePos(models.Model):
     owner = models.ForeignKey(PageNode, related_name="in_group", on_delete=models.CASCADE)
 
     def __str__(self):
-        return "%s:%s:%s" % (self.owner, self.content, self.position)
+        return f"{self.owner}:{self.content}:{self.position}"
 
     class Meta:
         ordering = ["position"]

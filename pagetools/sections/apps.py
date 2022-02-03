@@ -1,5 +1,8 @@
+from typing import Dict
+
 from django.apps import AppConfig
 
 
 class SectionsConfig(AppConfig):
-    render_node_extradata = {}
+    name: str = "pagetools.sections"
+    render_node_extradata: Dict[str, str] = {}

@@ -1,32 +1,31 @@
+# pylint: disable=unused-argument
+# for request object
 import datetime
-from hashlib import sha224 as sha
 from smtplib import SMTPException
+from typing import Any
 
 from django import apps, template
 from django.contrib import messages
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives
-
+from django.http.request import HttpRequest
 from django.http.response import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.utils.translation import get_language
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from . import settings as subs_settings
 from .models import Subscriber
 
+
 config = apps.apps.get_app_config("subscriptions")
-subscribe_form = config.subscribe_form
+subscribe_form = config.subscribe_form  # type: ignore
 
 
 def _send_mail(subscriber, template_name, context, subject, attachmentfile=None):
     domain = Site.objects.get_current().domain
-    context.update({
-        "site_name": Site.objects.get_current().name,
-        "site_domain": domain,
-        "subscriber": subscriber
-    })
+    context.update({"site_name": Site.objects.get_current().name, "site_domain": domain, "subscriber": subscriber})
     tmpl = template.loader.get_template(template_name + ".txt")
     msg = tmpl.render(context)
     try:
@@ -94,7 +93,7 @@ def subscribe(request):
     return _subscribe_fallback(request, form, msg)
 
 
-def _matching_activated_subscriber(request, key):
+def _matching_activated_subscriber(request: HttpRequest, key: Any) -> Subscriber:
     # remove trailing slash
     subscriber = get_object_or_404(Subscriber, key=key)
     return subscriber
@@ -108,6 +107,7 @@ def _activate(request, key):
             subscriber.activate()
             messages.add_message(request, messages.SUCCESS, subs_settings.ACTIVATION_SUCCESS_MSG)
             return subscriber
+    return None
 
 
 def activate(request, key):

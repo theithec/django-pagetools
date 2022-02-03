@@ -9,12 +9,13 @@ from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.forms import widgets
 from django.utils.text import slugify
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from pagetools.pages.validators import validate_emails_str
 from pagetools.settings import SUBMIT_BUTTON_CLASSES
 
 from .settings import MAILFORM_RECEIVERS, MAILFORM_SENDER
+
 
 logger = logging.getLogger(__name__)
 
@@ -82,6 +83,9 @@ class SendEmailForm(forms.Form):
         if not self.mailreceivers:
             raise ValidationError(_("An error occured"))
         validate_emails_str(",".join(self.mailreceivers))
+
+    def get_error_msg(self):
+        return _("An error occured")
 
 
 class ContactForm(SendEmailForm):

@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib import admin
 from django.utils.html import format_html
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from pagetools.utils import filter_expired, get_adminedit_url
 
@@ -13,9 +13,10 @@ class TinyMCEMixin(admin.ModelAdmin):
 
     class Media:
 
+        url = settings.STATIC_URL
         js = [
-            "%sgrappelli/tinymce/jscripts/tiny_mce/tiny_mce.js" % settings.STATIC_URL,
-            "%sgrappelli/tinymce_setup/tinymce_setup.js" % settings.STATIC_URL,
+            f"{url}grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js",
+            f"{url}grappelli/tinymce_setup/tinymce_setup.js",
         ]
         """Sphinx shows this as a hardcoded string, but it is not."""
 
@@ -25,7 +26,7 @@ class AdminLinkMixin:
         linktext = linktext or "Edit"
         return format_html('<a href="{}">{}</a>', get_adminedit_url(instance), linktext)
 
-    admin_link.short_description = _("Admin link")
+    admin_link.short_description = _("Admin link")  # type: ignore
 
 
 class DeleteExpiredMixinAdmin:
