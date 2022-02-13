@@ -28,7 +28,7 @@ setup(
         "django-model-utils==4.2.*",
         "django-simple-captcha==0.5.*",
         "djangoajax==3.*",
-        "Pillow==8.*",
+        "Pillow>=8,<10",
     ],
     long_description=README,
     author="Tim Heithecker",
