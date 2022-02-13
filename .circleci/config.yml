@@ -36,7 +36,7 @@ jobs:
 
 
       - run: sudo apt update
-      - run: sudo apt install libjpeg-dev zlib1g-dev
+      - run: sudo apt install libjpeg-dev zlib1g-dev npm
       - run: pip install Django==3.2 coverage
       - run:
           name: Install
