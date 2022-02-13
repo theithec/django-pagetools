@@ -19,7 +19,7 @@ django-mptt==0.13.4
 django-ranged-response==0.2.0
 django-sekizai==3.0.1
 django-simple-captcha==0.5.14
-django==3.2
+django==3.2.12
 djangoajax==3.2
 isort==5.10.1
 pillow==9.0.1
