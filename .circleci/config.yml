@@ -44,9 +44,9 @@ jobs:
       - run:
           name: Run tests
           command: |
-            $HOME/.local/bin/coverage run runtests.py
-            $HOME/.local/bin/coverage report
-            $HOME/.local/bin/coverage html  # open htmlcov/index.html in a browser
+            coverage run runtests.py
+            coverage report
+            coverage html  # open htmlcov/index.html in a browser
       - store_artifacts:
           path: htmlcov
 
