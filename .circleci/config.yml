@@ -45,14 +45,14 @@ jobs:
           name: Run tests
           command: |
             coverage run runtests.py
-            coverage lcov
+            mkdir -p coverage
+            coverage lcov -o coverage/lcov.info
             ls -al
             # coverage report
             # coverage html  # open htmlcov/index.html in a browser
             # - store_artifacts:
             #     path: htmlcov
-      - coveralls/upload:
-        path_to_lcov: coverage.lcov
+      - coveralls/upload
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
