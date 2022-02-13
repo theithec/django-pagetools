@@ -2,14 +2,12 @@ import os
 
 from setuptools import find_packages, setup
 
-from version import get_version
-
 
 README = open(os.path.join(os.path.dirname(__file__), "README.rst")).read()
 
 setup(
     name="django-pagetools",
-    version=get_version(),
+    version="0.9.5",
     packages=find_packages(exclude=("demo", "demo.*")),
     include_package_data=True,
     license="MIT License",

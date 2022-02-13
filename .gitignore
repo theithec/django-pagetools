@@ -36,8 +36,6 @@ htmlcov
 pylint_global.txt
 demo/media/foo_*
 RELEASE-VERSION
-Pipfile
-Pipfile.lock
 .mypy_cache
 .python-version
 .vscode
