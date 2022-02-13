@@ -37,13 +37,18 @@ jobs:
 
       - run: sudo apt update
       - run: sudo apt install libjpeg-dev zlib1g-dev
-      - run: pip install Django==3.2
+      - run: pip install Django==3.2 coverage
       - run:
           name: Install
           command: python setup.py install
       - run:
           name: Run tests
-          command: python runtests.py
+          command: |
+            $HOME/.local/bin/coverage run runtests.py
+            $HOME/.local/bin/coverage report
+            $HOME/.local/bin/coverage html  # open htmlcov/index.html in a browser
+      - store_artifacts:
+          path: htmlcov
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
