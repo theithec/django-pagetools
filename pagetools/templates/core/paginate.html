@@ -3,14 +3,14 @@
     <div class="pagination">
     <span class="page-links">
     {% if page_obj.has_previous %}
-    	<a href="{{ view_url}}{{ get_sep }}page={{ page_obj.previous_page_number }}">&lt;</a>
+    	<a href="{{ url_for_page }}page={{ page_obj.previous_page_number }}">&lt;</a>
     {% endif %}
     {% for nr in curr_page_range %}
         <a	class="paginator-link {% if nr == page_obj.number %}is_selected{% endif %}"
-    	    href="{{  view_url }}{{ get_sep }}page={{ nr }}"> {{ nr }} </a>
+           href="{{url_for_page}}page={{ nr }}"> {{ nr }} </a>
     {% endfor %}
     {% if page_obj.has_next %}
-    	<a href="{{  view_url }}{{ get_sep}}page={{ page_obj.next_page_number }}">&gt;</a>
+    	<a href="{{ url_for_page }}page={{ page_obj.next_page_number }}">&gt;</a>
     {% endif %}
     </span>
     </div>

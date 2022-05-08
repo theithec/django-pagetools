@@ -7,6 +7,7 @@ from typing import Any, Dict, List
 from django.db.models.query_utils import Q
 from django.urls import reverse
 from django.utils.html import strip_tags
+
 from pagetools.search import extra_filter, search_mods
 from pagetools.views import PaginatorMixin
 
