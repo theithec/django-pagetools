@@ -21,6 +21,9 @@ sphinx = "*"
 invoke = "*"
 django-debug-toolbar = "*"
 sphinx-rtd-theme = "*"
+black = "*"
+pylint = "*"
+flake8 = "*"
 
 [requires]
 python_version = "3.8"

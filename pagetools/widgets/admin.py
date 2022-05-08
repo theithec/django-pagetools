@@ -66,18 +66,18 @@ class TypeAreaAdmin(admin.ModelAdmin):
                         get_classname(cls),
                     )
                 )
-                objs = cls.objects.all()
+                instances = cls.objects.all()
                 ctpk = ContentType.objects.get_for_model(cls).pk
-                for _obj in objs:
-                    if _obj in found:
+                for inst in instances:
+                    if inst in found:
                         continue
 
                     context["addable_objs"].append(
-                        '<option  value="%s_%s">%s</option>'
+                        '<option value="%s_%s">%s</option>'
                         % (
                             ctpk,
-                            obj.pk,
-                            obj,
+                            inst.pk,
+                            inst,
                         )
                     )
             self.change_form_template = "admin/widgets/typearea/change_form.html"
