@@ -6,13 +6,12 @@ from pagetools.widgets.settings import TEMPLATETAG_WIDGETS
 
 
 class Command(BaseCommand):
-    # args = 'test: create test-mail'
     help = _("create Widgets according to settings.(PT_)TEMPLATETAG_WIDGETS ")
 
     def handle(self, *args, **options):
-        for k, v in list(TEMPLATETAG_WIDGETS.items()):
+        for key in list(TEMPLATETAG_WIDGETS.keys()):
             ttw = TemplateTagWidget.objects.create(
-                name=k,
-                renderclasskey=k,
+                name=key,
+                renderclasskey=key,
             )
             print(("created: %s" % ttw))

@@ -1,10 +1,8 @@
 import datetime
+import random
 import smtplib
 import string
-import random
-from hashlib import sha224 as sha
 
-from urllib.parse import quote
 from django.apps import apps
 from django.core.mail import get_connection
 from django.core.mail.message import EmailMessage
@@ -61,24 +59,20 @@ class Subscriber(BaseSubscriberMixin, LangModel):
 #            (2, 'Unexpected Error'),
 #        ))
 class QueuedEmail(LangModel):
-    class Meta:
-        abstract = False
-        verbose_name = _("News-Mail")
 
     createdate = models.DateTimeField("Created on", auto_now_add=True, blank=True, editable=False)
-
     modifydate = models.DateTimeField("Last modified on", auto_now_add=True, blank=True, editable=False)
-
     senddate = models.DateTimeField("Send after", auto_now_add=True, blank=True, editable=True)
-
     subject = models.CharField(verbose_name="Subject", default="", unique=False, blank=True, max_length=255)
-
     body = models.TextField(verbose_name="Body", default="", unique=False, blank=True)
+
+    class Meta:
+        verbose_name = _("News-Mail")
 
     def save(self, *args, **kwargs):
         self.modifydate = timezone.now()
 
-        super(QueuedEmail, self).save()  # force_insert, force_update)
+        super().save()  # force_insert, force_update)
         modelname = subs_settings.SUBSCRIBER_MODEL
         if modelname == "Subscriber":
             modelname = "subscriptions.Subscriber"

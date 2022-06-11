@@ -1,6 +1,7 @@
 """Core models, managers and querysets for pagetools
 """
-import warnings
+# pylint: disable=arguments-differ  # because of kwargs
+from typing import Any, Protocol
 
 from django.conf import settings
 from django.db import models
@@ -10,6 +11,17 @@ from model_utils.choices import Choices
 from model_utils.models import StatusModel, TimeStampedModel
 
 from . import settings as ptsettings
+
+
+class AdminAttributes(Protocol):
+    short_description: str
+    allow_tags: bool
+    boolean: bool
+    admin_order_field: str
+
+
+def admin_attr_decorator(func: Any) -> AdminAttributes:
+    return func
 
 
 class LangQueryset(models.QuerySet):
@@ -61,7 +73,7 @@ class LangModel(models.Model):
     def save(self, *args, **kwargs):
         if self.lang is None:
             self.lang = ""
-        super(LangModel, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     class Meta:
         abstract = True
@@ -110,20 +122,13 @@ class PublishableLangModel(LangModel, StatusModel):
     STATUS = Choices(*_translated_choices)
     public = PublishableLangManager()
 
-    def _enabled(self):
-        warnings.warn("Depricated. Bad naming. Use ``is_published``.")
-        return self.status == ptsettings.STATUS_PUBLISHED
-
-    _enabled.boolean = True  # type: ignore
-    _enabled.admin_order_field = "status"  # type: ignore
-    enabled = property(_enabled)
-
+    @admin_attr_decorator
     def _is_published(self):
         return self.status == ptsettings.STATUS_PUBLISHED
 
-    _is_published.boolean = True  # type: ignore
-    _is_published.admin_order_field = "status"  # type: ignore
-    is_published = property(_is_published)
+    _is_published.boolean = True
+    _is_published.admin_order_field = "status"
+    is_published = property(_is_published)  # type: ignore
 
     class Meta:
         abstract = True

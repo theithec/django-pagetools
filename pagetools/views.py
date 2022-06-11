@@ -10,7 +10,7 @@ class PaginatorMixin(ListView):
     paginate_by = getattr(settings, "PAGINATE_BY", 20)
 
     def get_context_data(self, **kwargs):
-        context = super(PaginatorMixin, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         page = context["page_obj"]
         paginator = page.paginator
         _from = page.number - 5 if page.number > 5 else 0

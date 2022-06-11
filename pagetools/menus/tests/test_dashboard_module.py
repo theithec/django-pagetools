@@ -19,4 +19,4 @@ class DashboardTests(MenuDataTestCase):
         context = {}
         self.module.init_with_context(context)
         self.assertEqual(sorted(context.keys()), sorted(("existing", "menu")))
-        self.assertEqual(len(context["existing"]), 4)
+        self.assertEqual(len(context["existing"]), 3)

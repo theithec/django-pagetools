@@ -5,6 +5,7 @@ from django.utils.safestring import mark_safe
 from pagetools.sections.apps import SectionsConfig
 from pagetools.sections.utils import get_template_names_for_obj
 
+
 register = template.Library()
 
 
@@ -27,7 +28,7 @@ class ContentNode(template.Node):
         for key, val in SectionsConfig.render_node_extradata.items():
             context[key] = val
         context["object"] = obj
-        if not obj.enabled:
+        if not obj.is_published:
             context["unpublished"] = True
 
         data = {}
@@ -37,7 +38,7 @@ class ContentNode(template.Node):
 
 
 @register.tag
-def render_node(parser, token, *args, **kwargs):
+def render_node(_parser, token, *args, **kwargs):
     splitted = token.contents.split()
     obj, user = splitted[1:3]
     suffix = splitted[-1] if len(splitted) > 3 else ""

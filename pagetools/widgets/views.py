@@ -1,7 +1,3 @@
-from django.template.context_processors import csrf
-from django.template.context import RequestContext
-from django.utils.translation import get_language
-
 from .models import PageType
 from .utils import get_areas_for_type
 
@@ -17,13 +13,9 @@ class WidgetViewMixin:
     """If set, the widget context processor will not adding areas"""
 
     def get_context_data(self, **kwargs):
-        kwargs = super(WidgetViewMixin, self).get_context_data(**kwargs)
+        kwargs = super().get_context_data(**kwargs)
         ptname = self.get_pagetype_name(**kwargs)
         ptype = self.get_pagetype(ptname=ptname, **kwargs)
-        if ptype:
-            pt_descr = ptype.pagetypedescription_set.filter(lang=get_language()).first()
-            if pt_descr:
-                kwargs["pagetype_description"] = pt_descr.description
         kwargs["areas"] = get_areas_for_type(ptype, kwargs, request=self.request)
         kwargs["pagetype_name"] = ptname
         return kwargs

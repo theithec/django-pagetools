@@ -57,5 +57,5 @@ class PageNodesModule(DashboardModule):
             % options
         )
 
-        super(PageNodesModule, self).init_with_context(context)
+        super().init_with_context(context)
         self._initialized = True

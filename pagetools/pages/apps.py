@@ -10,8 +10,9 @@ class PagesConfig(AppConfig):
     includable_forms: Dict[str, Form] = {}
 
     def ready(self):
-        from . import forms
         from pagetools.subscriptions.forms import SubscribeForm
+
+        from . import forms
 
         self.includable_forms = {
             "Contactform": forms.ContactForm,

@@ -1,5 +1,3 @@
-from django.conf import settings
-from django.db.models.base import ModelBase
 from django.test import TestCase
 
 from pagetools.sections.models import PageNode

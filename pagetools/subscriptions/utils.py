@@ -23,32 +23,32 @@ def to_queue(content, **kwargs):
             "site_domain": site.domain,
         },
     )
-    qm = QueuedEmail(
+    mail = QueuedEmail(
         subject="%s %s" % (subs_settings.NEWS_SUBJECT_PREFIX, content["title"]),
         body=msg,
         lang=lang,
     )
-    qm.save()
+    mail.save()
     activate(orglang)
 
 
-def send_queued_mail(qm, maxmails):
-    sts = SendStatus.objects.filter(queued_email=qm)[:maxmails]
-    qm.send_to_all(sts)
-    sst2 = SendStatus.objects.filter(queued_email=qm)
+def send_queued_mail(mail: QueuedEmail, maxmails):
+    sts = SendStatus.objects.filter(queued_email=mail)[:maxmails]
+    mail.send_to_all(sts)
+    sst2 = SendStatus.objects.filter(queued_email=mail)
     if not sst2 and subs_settings.DELETE_QUEUED_MAILS:
-        qm.delete()
+        mail.delete()
     return len(sts)
 
 
 def send_max(max_send=subs_settings.MAX_PER_TIME):
-    qms = QueuedEmail.objects.all()
+    mails = QueuedEmail.objects.all()
     num_sended = 0
-    for qm in qms:
+    for mail in mails:
         maxmails = max_send - num_sended
         if maxmails < 1:
             break
-        num_sended += send_queued_mail(qm, maxmails)
+        num_sended += send_queued_mail(mail, maxmails)
 
 
 # influenced by:

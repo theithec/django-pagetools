@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from pagetools.menus.models import Menu
 
+
 register = template.Library()
 
 
@@ -29,6 +30,6 @@ class MenuRenderer(template.Node):
 
 
 @register.tag(name="menu")
-def do_menu(parser, token):
+def do_menu(_parser, token):
     menu_title, menukeys = token.contents.split()[1:]
     return MenuRenderer(menukeys, menu_title)

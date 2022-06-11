@@ -1,12 +1,13 @@
 {% load i18n %}
+{% url "subscriptions:activate" subscriber.key  as activate_url %}
 {% blocktrans %}
 Hi,
 
-You have received this e-mail message because you have recently submmitted your
-e-mail address to {{ site_url }}.
+You have received this e-mail message because your have recently submitted
+to {{ site_name }}.
 
 To confirm that you want to subscribe, use this link:
-{{ activation_url }}
+https://{{ site_domain }}/{{ activate_url }}
 
 If you do not want to subscribe, do nothing.
 

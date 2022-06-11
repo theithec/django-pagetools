@@ -21,7 +21,5 @@ class MenuDataTestCase(TransactionTestCase):
         self.entry_page1 = self.menu.children.add_child(self.page1, **kwargs)
         self.link1 = Link.objects.create(url="#")
         self.entry_link1 = self.menu.children.add_child(self.link1, **kwargs)
-        self.linkwargs = Link.objects.create(url="/foo")
-        self.entry_linkwargs = self.entry_link1.children.add_child(self.linkwargs)
-        self.cpm1 = ConcretePublishableLangModel.objects.create(foo="x", status=STATUS_PUBLISHED)
+        self.cpm1 = ConcretePublishableLangModel.objects.create(foo="foo1", status=STATUS_PUBLISHED)
         self.entry_cpm1 = self.menu.children.add_child(self.cpm1, **kwargs)

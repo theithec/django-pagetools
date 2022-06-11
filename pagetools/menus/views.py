@@ -1,4 +1,4 @@
-from django.template.defaultfilters import slugify
+from pagetools.menus.utils import get_menukey
 
 
 class SelectedMenuentriesMixin:
@@ -6,7 +6,7 @@ class SelectedMenuentriesMixin:
     context. Used for find the selected menu-entries.
     """
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         kwargs = super().get_context_data(**kwargs)
         sel = kwargs.get("menukeys", [])
         sel.append(self.get_menukey())
@@ -15,12 +15,10 @@ class SelectedMenuentriesMixin:
 
     def get_menukey(self):
         try:
-            return self.get_object().slug
+            obj = self.get_object()
         except AttributeError:
-            try:
-                return self.menukey
-            except AttributeError:
-                return slugify(self.__class__.__name__.lower())
+            obj = self
+        return get_menukey(obj)
 
     # reduce queries
     def get_object(self, *args, **kwargs):

@@ -24,6 +24,9 @@ sphinx-rtd-theme = "*"
 black = "*"
 pylint = "*"
 flake8 = "*"
+coverage = "*"
+pylint-django = "*"
+pudb = "*"
 
 [requires]
 python_version = "3.8"

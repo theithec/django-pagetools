@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.test import RequestFactory, TestCase, override_settings
 
 from pagetools.tests.test_models import ConcretePublishableLangModel
@@ -19,7 +19,8 @@ urlpatterns = [
 @override_settings(ROOT_URLCONF=__name__)
 class PaginatorTest(TestCase):
     def setUp(self):
-        self.admin = User.objects.create_superuser("admin", "q@w.de", "password")
+        usermodel = get_user_model()
+        self.admin = usermodel.objects.create_superuser("admin", "q@w.de", "password")
         self.client.login(username="admin", password="password")
         self.factory = RequestFactory()
 

@@ -1,43 +1,46 @@
-from django.test import RequestFactory
-from django.views.generic import DetailView
+from django.views.generic import DetailView, TemplateView
 
 from pagetools.menus.tests import MenuDataTestCase
 from pagetools.menus.views import SelectedMenuentriesMixin
 from pagetools.tests.test_models import ConcretePublishableLangModel
 
 
+class DummyDetailView(SelectedMenuentriesMixin, DetailView):
+    """
+    To test get_context_data with DetailView
+    """
+
+    def __init__(self, *args, **kwargs):
+        self.object = ConcretePublishableLangModel.objects.first()
+        super(*args, **kwargs)
+
+    model = ConcretePublishableLangModel
+    # template_name = "any_template.html"  # TemplateView requires this
+
+
+class DummyNonDetailView(SelectedMenuentriesMixin, TemplateView):
+    """
+
+    To test get_context_data with Non-DetailView
+    """
+
+    template_name = "any_template.html"
+    menukey = "nondetail"
+
+
 class SelectedMenuentriesMixinTest(MenuDataTestCase):
     """
     Tests context-data in a Django Mixin like a boss
 
-    https://gist.github.com/dnmellen/6507189
+    https://gist.github.co/dnmellen/6507189
     """
 
-    class DummyView(SelectedMenuentriesMixin, DetailView):
-        """
-        To test get_context_data we need a TemplateView child
-        """
+    def test_detail_context_data(self):
+        view = DummyDetailView()
+        context = view.get_context_data()
+        self.assertEqual(context["menukeys"], ["concretepublishablelangmodel.foo1"])
 
-        def __init__(self, *args, **kwargs):
-            self.object = ConcretePublishableLangModel.objects.first()
-            super(*args, **kwargs)
-
-        model = ConcretePublishableLangModel
-        template_name = "any_template.html"  # TemplateView requires this
-
-    def setUp(self):
-
-        super().setUp()
-        self.request = RequestFactory().get("/fake-path")
-        # Setup request and view.
-        self.view = self.DummyView()
-
-    def test_context_data_no_args(self):
-
-        # Prepare initial params
-        kwargs = {}
-
-        # Launch Mixin's get_context_data
-        context = self.view.get_context_data(**kwargs)
-        # Your checkings here
-        self.assertEqual(context["menukeys"], ["dummyview"])
+    def test_nondetail_context_data(self):
+        view = DummyNonDetailView()
+        context = view.get_context_data()
+        self.assertEqual(context["menukeys"], ["dummynondetailview.nondetail"])

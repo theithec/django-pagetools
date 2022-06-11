@@ -61,11 +61,11 @@ class TemplateTagWidget(BaseWidget):
     Renders a TemplateTag
     """
 
-    key_choices = [(k, k) for k in sorted(settings.TEMPLATETAG_WIDGETS.keys())]
+    key_choices = [(key, key) for key in sorted(settings.TEMPLATETAG_WIDGETS.keys())]
     renderclasskey = models.CharField(max_length=255, choices=key_choices)
 
     def __init__(self, *args, **kwargs):
-        super(TemplateTagWidget, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.templatetag_instance = None
 
     def load_templatetag_instance(self):
@@ -97,29 +97,6 @@ class PageType(models.Model):
     class Meta:
         verbose_name = _("Pagetype")
         verbose_name_plural = _("Pagetypes")
-
-
-class PageTypeDescription(LangModel):
-    """The description is meant to be used for the meta description tag"""
-
-    pagetype = models.ForeignKey(PageType, on_delete=models.CASCADE)
-    description = models.CharField(
-        _("Description"),
-        max_length=156,
-        help_text="""Description (for Metatag/seo)""",
-        blank=True,
-    )
-
-    def __str__(self):
-        return "%s/%s" % (self.pagetype, self.lang)
-
-    class Meta:
-        verbose_name = _("Pagetype-Description")
-        verbose_name_plural = _("Pagetype-Descriptions")
-        unique_together = (
-            "pagetype",
-            "lang",
-        )
 
 
 class TypeArea(LangModel):

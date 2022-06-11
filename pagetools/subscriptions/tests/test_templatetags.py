@@ -1,6 +1,5 @@
 from unittest import mock
 
-from django.template import RequestContext
 from django.test import TestCase
 
 from pagetools.subscriptions.templatetags.subscriptions_tags import do_subscribe_node

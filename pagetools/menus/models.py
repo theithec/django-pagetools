@@ -1,4 +1,3 @@
-import logging
 from collections import defaultdict
 
 from django import template
@@ -9,21 +8,19 @@ from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 from django.urls import reverse
-from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
 from mptt.fields import TreeForeignKey
 from mptt.managers import TreeManager
 from mptt.models import MPTTModel
 
+from pagetools import logger
+from pagetools.menus.utils import get_menukey
 from pagetools.models import LangManager, LangModel
 from pagetools.utils import get_adminedit_url, get_classname
 
 from .apps import MenusConfig
 from .settings import MENU_TEMPLATE
-
-
-logger = logging.getLogger("pagetools")
 
 
 class MenuEntryManager(TreeManager, LangManager):
@@ -33,7 +30,7 @@ class MenuEntryManager(TreeManager, LangManager):
         kwargs["title"] = kwargs.get("title", "%s" % content_object)
         kwargs["content_type"] = ContentType.objects.get_for_model(content_object, for_concrete_model=False)
         kwargs["object_id"] = content_object.pk
-        kwargs["slug"] = "%s" % getattr(content_object, "slug", slugify(content_object))
+        kwargs["slug"] = get_menukey(content_object)
         try:
             created = False
             entry, created = self.get_or_create(**kwargs)
@@ -69,9 +66,6 @@ class MenuEntry(MPTTModel, LangModel):
     def get_entry_classname(self):
         return get_classname(self.content_object.__class__)
 
-    def __str__(self):
-        return "%s%s" % (self.title, (" (%s)" % self.lang) if self.lang else "")
-
     def get_absolute_url(self):
         return self.content_object.get_absolute_url()
 
@@ -86,7 +80,7 @@ class MenuEntry(MPTTModel, LangModel):
 
         entries = MenuEntry.objects.filter(**kwargs)
         if self.parent:  # not root
-            root = self.parent.get_root()
+            root = self.parent.get_root()  # pylint: disable=no-member
             if entries:
                 for entry in entries:
                     is_same = self.pk and self.pk == entry.pk
@@ -96,17 +90,20 @@ class MenuEntry(MPTTModel, LangModel):
                 if entries:
                     raise ValidationError(_("A menu with this title and language already exists"))
 
+    def __str__(self):
+        return "%s%s" % (self.title, (" (%s)" % self.lang) if self.lang else "")
+
 
 @receiver(pre_delete)
 def delete_content(sender, **kwargs):
+    if sender in (MenuEntry, MenuCache):
+        return
     try:
         object_id = int(kwargs["instance"].pk)
     except ValueError:
         return
-
-    entries = MenuEntry.objects.filter(content_type=ContentType.objects.get_for_model(sender), object_id=object_id)
-    if entries:
-        entries.delete()
+    content_type = ContentType.objects.get_for_model(sender)
+    MenuEntry.objects.filter(content_type=content_type, object_id=object_id).delete()
 
 
 class SelectedEntries(defaultdict):
@@ -180,21 +177,20 @@ class Menu(MenuEntry):
         found = Menu.objects.filter(title=self.title, lang="").exclude(pk=self.pk)
         if found:
             raise ValidationError({"__all__": ("Language Error",)})
-        return super(Menu, self).full_clean(*args, **kwargs)
+        return super().full_clean(*args, **kwargs)
 
     def update_cache(self):
-        self.menucache.cache = self._render_no_sel()
-        self.menucache.save()
+        self.content_object.cache = self._render_no_sel()
+        self.content_object.save()
 
     def save(self, *args, **kwargs):
         if self.is_child_node():
-            return super(Menu, self).save(*args, **kwargs)
-        try:
-            cache = self.menucache
-        except MenuCache.DoesNotExist:
-            cache = MenuCache.objects.create()
-            self.content_object = cache
-        menu = super(Menu, self).save(*args, **kwargs)
+            return super().save(*args, **kwargs)
+        cache = self.content_object
+        if not cache:
+            self.content_object = MenuCache.objects.create()
+            cache = self.content_object
+        menu = super().save(*args, **kwargs)
         for child in self.get_children():
             slug = getattr(child.content_object, "slug", None)
             if slug:
@@ -230,11 +226,11 @@ class Menu(MenuEntry):
                 "entry_url": entry.get_absolute_url(),
                 "dict_parent": dict_parent,
             }
-            cslug = getattr(obj, "slug", getattr(obj, "menukey", slugify("%s" % obj)))
+            ckey = get_menukey(obj)
             curr_dict = child_data
             while curr_dict:
                 curr_dict["select_class_marker"] = curr_dict.get("select_class_marker", "")
-                curr_dict["select_class_marker"] += " %(sel_" + cslug + ")s"
+                curr_dict["select_class_marker"] += " %(sel_" + ckey + ")s"
                 curr_dict = curr_dict["dict_parent"]
 
             return child_data

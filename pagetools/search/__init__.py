@@ -1,7 +1,5 @@
 from typing import List
 
-from django.db import models
-
 
 search_mods: List = [
     # ( app.models.Model1,   ('title', 'content') ),
@@ -9,5 +7,5 @@ search_mods: List = [
 ]
 
 
-def extra_filter(x):
-    return x
+def extra_filter(queryset):
+    return queryset

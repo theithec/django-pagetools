@@ -9,6 +9,7 @@ from pagetools.utils import get_classname
 
 from .models import Menu
 
+
 appconf = apps.get_app_config("menus")
 
 
@@ -26,7 +27,8 @@ class MenuModule(DashboardModule):
     def __init__(self, *args, **kwargs):
         self.menu_title = kwargs.pop("menu_title", "MainMenu")
         kwargs["title"] = kwargs.get("title", "%s: %s" % (_("Menu Overview"), self.menu_title))
-        super(MenuModule, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
+        self.menu = None
 
     def add_entrychildren(self, children, collected=None):
         if collected is None:
@@ -40,7 +42,6 @@ class MenuModule(DashboardModule):
         return collected
 
     def init_with_context(self, context):
-        self.menu = None
         try:
             self.menu = Menu.objects.lfilter().get(title=self.menu_title)
         except (Menu.DoesNotExist, MultipleObjectsReturned):
@@ -78,5 +79,5 @@ class MenuModule(DashboardModule):
                         + "?menu=%s" % self.menu.pk,
                     }
                 )
-        super(MenuModule, self).init_with_context(context)
+        super().init_with_context(context)
         self._initialized = True

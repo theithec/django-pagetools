@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
 from django.test.testcases import TestCase
 
@@ -9,7 +9,7 @@ from pagetools.widgets.models import ContentWidget, PageType, TypeArea
 
 class TypeAreaAdminTests(TestCase):
     def setUp(self):
-        self.admin = User.objects.create_superuser("admin", "q@w.de", "password")
+        self.admin = get_user_model().objects.create_superuser("admin", "q@w.de", "password")
         self.client.login(username="admin", password="password")
         self.site = admin.sites.AdminSite()
         self.pagetype = PageType.objects.create(name="base")

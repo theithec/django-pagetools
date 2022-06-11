@@ -24,8 +24,8 @@ class DynMultipleChoiceField(forms.MultipleChoiceField):
     def __init__(self, **kwargs):
         try:
             label, values = kwargs["label"].split(":")
-        except ValueError:
-            raise ValidationError(_('ChoiceField name must be "name: option1, option2 [...])'))
+        except ValueError as exc:
+            raise ValidationError(_('ChoiceField name must be "name: option1, option2 [...])')) from exc
         kwargs.update(
             {
                 "label": label,
@@ -33,7 +33,7 @@ class DynMultipleChoiceField(forms.MultipleChoiceField):
                 "widget": widgets.CheckboxSelectMultiple,
             }
         )
-        super(DynMultipleChoiceField, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
 
 class SendEmailForm(forms.Form):
@@ -43,7 +43,7 @@ class SendEmailForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.mailreceivers = kwargs.pop("mailreceivers", None) or MAILFORM_RECEIVERS
-        super(SendEmailForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = "post"
         self.helper.add_input(Submit("submit", _("Submit"), css_class=SUBMIT_BUTTON_CLASSES))
@@ -67,7 +67,7 @@ class SendEmailForm(forms.Form):
         return MAILFORM_SENDER
 
     def is_valid(self):
-        _is_valid = super(SendEmailForm, self).is_valid()
+        _is_valid = super().is_valid()
         if _is_valid:
             send_mail(
                 self.get_mailsubject(),
@@ -79,7 +79,7 @@ class SendEmailForm(forms.Form):
         return _is_valid
 
     def clean(self):
-        super(SendEmailForm, self).clean()
+        super().clean()
         if not self.mailreceivers:
             raise ValidationError(_("An error occured"))
         validate_emails_str(",".join(self.mailreceivers))

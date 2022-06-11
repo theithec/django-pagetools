@@ -34,13 +34,13 @@ class SearchViewTests(TestCase):
             settings.PAGINATE_BY = 3
 
     def test_search4page(self):
-        response = self.client.get(reverse("search") + "/?contains_all=Foo1")
+        response = self.client.get(reverse("search") + "?contains_all=Foo1")
         self.assertTrue("P1" in str(response.content))
         self.assertFalse("P2" in str(response.content))
 
-        p2 = Page.objects.get(title="P2")
-        p2.status = "draft"
-        p2.save()
+        page2 = Page.objects.get(title="P2")
+        page2.status = "draft"
+        page2.save()
 
         response = self.client.get("/search/?contains_any=Foo1 Foo2")
         self.assertTrue("P1" in str(response.content))
