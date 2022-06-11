@@ -11,6 +11,7 @@ from django.dispatch import receiver
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import pgettext_lazy
 from mptt.fields import TreeForeignKey
 from mptt.managers import TreeManager
 from mptt.models import MPTTModel
@@ -20,6 +21,7 @@ from pagetools.utils import get_adminedit_url, get_classname
 
 from .apps import MenusConfig
 from .settings import MENU_TEMPLATE
+
 
 logger = logging.getLogger("pagetools")
 
@@ -328,8 +330,8 @@ class ViewLink(AbstractLink):
         return len(MenusConfig.entrieable_reverse_names) > 0
 
     class Meta:
-        verbose_name = _("View")
-        verbose_name_plural = _("View")
+        verbose_name = pgettext_lazy("menus", "View")
+        verbose_name_plural = pgettext_lazy("menus", "View")
 
 
 class AutoPopulated(AbstractLink):

@@ -5,21 +5,22 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-12-27 19:24+0100\n"
-"PO-Revision-Date: 2015-03-28 13:28+0100\n"
+"PO-Revision-Date: 2022-05-24 23:07+0200\n"
 "Last-Translator: slart@aktivix.org <slart@aktivix.org>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 2.3\n"
+"Language-Team: \n"
 
 #: menus/admin.py:67
 #, python-format
+msgctxt "menus"
 msgid "Entry \"%s\" already exists"
 msgstr ""
 
@@ -108,8 +109,9 @@ msgid "Name"
 msgstr ""
 
 #: menus/models.py:367 menus/models.py:368
+msgctxt "menus"
 msgid "View"
-msgstr ""
+msgstr "Ansicht"
 
 #: menus/models.py:398
 msgid "Autopopulated Entry"
