@@ -4,6 +4,7 @@ from django.db.models.fields import BLANK_CHOICE_DASH
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from grappelli.forms import GrappelliSortableHiddenMixin
+
 from pagetools.admin import AdminLinkMixin, PagelikeAdmin
 
 from .models import PageNode, PageNodePos
@@ -18,12 +19,7 @@ class BasePageNodePosAdmin(AdminLinkMixin, GrappelliSortableHiddenMixin, admin.T
 
     def get_queryset(self, request):
         request.parent_model = self.parent_model
-        return (
-            super(BasePageNodePosAdmin, self)
-            .get_queryset(request)
-            .select_related("owner")
-            .prefetch_related("content__content_object")
-        )
+        return super().get_queryset(request).select_related("owner").prefetch_related("content__content_object")
 
     def admin_link(self, instance, linktext=None):
         realobj = instance.content.content_object
@@ -56,7 +52,7 @@ class BasePageNodePosAdmin(AdminLinkMixin, GrappelliSortableHiddenMixin, admin.T
                 cache["queryset"] = queryset
                 request._cache = cache  # pylint: disable=protected-access
             kwargs["queryset"] = cache["queryset"]
-        field = super(BasePageNodePosAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+        field = super().formfield_for_foreignkey(db_field, request, **kwargs)
         if is_content_with_choices:
             field.choices = cache["choices"]
         return field

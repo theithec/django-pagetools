@@ -4,17 +4,17 @@ from django.http.response import HttpResponseRedirect
 from django.urls import reverse
 
 from pagetools.admin import TinyMCEMixin
-from pagetools.utils import get_classname, get_perm_str, itersubclasses
+from pagetools.utils import get_classname, get_perm_str
 
 from .models import (
     BaseWidget,
     ContentWidget,
     PageType,
-    PageTypeDescription,
     TemplateTagWidget,
     TypeArea,
     WidgetInArea,
 )
+from .utils import itersubclasses
 
 
 class WidgetInAreaAdmin(admin.TabularInline):
@@ -34,7 +34,7 @@ class TypeAreaAdmin(admin.ModelAdmin):
     inlines = (WidgetInAreaAdmin,)
 
     def save_model(self, request, obj, form, change):
-        super(TypeAreaAdmin, self).save_model(request, obj, form, change)
+        super().save_model(request, obj, form, change)
         objs_to_add = form.data.get("add_objs")
         if objs_to_add:
             pks = objs_to_add.split("_")
@@ -124,14 +124,8 @@ class BaseWidgetAdmin(admin.ModelAdmin):
         return self._redirect("change", request, obj, *args, **kwargs)
 
 
-class PageTypeDescriptionAdmin(admin.TabularInline):
-    model = PageTypeDescription
-    extra = 1
-
-
 class PageTypeAdmin(admin.ModelAdmin):
     model = PageType
-    inlines = (PageTypeDescriptionAdmin,)
 
 
 class ContentWidgetAdmin(BaseWidgetAdmin, TinyMCEMixin):
@@ -153,4 +147,3 @@ admin.site.register(ContentWidget, ContentWidgetAdmin)
 admin.site.register(TemplateTagWidget, TemplateTagWidgetAdmin)
 admin.site.register(WidgetInArea)
 admin.site.register(PageType, PageTypeAdmin)
-admin.site.register(PageTypeDescription, admin.ModelAdmin)

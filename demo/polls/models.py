@@ -3,11 +3,14 @@ import datetime
 from django.db import models
 from django.utils import timezone
 
+from pagetools.models import admin_attr_decorator
+
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField("date published")
 
+    @admin_attr_decorator
     def was_published_recently(self):
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
@@ -17,7 +20,7 @@ class Question(models.Model):
     was_published_recently.short_description = "Published recently?"
 
     def __str__(self):
-        return self.question_text
+        return str(self.question_text)
 
     class Meta:
         app_label = "polls"
@@ -29,4 +32,4 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.choice_text
+        return str(self.choice_text)

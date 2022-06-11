@@ -23,7 +23,7 @@ class MenuChildrenWidget(forms.Widget):
 
     def __init__(self, *args, **kwargs):
         self.instance = kwargs.pop("instance", None)
-        super(MenuChildrenWidget, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def render(self, *_args, **_kwargs):
         menu = Menu.objects.get(pk=self.instance.pk)
@@ -50,8 +50,9 @@ class MenuChangeForm(forms.ModelForm):
     children = forms.Field()
 
     def __init__(self, *args, **kwargs):
-        super(MenuChangeForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields["children"] = forms.Field(required=False, widget=MenuChildrenWidget(instance=kwargs["instance"]))
+        self.fields["enabled"].short_description = "FOO"
 
     def clean_children(self, *args, **_kwargs):
         names = []
@@ -68,14 +69,17 @@ class MenuChangeForm(forms.ModelForm):
 
     class Meta:
         model = Menu
-        fields = ("lang", "title", "children")
+        fields = ("lang", "title", "children", "enabled")
+        labels = {
+            "enabled": "Use Cache",
+        }
 
 
 class MenuAdmin(TinyMCEMixin, admin.ModelAdmin):
     save_as = True
     list_display = ("title", "lang")
 
-    def get_form(self, request, obj=None, **kwargs):
+    def get_form(self, request, obj=None, **kwargs):  # pylint: disable=arguments-differ
         # Proper kwargs are form, fields, exclude, formfield_callback
         if obj:
             self.readonly_fields = ("addable_entries",)
@@ -83,7 +87,7 @@ class MenuAdmin(TinyMCEMixin, admin.ModelAdmin):
         else:
             self.readonly_fields = ()
             self.form = MenuAddForm
-        return super(MenuAdmin, self).get_form(request, obj, **kwargs)
+        return super().get_form(request, obj, **kwargs)
 
     def addable_entries(self, obj, **_kwargs):
         ems = MenusConfig.entrieable_models
@@ -166,7 +170,9 @@ class EntrieableForm(forms.ModelForm):
     menus = forms.Field()
 
     def __init__(self, *args, **kwargs):
-        super(EntrieableForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
+        self.existing_menuentries = []
+        self.sel_menus = None
         menus = [(m.id, "%s" % m) for m in Menu.objects.root_nodes()]
         try:
             entry = kwargs["instance"]
@@ -185,7 +191,7 @@ class EntrieableForm(forms.ModelForm):
         )
 
     def clean(self):
-        cleaned_data = super(EntrieableForm, self).clean()
+        cleaned_data = super().clean()
         if self.instance and "menus" in self.changed_data:
             obj = self.instance
             cmp_data = self.cleaned_data.copy()
@@ -195,7 +201,6 @@ class EntrieableForm(forms.ModelForm):
                 content_type=ContentType.objects.get_for_model(obj.__class__),
                 object_id=obj.pk,
             )
-            self.existing_menuentries = []
             for entry in existing_menuentries_for_obj:
                 entry.clean()
                 self.existing_menuentries.append(entry)

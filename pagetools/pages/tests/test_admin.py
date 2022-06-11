@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User  # pylint: disable=imported-auth-user
 from django.test.client import Client
 from django.test.testcases import TestCase
 from django.urls import reverse

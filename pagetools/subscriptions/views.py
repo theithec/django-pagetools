@@ -15,12 +15,10 @@ from django.utils import timezone
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
+from pagetools.utils import importer
+
 from . import settings as subs_settings
 from .models import Subscriber
-
-
-config = apps.apps.get_app_config("subscriptions")
-subscribe_form = config.subscribe_form  # type: ignore
 
 
 def _send_mail(subscriber, template_name, context, subject, attachmentfile=None):
@@ -52,6 +50,7 @@ def _send_activation_mail(subscriber, template_name):
 
 
 def _subscribe(request, mail_success_template_name="subscriptions/activation_msg"):
+    subscribe_form = importer(subs_settings.SUBSCRIPTION_FORM)
     form = subscribe_form(request.POST)
     if form.is_valid():
         clean_data = form.clean()
@@ -82,10 +81,11 @@ def subscribe(request):
     if request.method == "GET":
         raise Http404
     form = _subscribe(request)
-    if form.errors:
-        msg = _("An error occurred")
-    else:
+    # if form.errors:
+    if form.is_valid():
         msg = subs_settings.SUBSCRIPTION_SUCCESS_MSG % form.cleaned_data["email"]
+    else:
+        msg = _("An error occurred")
     if request.is_ajax():
         return _subscribe_json(form, msg)
     level = messages.ERROR if form.errors else messages.SUCCESS
@@ -94,7 +94,6 @@ def subscribe(request):
 
 
 def _matching_activated_subscriber(request: HttpRequest, key: Any) -> Subscriber:
-    # remove trailing slash
     subscriber = get_object_or_404(Subscriber, key=key)
     return subscriber
 

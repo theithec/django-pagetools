@@ -15,14 +15,14 @@ class AdvSearchForm(forms.Form):
     contains_not = forms.CharField(label=_("contains not "), required=False)
 
     def __init__(self, *args, **kwargs):
-        super(AdvSearchForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = "get"
         self.helper.add_input(Submit("submit", "Submit"))
 
         _models = []
-        for m in search_mods:
-            k, v = m[:2]
-            _models.append(k)
+        for mod in search_mods:
+            key, _val = mod[:2]
+            _models.append(key)
         choices = [("%s" % i, get_classname(k)) for i, k in enumerate(_models)]
         self.fields["models"] = forms.MultipleChoiceField(choices=choices, required=False)

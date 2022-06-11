@@ -6,8 +6,8 @@ from pagetools.subscriptions.utils import send_max, to_queue
 
 class TC1Tests(TestCase):
     def setUp(self):
-        for e in ("q@w.com", "w@q.de", "WW@qq.com"):
-            Subscriber.objects.create(email=e, is_activated=True)
+        for email in ("q@w.com", "w@q.de", "WW@qq.com"):
+            Subscriber.objects.create(email=email, is_activated=True)
         to_queue(
             {
                 "title": "Title",

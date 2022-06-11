@@ -28,7 +28,10 @@ MAX_FAILURES = getattr(settings, "PT_SUBSCR_MAX_FAILURES", 8)
 
 URLS_REGEX = getattr(settings, "PT_SUBSCR_URLS_REGEX", r"^subscribtion/")
 
-SUBSCRIBER_MODEL = getattr(settings, "PT_SUBSCR_SUBSCRIBER_MODEL", "Subscriber")
+SUBSCRIBER_MODEL = getattr(settings, "PT_SUBSCR_SUBSCRIBER_MODEL", "subscriptions.Subscriber")
+
+SUBSCRIPTION_FORM = getattr(settings, "PT_SUBSCRIPTION_FORM", "pagetools.subscriptions.forms.SubscribeForm")
+
 
 DELETE_QUEUED_MAILS = getattr(settings, "PT_DELETE_QUEUED_MAILS", True)
 

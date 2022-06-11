@@ -22,6 +22,7 @@ class SearchResultsView(PaginatorMixin):
     search_params: Dict[str, Any] = {}
     _search_mods: List = search_mods[:]
     form_cls = AdvSearchForm
+    form = None
     _thisdir = os.path.dirname(os.path.realpath(__file__))
     if settings.SEARCH_REPLACEMENTS:
         with open(os.path.join(_thisdir, settings.SEARCH_REPLACEMENTS_FILE), encoding="utf8") as fobj:
@@ -37,7 +38,7 @@ class SearchResultsView(PaginatorMixin):
                 if model_pks:
                     int_pks = [int(s) for s in model_pks]
                     self._search_mods = [search_mods[i] for i in int_pks]
-        return super(SearchResultsView, self).get(request)
+        return super().get(request)
 
     def filtered_queryset(self, mod):
         cls = mod[0]
@@ -123,7 +124,7 @@ class SearchResultsView(PaginatorMixin):
         return list(reduced)
 
     def get_context_data(self, **kwargs):
-        context = super(SearchResultsView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["view_url"] = reverse("search")
         context["form"] = self.form
         return context

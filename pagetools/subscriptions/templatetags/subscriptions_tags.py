@@ -1,5 +1,7 @@
 from django import template
+
 from pagetools.subscriptions.forms import SubscribeForm
+
 
 register = template.Library()
 
@@ -13,5 +15,5 @@ class SubscribeNode(template.Node):
 
 
 @register.tag(name="subscribe_widget")
-def do_subscribe_node(parser, token):
+def do_subscribe_node(_parser, _token):
     return SubscribeNode()

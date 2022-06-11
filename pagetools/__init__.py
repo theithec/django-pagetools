@@ -1,3 +1,5 @@
 """Core features for pagetools"""
+import logging
 
-default_app_config = "pagetools.apps.CoreConfig"
+
+logger = logging.getLogger("pagetools")  # pylint: disable=invalid-name

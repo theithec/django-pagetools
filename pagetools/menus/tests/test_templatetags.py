@@ -16,18 +16,18 @@ class TemplatetagsTests(TestCase):
         self.menu.update_cache()
 
     def test_entries(self):
-        mr = MenuRenderer("foo", "m1").render({})
-        self.assertTrue(self.link1.url in mr)
-        self.assertFalse(self.page1.slug in mr)
+        rendered = MenuRenderer("foo", "m1").render({})
+        self.assertTrue(self.link1.url in rendered)
+        self.assertFalse(self.page1.slug in rendered, rendered)
         self.page1.status = "published"
         self.page1.save()
         self.menu.update_cache()
-        renderer = MenuRenderer("foo", "m1").render({})
-        self.assertTrue(self.page1.slug in renderer)
+        rendered = MenuRenderer("foo", "m1").render({})
+        self.assertTrue(self.page1.slug in rendered, rendered)
 
     def test_hidden_subentries(self):
         link = Link.objects.create(url="/foo3")
         self.entry2.children.add_child(link, enabled=False)
 
-        renderer = MenuRenderer("foo", "m1").render({})
-        self.assertNotIn("/foo3", renderer)
+        rendered = MenuRenderer("foo", "m1").render({})
+        self.assertNotIn("/foo3", rendered)

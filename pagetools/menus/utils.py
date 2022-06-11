@@ -1,3 +1,5 @@
+from django.utils.text import slugify
+
 from .apps import MenusConfig
 
 
@@ -19,3 +21,8 @@ def entrieable_auto_populated(name, callback):
     and 2. returns a iteratable of `MenuEntry` like objects"""
     MenusConfig.entrieable_auto_children.append(name)
     MenusConfig.auto_children_funcs[name] = callback
+
+
+def get_menukey(obj):
+    slug = getattr(obj, "menukey", getattr(obj, "slug", slugify(obj)))
+    return ".".join((obj.__class__.__name__.lower(), slug))

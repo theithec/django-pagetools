@@ -13,7 +13,6 @@ from pagetools.models import PagelikeModel
 from pagetools.widgets.models import PageType
 
 from .settings import INDEX_VIEW_SLUG
-
 from .validators import validate_emails_str
 
 
@@ -39,7 +38,7 @@ class IncludedForm(models.Model):
     included_form = models.CharField(_("Included form"), max_length=255, blank=True, choices=(("dummy", "dummy"),))
 
     def __init__(self, *args, **kwargs):
-        super(IncludedForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         appconf = apps.get_app_config("pages")
         self.__class__.includable_forms = self.__class__.includable_forms or appconf.includable_forms
         choices = [(i, _(i)) for i in self.includable_forms.keys()]
@@ -97,6 +96,7 @@ class BasePage(IncludedEmailForm, AuthPage, PagelikeModel):
     pagetype = models.ForeignKey(PageType, blank=True, null=True, on_delete=models.CASCADE)
 
     def get_pagetype(self, **kwargs):
+        print(4, kwargs)
         return self.pagetype
 
     def get_absolute_url(self):

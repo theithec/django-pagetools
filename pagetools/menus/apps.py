@@ -16,10 +16,9 @@ class MenusConfig(AppConfig):
     def ready(self):
         from django.contrib import admin
 
-        reg = admin.site._registry
-        models = []
-        for model, admincls in reg.items():
+        model_list = []
+        for model, admincls in admin.site._registry.items():  # pylint: disable=protected-access
             if getattr(admincls.__class__, "is_menu_entrieable", False):
-                models.append(model)
+                model_list.append(model)
 
-        self.__class__.entrieable_models += sorted(models, key=str)
+        self.__class__.entrieable_models += sorted(model_list, key=str)

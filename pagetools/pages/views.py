@@ -39,7 +39,7 @@ class IncludedFormMixin:
 
         return self.form_invalid(form)
 
-    def form_valid(self, form):
+    def form_valid(self, *_args, **_kwargs):
         if self.request.is_ajax():
             return JsonResponse({"data": _("Mail send")}, status=200)
 
@@ -85,19 +85,21 @@ class PageView(AuthPageMixin, IncludedFormMixin, BasePageView):
     def get_pagetype_name(self, **kwargs):
         return self.object.pagetype.name if self.object.pagetype else super().get_pagetype_name(**kwargs)
 
-    def get_pagetype(self, **kwargs):
-        return self.object.pagetype or super().get_pagetype(self)
+    def get_pagetype(self, **kwargs):  # pylint: disable=arguments-differ
+        return self.object.pagetype or super().get_pagetype(**kwargs)
 
     def get_context_data(self, **kwargs):
         kwargs["page_title"] = self.object.title
-        kwargs = super(PageView, self).get_context_data(**kwargs)
+        kwargs = super().get_context_data(**kwargs)
         return kwargs
 
 
 class IndexView(PageView):
-    def get_object(self, **_kwargs):
+    def get_object(self, *_args, **_kwargs):
+        if getattr(self, "object", None):
+            return self.object
         try:
-            self.object = self.get_queryset().get(slug="start")
+            self.object = self.get_queryset().get(slug="start")  # pylint: disable=attribute-defined-outside-init
             return self.object
         except ObjectDoesNotExist:
-            raise Http404
+            raise Http404  # pylint: disable=raise-missing-from

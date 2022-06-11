@@ -4,7 +4,7 @@ A PageNode is a model which may contains other PageNodes.
 Inheritated models with own fields needs concrete inheritance,
 otherwise a proxy model is sufficient.
 """
-from typing import List, Type
+from typing import Iterable, List, Tuple, Type, Union
 
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -12,6 +12,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+
 from pagetools.models import PagelikeModel, PublishableLangManager
 from pagetools.utils import get_adminadd_url, get_classname, importer
 
@@ -25,11 +26,11 @@ class TypeMixin(models.Model):
     model but different node choices.
     The node choice is is part of the template names"""
 
-    node_choices = ()
+    node_choices: Iterable[Tuple[str, str]] = ()
     node_type = models.CharField(max_length=128, blank=True)
 
     def __init__(self, *args, **kwargs):
-        super(TypeMixin, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self._meta.get_field("node_type").choices = self.node_choices
 
     class Meta:
@@ -54,7 +55,7 @@ class PageNode(PagelikeModel):
         symmetrical=False,
     )
     objects = PageNodeManager()
-    allowed_children_classes: List[Type[models.Model]] = []
+    allowed_children_classes: List[Union[str, Type[models.Model]]] = []
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -105,7 +106,7 @@ class PageNode(PagelikeModel):
         if self.__class__.__name__ != "PageNode":
             ctype = ContentType.objects.get_for_model(self.__class__, for_concrete_model=False)
             self.content_type_pk = ctype
-        super(PageNode, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("sections:node", args=(self.slug,))

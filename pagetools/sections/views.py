@@ -23,19 +23,19 @@ class BaseNodeView(DetailView):
         return self.model.public.lfilter(user=self.request.user)
 
     def get_object(self, *args, **kwargs):
-        obj = super(BaseNodeView, self).get_object(*args, **kwargs)
+        obj = super().get_object(*args, **kwargs)
         return obj.get_real_obj()
 
     def get_template_names(self):
         return (
             self.template_name
             or get_template_names_for_obj(self.object, self.template_suffix)
-            or super(BaseNodeView, self).get_template_names()
+            or super().get_template_names()
         )
 
     def get_context_data(self, **kwargs):
-        context = super(BaseNodeView, self).get_context_data(**kwargs)
-        self.object = self.get_object()
+        context = super().get_context_data(**kwargs)
+        self.object = self.get_object()  # pylint: disable=attribute-defined-outside-init
         context["contents"] = self.object.ordered_content(user=self.request.user)
         return context
 
@@ -46,7 +46,7 @@ class PagelikeNodeView(SelectedMenuentriesMixin, WidgetPagelikeMixin, BaseNodeVi
 
 class BaseAjaxNodeViewMixin(AJAXMixin):
     def get_context_data(self, **kwargs):
-        context = super(BaseAjaxNodeViewMixin, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context["AJAXVIEW"] = True
         context["css_block"] = "css_ajax"
         context["js_block"] = "js_ajax"
@@ -66,7 +66,7 @@ def _add_children(txt, children, user):
 
         txt += format_html(
             """<li><a {} href="{}">{}</a>""",
-            "" if child.enabled else mark_safe("style='color: orange;'"),
+            "" if child.is_published else mark_safe("style='color: orange;'"),
             adminediturl,
             child,
         )

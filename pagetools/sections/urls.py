@@ -1,10 +1,10 @@
-from django.conf.urls import url
+from django.urls import path
 
 from pagetools.sections.views import BaseAjaxNodeView, PagelikeNodeView
 
 app_name = "sections"
 
 urlpatterns = [
-    url(r"^ajaxnode/(?P<slug>[-\w]+)/$", BaseAjaxNodeView.as_view(), name="ajax"),
-    url(r"^(?P<slug>[-\w]+)/$", PagelikeNodeView.as_view(), name="node"),
+    path("ajaxnode/<slug:slug>/", BaseAjaxNodeView.as_view(), name="ajax"),
+    path("<slug:slug>/", PagelikeNodeView.as_view(), name="node"),
 ]

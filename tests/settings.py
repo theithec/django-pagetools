@@ -1,7 +1,9 @@
 import os
+import sys
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(BASE_DIR + "/demo")
 SECRET_KEY = "#c##*+s7^=1m^p-=m&fvs8v(8p&#esxlqbq_3i+v(5)4z3ud)@"
 DEBUG = False
 ALLOWED_HOSTS = ["*"]
@@ -42,7 +44,7 @@ INSTALLED_APPS = [
     # 'debug_toolbar',
     "polls",
     "demo_sections",
-    "main",
+    # "main",
 ]
 TEMPLATES = [
     {

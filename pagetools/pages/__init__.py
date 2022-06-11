@@ -13,4 +13,3 @@ inherits from :ref:`Pagelike` and adds
 
 The :class:`pagetools.pages.views.PageView` knows how to handle these attribues through its baseclasses/mixins.
 """
-default_app_config = "pagetools.pages.apps.PagesConfig"
