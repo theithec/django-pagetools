@@ -1,12 +1,12 @@
 {% with content|default:object as obj %}
 
-{% if  not obj.enabled %}
+{% if  not obj.is_published %}
     <div class="unpublished">
-{% endif %}    
+{% endif %}
 {% block node %}
 {% endblock node %}
 {% if not obj.enabled %}
     </div>
-{% endif %}    
+{% endif %}
 
 {% endwith %}
