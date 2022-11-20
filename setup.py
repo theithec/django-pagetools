@@ -14,7 +14,7 @@ setup(
     description="A set of Django apps to to provide some cms-like features",
     python_requires=">=3.6",
     install_requires=[
-        "Django >=3.0,<4.0",
+        "Django >=3.2.16, <4.0",
         "django-crispy-forms==1.14.0",
         "django-grappelli==3.0.*",
         "beautifulsoup4==4.10.*",
