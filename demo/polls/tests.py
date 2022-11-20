@@ -1,9 +1,14 @@
 import datetime
+
+from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
-from django.test import TestCase
 
 from .models import Question
+
+
+def replist(items):
+    return [repr(item) for item in items]
 
 
 class QuestionMethodTests(TestCase):
@@ -62,7 +67,7 @@ class QuestionViewTests(TestCase):
         """
         create_question(question_text="Past question.", days=-30)
         response = self.client.get(reverse("polls:index"))
-        self.assertQuerysetEqual(response.context["latest_question_list"], ["<Question: Past question.>"])
+        self.assertQuerysetEqual(replist(response.context["latest_question_list"]), ["<Question: Past question.>"])
 
     def test_index_view_with_a_future_question(self):
         """
@@ -82,7 +87,7 @@ class QuestionViewTests(TestCase):
         create_question(question_text="Past question.", days=-30)
         create_question(question_text="Future question.", days=30)
         response = self.client.get(reverse("polls:index"))
-        self.assertQuerysetEqual(response.context["latest_question_list"], ["<Question: Past question.>"])
+        self.assertQuerysetEqual(replist(response.context["latest_question_list"]), ["<Question: Past question.>"])
 
     def test_index_view_with_two_past_questions(self):
         """
@@ -91,7 +96,8 @@ class QuestionViewTests(TestCase):
         create_question(question_text="Past question 1.", days=-30)
         create_question(question_text="Past question 2.", days=-5)
         response = self.client.get(reverse("polls:index"))
+
         self.assertQuerysetEqual(
-            response.context["latest_question_list"],
+            replist(response.context["latest_question_list"]),
             ["<Question: Past question 2.>", "<Question: Past question 1.>"],
         )

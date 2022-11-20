@@ -1,11 +1,12 @@
-from django.conf.urls import url
+from django.urls import path
 
 from .views import activate, subscribe, unsubscribe
+
 
 app_name = "subscriptions"
 
 urlpatterns = [
-    url(r"^subscribe/", subscribe, name="subscribe"),
-    url(r"^activate/(?P<key>\w+)/$", activate, name="activate"),
-    url(r"^unsubscribe/(?P<key>\w+)/$", unsubscribe, name="unsubscribe"),
+    path("subscribe/", subscribe, name="subscribe"),
+    path("activate/<str:key>/", activate, name="activate"),
+    path("unsubscribe/<str:key>/", unsubscribe, name="unsubscribe"),
 ]

@@ -3,26 +3,27 @@ import os
 from setuptools import find_packages, setup
 
 
-README = open(os.path.join(os.path.dirname(__file__), "README.rst")).read()
+with open(os.path.join(os.path.dirname(__file__), "README.rst"), encoding="utf-8") as fobj:
+    README = fobj.read()
 
 setup(
     name="django-pagetools",
-    version="0.9.5",
+    version="0.9.8",
     packages=find_packages(exclude=("demo", "demo.*")),
     include_package_data=True,
     license="MIT License",
     description="A set of Django apps to to provide some cms-like features",
-    python_requires=">=3.6",
+    python_requires=">=3.8",
     install_requires=[
-        "Django >=3.0,<4.0",
+        "Django >=4.0,<5.0",
         "django-crispy-forms==1.14.0",
         "django-grappelli==3.0.*",
-        "beautifulsoup4==4.10.*",
-        "django-debug-toolbar==3.2.*",
+        "beautifulsoup4==4.11.*",
+        "django-debug-toolbar==3.7.*",
         "django-filebrowser==4.0.*",
-        "django-mptt==0.13.*",
-        "django-sekizai==3.0.*",
-        "django-model-utils==4.2.*",
+        "django-mptt==0.14.*",
+        "django-sekizai==4.0.*",
+        "django-model-utils==4.3.*",
         "django-simple-captcha==0.5.*",
         "djangoajax==3.*",
         "Pillow==9.*",

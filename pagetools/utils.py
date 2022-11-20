@@ -60,3 +60,8 @@ def filter_expired(queryset):
     daterange = getattr(model, "expired_daterange", 1)
     to_delete = model.objects.filter(**{"%s__lt" % fieldname: datetime.now() - timedelta(daterange)})
     return to_delete
+
+
+# https://docs.djangoproject.com/en/3.1/releases/3.1/#id2
+def is_ajax(request):
+    return request.headers.get("X-Requested-With") == "XMLHttpRequest"

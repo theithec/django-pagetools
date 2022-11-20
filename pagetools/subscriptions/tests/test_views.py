@@ -15,7 +15,7 @@ class ViewTest(TestCase):
     def _test_add_subscriber(self):
         settings.DEBUG = True
         url = reverse("subscriptions:subscribe", args=[])
-        self.client.post(url + "/", {"email": "q@w.de"})
+        self.client.post(url, {"email": "q@w.de"})
         subs = Subscriber.objects.all()
         self.assertTrue(len(subs), 1)
         self.assertTrue(len(mail.outbox), 1)
