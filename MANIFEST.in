@@ -1,5 +1,6 @@
 include version.py RELEASE-VERSION
 include pagetools/search/search_replacements.json
+recursive-include pagetools/templates *
 recursive-include pagetools/*/templates *
 recursive-include pagetools/*/static *
 recursive-include pagetools/*/locale *
