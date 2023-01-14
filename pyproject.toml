@@ -3,23 +3,17 @@ line-length = 120
 target-version = ['py38']
 include = '\.pyi?$'
 exclude = '''
-
 (
   /(
-      \.eggs         # exclude a few common directories in the
-    | \.git          # root of the project
-    | \.hg
-    | \.mypy_cache
+    | \.git
     | \.tox
     | \.venv
     | _build
-    | buck-out
     | build
     | dist
-    | migrations
   )/
-  | foo.py           # also separately exclude a file named foo.py in
-                     # the root of the project
+  | migrations
+  | \.mypy_cache
 )
 '''
 
@@ -37,3 +31,40 @@ exclude = [
 
 [tool.django-stubs]
 django_settings_module = "tests.settings"
+
+[tool.pdm]
+[[tool.pdm.source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "invoke",
+    "django-debug-toolbar",
+    "sphinx-rtd-theme",
+    "black",
+    "pylint",
+    "flake8",
+    "coverage",
+    "pylint-django",
+    "pudb",
+    "sphinx",
+    "tox>=4.2.8",
+]
+[tool.setuptools.packages.find]
+    include = ["pagetools*"]  # p
+[project]
+name = "django-pagetools"
+version = "0.9.7.4"
+description = "Pagetools"
+authors = [
+    {name = "Tim Heithecker", email = "tim.heithecker@gmail.com"},
+]
+dependencies = ["Django<4.0,>=3.2.16", "django-crispy-forms", "django-grappelli", "beautifulsoup4", "django-filebrowser", "django-mptt", "django-sekizai", "django-model-utils", "django-simple-captcha", "djangoajax", "Pillow"]
+requires-python = ">=3.8"
+license = {text = "MIT"}
+
+#[build-system]
+#requires = ["pdm-pep517>=1.0.0"]
+#build-backend = "pdm.pep517.api"
