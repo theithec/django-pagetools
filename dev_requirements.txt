@@ -1,4 +1,4 @@
-setuptools==39.0.1
+setuptools==65.5.1
 coveralls==2.0.0
 fabric==2.5.0
 mock==3.0.5
