@@ -37,17 +37,16 @@ jobs:
 
       - run: sudo apt update
       - run: sudo apt install libjpeg-dev zlib1g-dev npm
-      - run: pip install Django==3.2 coverage
+      - run: pip install Django==3.2 coverage build
       - run:
           name: Install
-          command: python setup.py install
+          command: pip install .
       - run:
           name: Run tests
           command: |
             coverage run runtests.py
             mkdir -p coverage
             coverage lcov -o coverage/lcov.info
-            ls -al
             # coverage report
             # coverage html  # open htmlcov/index.html in a browser
             # - store_artifacts:

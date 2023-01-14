@@ -51,13 +51,14 @@ dev = [
     "pudb",
     "sphinx",
     "tox>=4.2.8",
+    "build>=0.10.0",
 ]
 [tool.setuptools.packages.find]
     include = ["pagetools*"]  # p
 [project]
 name = "django-pagetools"
 version = "0.9.7.4"
-description = "Pagetools"
+description = "Some CMS-like Feaures"
 authors = [
     {name = "Tim Heithecker", email = "tim.heithecker@gmail.com"},
 ]
