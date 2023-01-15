@@ -37,6 +37,11 @@ django_settings_module = "tests.settings"
 url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
+[tool.pdm.scripts]
+_.env_file = ".env"
+lint = "pylint pagetools demo -vvv"
+cov = "coverage run runtests.py"
+#start = "source ./.venv/bin/acivate && source .env"
 
 [tool.pdm.dev-dependencies]
 dev = [
@@ -62,7 +67,20 @@ description = "Some CMS-like Feaures"
 authors = [
     {name = "Tim Heithecker", email = "tim.heithecker@gmail.com"},
 ]
-dependencies = ["Django<4.0,>=3.2.16", "django-crispy-forms", "django-grappelli", "beautifulsoup4", "django-filebrowser", "django-mptt", "django-sekizai", "django-model-utils", "django-simple-captcha", "djangoajax", "Pillow"]
+dependencies = [
+    "Django<4.0,>=3.2.16",
+    "django-crispy-forms",
+    "django-grappelli",
+    "beautifulsoup4",
+    "django-filebrowser",
+    "django-mptt",
+    "django-sekizai",
+    "django-model-utils",
+    "django-simple-captcha",
+    "djangoajax",
+    "Pillow",
+    "setuptools>=65.7.0",
+]
 requires-python = ">=3.8"
 license = {text = "MIT"}
 

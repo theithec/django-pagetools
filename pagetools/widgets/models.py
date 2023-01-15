@@ -106,8 +106,8 @@ class TypeArea(LangModel):
     pagetype = models.ForeignKey(PageType, on_delete=models.CASCADE)
     objects = LangManager()
 
-    def clean(self, *args, **kwargs):
-        super().clean(*args, **kwargs)
+    def clean(self):
+        super().clean()
         filtered = TypeArea.objects.filter(area=self.area, pagetype=self.pagetype, lang="").exclude(pk=self.pk)
         if filtered:
             raise ValidationError({"__all__": ("Language Error",)})

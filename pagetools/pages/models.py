@@ -62,7 +62,7 @@ class IncludedEmailForm(IncludedForm):
         help_text="Comma separated list of emails",
     )
 
-    def clean(self, *args, **kwargs):
+    def clean(self):
         super().clean()
         if self.included_form and getattr(self.included_form, "USE_MAILRECEIVERS", False) and not self.email_receivers:
             raise ValidationError(_('''The selected form requires "email_receivers"'''))

@@ -1,9 +1,9 @@
-import os.path
-from django.test import TestCase
-from django.conf import settings
-from filebrowser.base import FileObject
-from pagetools.sections.models import PageNodePos
 from demo_sections.models import Article, Section, SectionList
+from django.conf import settings
+from django.test import TestCase
+from filebrowser.base import FileObject
+
+from pagetools.sections.models import PageNodePos
 
 
 class SectionsDataTestCase(TestCase):
@@ -27,11 +27,11 @@ class SectionsDataTestCase(TestCase):
             )
             self.articles.append(article)
 
-        s1, s2 = self.sections
-        PageNodePos.objects.create(content=self.articles[0], owner=s1, position=0)
+        sec1, _ = self.sections
+        PageNodePos.objects.create(content=self.articles[0], owner=sec1, position=0)
         self.sectionlist1 = SectionList.objects.create(
             title="Sectionlist1",
             slug="sectionlist1",
             status="published",
         )
-        PageNodePos.objects.create(content=s1, owner=self.sectionlist1, position=0)
+        PageNodePos.objects.create(content=sec1, owner=self.sectionlist1, position=0)

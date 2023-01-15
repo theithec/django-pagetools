@@ -4,7 +4,7 @@ import datetime
 from smtplib import SMTPException
 from typing import Any
 
-from django import apps, template
+from django import template
 from django.contrib import messages
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives

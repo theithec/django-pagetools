@@ -82,7 +82,7 @@ class TypeAreaAdmin(admin.ModelAdmin):
                     )
             self.change_form_template = "admin/widgets/typearea/change_form.html"
         else:
-            self.change_form_template = "core/admin/change_form_help_text.html"
+            self.change_form_template = "pagetools/admin/change_form_help_text.html"
             context["help_text"] = "[save] before adding widgets"
         return admin.ModelAdmin.render_change_form(
             self, request, context, add=add, change=change, form_url=form_url, obj=obj

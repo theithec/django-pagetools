@@ -1,14 +1,14 @@
-from django.contrib.auth.models import User
-from pagetools.utils import get_adminadd_url, get_adminedit_url
-
 from demo_sections.models import Article, SectionList
 from demo_sections.tests import SectionsDataTestCase
+from django.contrib.auth import get_user_model
+
 import pagetools.sections.dashboard_modules
+from pagetools.utils import get_adminadd_url, get_adminedit_url
 
 
 class AdminTest(SectionsDataTestCase):
     def setUp(self):
-        self.admin = User.objects.create_superuser("admin", "q@w.de", "password")
+        self.admin = get_user_model().objects.create_superuser("admin", "q@w.de", "password")
         self.client.login(username="admin", password="password")
         super().setUp()
 

@@ -150,7 +150,7 @@ class SendStatus(models.Model):
 
 
 @register()
-def settings_check(app_configs, **kwargs):
+def settings_check(app_configs, **kwargs):  # pylint: disable=unused-argument
     errors = []
     try:
         importer(subs_settings.SUBSCRIPTION_FORM)
