@@ -14,7 +14,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from pagetools.models import PagelikeModel, PublishableLangManager
-from pagetools.utils import get_adminadd_url, get_classname, importer
+from pagetools.utils import get_adminadd_url, get_classname, import_cls
 
 
 class PageNodeManager(PublishableLangManager):
@@ -63,7 +63,9 @@ class PageNode(PagelikeModel):
         if allowed:
             repl = []
             for cls in allowed:
-                repl.append(importer(cls))
+                if isinstance(cls, str):
+                    cls = import_cls(cls)
+                repl.append(cls)
 
             self.__class__.allowed_children_classes = repl
         self.real_obj = None

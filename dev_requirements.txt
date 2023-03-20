@@ -1,9 +1,0 @@
-setuptools==39.0.1
-coveralls==2.0.0
-fabric==2.5.0
-mock==3.0.5
-pylint-django==2.0.14
-pysqlite3==0.4.2
-pytest==5.4.1
-sphinx-rtd-theme==0.4.3
-tox==3.14.6

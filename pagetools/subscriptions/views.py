@@ -15,7 +15,7 @@ from django.utils import timezone
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
-from pagetools.utils import importer
+from pagetools.utils import import_cls
 
 from . import settings as subs_settings
 from .models import Subscriber
@@ -50,7 +50,7 @@ def _send_activation_mail(subscriber, template_name):
 
 
 def _subscribe(request, mail_success_template_name="subscriptions/activation_msg"):
-    subscribe_form = importer(subs_settings.SUBSCRIPTION_FORM)
+    subscribe_form = import_cls(subs_settings.SUBSCRIPTION_FORM)
     form = subscribe_form(request.POST)
     if form.is_valid():
         clean_data = form.clean()

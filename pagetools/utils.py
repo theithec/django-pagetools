@@ -39,10 +39,20 @@ def get_perm_str(cls, perm="add"):
     return "%s.%s_%s" % (cls._meta.app_label, perm, cls.__name__.lower())
 
 
+def import_cls(name):
+    """
+    Import with importlib
+    """
+    modname, clsname = name.rsplit(".", 1)
+    return getattr(importlib.import_module(modname), clsname)
+
+
 def importer(str_or_obj):
     """
-    If the argument is a string import it with importlib
+    If the argument is a string, import it with importlib
     """
+
+    raise PendingDeprecationWarning("importer is bad")
     if isinstance(str_or_obj, str):
         modname, clsname = str_or_obj.rsplit(".", 1)
         str_or_obj = getattr(importlib.import_module(modname), clsname)
@@ -58,5 +68,5 @@ def filter_expired(queryset):
     model = queryset.model
     fieldname = model.define_expired
     daterange = getattr(model, "expired_daterange", 1)
-    to_delete = model.objects.filter(**{"%s__lt" % fieldname: datetime.now() - timedelta(daterange)})
-    return to_delete
+    expired = model.objects.filter(**{"%s__lt" % fieldname: datetime.now() - timedelta(daterange)})
+    return expired

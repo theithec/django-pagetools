@@ -8,7 +8,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from pagetools.models import LangManager, LangModel
-from pagetools.utils import get_adminedit_url, importer
+from pagetools.utils import get_adminedit_url, import_cls
 
 from . import settings
 
@@ -72,7 +72,7 @@ class TemplateTagWidget(BaseWidget):
         """Set the TemplateTag-like instance"""
         if not self.templatetag_instance:
             clzname = settings.TEMPLATETAG_WIDGETS.get(self.renderclasskey, (None))
-            clz = importer(clzname)
+            clz = import_cls(clzname)
             if clz:
                 self.templatetag_instance = clz()
         return self.templatetag_instance

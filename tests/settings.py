@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sites",  # required for search
     "crispy_forms",  # required for pages
+    "crispy_forms_foundation",
     "sekizai",  # required for sections. Needs further configuration
     "django_ajax",
     "pagetools",  # needed for all pagetools modules
@@ -111,3 +112,5 @@ PT_TEMPLATETAG_WIDGETS = {
     "latest_question": "main.templatetags.LatestQuestionNode",
 }
 PT_MENU_TEMPLATE = "foundation6_nav_menu.html"
+
+from crispy_forms_foundation.settings import *

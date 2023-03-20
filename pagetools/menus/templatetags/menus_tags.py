@@ -2,6 +2,7 @@ from django import template
 from django.core.exceptions import ObjectDoesNotExist
 
 from pagetools.menus.models import Menu
+from pagetools import logger
 
 
 register = template.Library()
@@ -24,8 +25,8 @@ class MenuRenderer(template.Node):
         try:
             menu = Menu.objects.lfilter().select_related().get(title=self.menu_title)
         except ObjectDoesNotExist:
-            errstr = "<!--UNKNOWN MENU %s !-->" % self.menu_title
-            return errstr
+            logger.warning("Unknown menu requested %s" , self.menu_title)
+            return ""
         return menu.render(menukeys)
 
 

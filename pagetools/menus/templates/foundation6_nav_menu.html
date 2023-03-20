@@ -1,11 +1,11 @@
-{% for c in children %}
-<li class="menu-item {{ c.select_class_marker}}{% if c.children %} has-submenu{% endif %}">
-    <a href="{{ c.entry_url }}" >{{ c.entry_title }} </a>
-    {% if c.children %}
+{% for child in children %}
+<li class="menu-item {{ child.select_class_marker}}{% if child.children %} has-submenu{% endif %}">
+    <a href="{{ child.entry_url }}" >{{ child.entry_title }} </a>
+    {% if child.children %}
 	<ul class="submenu menu horizontal" data-submenu>
 	{% with template_name="foundation6_nav_menu.html" %}
-    	{% include template_name with children=c.children only %}
-    	{% endwith %}
+    {% include template_name with children=child.children only %}
+    {% endwith %}
   </ul>
 	{% endif %}
 </li>

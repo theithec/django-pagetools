@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sites",  # required for search
     "crispy_forms",  # required for pages
+    "crispy_forms_foundation",
     "sekizai",  # required for sections. Needs further configuration
     "polls",
     "main.apps.MainConfig",
@@ -150,3 +151,5 @@ PT_TEMPLATETAG_WIDGETS = {
 PT_MENU_TEMPLATE = "foundation6_nav_menu.html"
 PT_MAILFORM_RECEIVERS = ["nobody@localhost.localdomain"]
 INTERNAL_IPS = ["127.0.0.1"]
+from crispy_forms_foundation.settings import *
+

@@ -14,7 +14,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from pagetools.models import LangManager, LangModel
-from pagetools.utils import importer
+from pagetools.utils import import_cls
 
 from . import settings as subs_settings
 from .base_models import BaseSubscriberMixin
@@ -153,7 +153,7 @@ class SendStatus(models.Model):
 def settings_check(app_configs, **kwargs):  # pylint: disable=unused-argument
     errors = []
     try:
-        importer(subs_settings.SUBSCRIPTION_FORM)
+        import_cls(subs_settings.SUBSCRIPTION_FORM)
     except (ModuleNotFoundError, AttributeError) as err:
         errors.append(Error(f'Can not import "SUBSCRIPTION_FORM": {subs_settings.SUBSCRIPTION_FORM}: {err}'))
 

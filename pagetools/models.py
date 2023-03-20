@@ -62,7 +62,6 @@ class LangModel(models.Model):
     """
 
     objects = models.Manager()
-    # public = LangManager()
     lang = models.CharField(
         max_length=20,
         choices=settings.LANGUAGES,
