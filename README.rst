@@ -34,15 +34,13 @@ without changing the workflow with Django, provided you use Grappelli.
 
 **Demo**::
 
-    git clone git+https://theithec/django-pagetools.git
+    git clone https://github.com/theithec/django-pagetools.git
 
     cd django-pagetools/
 
     python setup.py install
 
     cd demo
-
-    ./manage.py migrate
 
     ./manage.py createdemodata
 
