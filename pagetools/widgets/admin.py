@@ -44,7 +44,6 @@ class TypeAreaAdmin(admin.ModelAdmin):
             WidgetInArea.objects.get_or_create(typearea=obj, content_type=contenttype, object_id=obj_id, position=pos)
 
     def render_change_form(self, request, context, add=False, change=False, form_url="", obj=None):
-
         if obj:
             user = request.user
             clslist = itersubclasses(BaseWidget)
@@ -93,7 +92,6 @@ class TypeAreaAdmin(admin.ModelAdmin):
 
 
 class BaseWidgetAdmin(admin.ModelAdmin):
-
     save_as = True
 
     def save_model(self, request, obj, form, change):

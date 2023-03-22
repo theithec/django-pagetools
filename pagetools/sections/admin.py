@@ -31,7 +31,6 @@ class BasePageNodePosAdmin(AdminLinkMixin, GrappelliSortableHiddenMixin, admin.T
         return True
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
-
         is_content_with_choices = db_field.name == "content" and getattr(
             self.parent_model, "allowed_children_classes", False
         )
@@ -59,7 +58,6 @@ class BasePageNodePosAdmin(AdminLinkMixin, GrappelliSortableHiddenMixin, admin.T
 
 
 class BasePageNodeAdmin(PagelikeAdmin):
-
     inlines = [BasePageNodePosAdmin]
     change_form_template = "admin/change_form_chooser.html"
 

@@ -25,7 +25,7 @@ class MenuRenderer(template.Node):
         try:
             menu = Menu.objects.lfilter().select_related().get(title=self.menu_title)
         except ObjectDoesNotExist:
-            logger.warning("Unknown menu requested %s" , self.menu_title)
+            logger.warning("Unknown menu requested %s", self.menu_title)
             return ""
         return menu.render(menukeys)
 

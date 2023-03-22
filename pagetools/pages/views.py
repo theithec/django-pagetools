@@ -12,7 +12,6 @@ from .models import Page
 
 
 class IncludedFormMixin:
-
     included_form = None
     success_url = "/"
 

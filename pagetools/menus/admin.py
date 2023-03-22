@@ -211,7 +211,6 @@ class EntrieableForm(forms.ModelForm):
 
 
 class EntrieableAdmin(admin.ModelAdmin):
-
     form = EntrieableForm
     is_menu_entrieable = True
 

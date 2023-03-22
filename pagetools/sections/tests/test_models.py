@@ -5,7 +5,6 @@ from pagetools.sections.models import PageNode
 
 class TestModelMixin(TestCase):
     def setUp(self):
-
         self.model = PageNode
         self.node1 = self.model.objects.create(title="w1")
 

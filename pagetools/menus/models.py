@@ -202,7 +202,6 @@ class Menu(MenuEntry):
         return menu
 
     def children_list(self, for_admin=False):
-
         entry_cnt = 0
 
         def get_child_data(for_admin, entry, obj, dict_parent):

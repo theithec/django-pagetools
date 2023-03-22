@@ -38,7 +38,7 @@ without changing the workflow with Django, provided you use Grappelli.
 
     cd django-pagetools/
 
-    python setup.py install
+    python -m install .
 
     cd demo
 

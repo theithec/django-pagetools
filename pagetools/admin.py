@@ -13,7 +13,6 @@ class TinyMCEMixin(admin.ModelAdmin):
     """
 
     class Media:
-
         url = settings.STATIC_URL
         js = [
             f"{url}grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js",

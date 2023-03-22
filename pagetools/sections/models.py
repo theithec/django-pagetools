@@ -38,7 +38,6 @@ class TypeMixin(models.Model):
 
 
 class PageNode(PagelikeModel):
-
     classes = models.CharField("Classes", max_length=512, blank=True, null=True)
     content_type_pk = models.ForeignKey(
         ContentType,
@@ -66,7 +65,6 @@ class PageNode(PagelikeModel):
                 if isinstance(cls, str):
                     cls = import_cls(cls)
                 repl.append(cls)
-
             self.__class__.allowed_children_classes = repl
         self.real_obj = None
 
@@ -128,7 +126,6 @@ class PageNode(PagelikeModel):
 
 
 class PageNodePos(models.Model):
-
     position = models.PositiveIntegerField()
     content = models.ForeignKey(PageNode, on_delete=models.CASCADE)
     owner = models.ForeignKey(PageNode, related_name="in_group", on_delete=models.CASCADE)

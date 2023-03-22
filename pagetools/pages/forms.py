@@ -37,7 +37,6 @@ class DynMultipleChoiceField(forms.MultipleChoiceField):
 
 
 class SendEmailForm(forms.Form):
-
     IGNORED_FIELDS_IN_MESSAGE = ("captcha",)
     USE_MAILRECEIVERS = True
 

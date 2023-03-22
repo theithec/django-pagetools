@@ -2,7 +2,6 @@ from django.db import models
 
 
 class BaseSubscriberMixin(models.Model):
-
     is_activated = models.BooleanField(default=False)
     subscribtion_date = models.DateTimeField(auto_now_add=True)
     failures = models.IntegerField(default=0)

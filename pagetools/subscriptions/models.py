@@ -61,7 +61,6 @@ class Subscriber(BaseSubscriberMixin, LangModel):
 #            (2, 'Unexpected Error'),
 #        ))
 class QueuedEmail(LangModel):
-
     createdate = models.DateTimeField("Created on", auto_now_add=True, blank=True, editable=False)
     modifydate = models.DateTimeField("Last modified on", auto_now_add=True, blank=True, editable=False)
     senddate = models.DateTimeField("Send after", auto_now_add=True, blank=True, editable=True)

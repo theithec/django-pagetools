@@ -1,3 +1,4 @@
+{% load menus_tags %}
 {% load static  %}
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
@@ -29,6 +30,8 @@
 				{% block menu %}
 				{% include "menutag.html" %}
 				{% endblock menu %}
+
+                {% menu menu2 menukeys %}
 
 				</ul>
 			</div>
