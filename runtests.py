@@ -13,7 +13,6 @@ def runtests():
     TestRunner = get_runner(settings)
     test_runner = TestRunner()
     failures = test_runner.run_tests(["pagetools", "polls", "demo_sections"])
-    # failures = test_runner.run_tests(["pagetools.pages.tests.test_views.PageViewTestCase"])
     sys.exit(bool(failures))
 
 

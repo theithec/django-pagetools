@@ -17,6 +17,8 @@
 Welcome to django-pagetools's documentation!
 ============================================
 
+This is work im progress.
+
 **Django-pagetools** is a set of Django apps to provide some cms-like features
 
 -   Menus
@@ -38,7 +40,7 @@ without changing the workflow with Django, provided you use Grappelli.
 
     cd django-pagetools/
 
-    python -m install .
+    python -m pip install .
 
     cd demo
 

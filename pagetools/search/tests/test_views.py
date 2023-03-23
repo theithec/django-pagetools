@@ -1,7 +1,7 @@
 from django.conf import settings
+from django.shortcuts import reverse
 from django.test import TestCase
 from django.test.client import Client
-from django.urls import reverse
 from django.utils.text import slugify
 
 import pagetools.search
@@ -43,6 +43,6 @@ class SearchViewTests(TestCase):
         page2.save()
 
         response = self.client.get("/search/?contains_any=Foo1 Foo2")
-        self.assertTrue("P1" in str(response.content))
+        self.assertTrue("P1" in str(response.content), response.content)
         self.assertFalse("P2" in str(response.content))
         self.assertFalse("P3" in str(response.content))

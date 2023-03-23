@@ -73,22 +73,19 @@ class MenuEntry(MPTTModel, LangModel):
         kwargs = {
             "title": self.title,
             "lang": self.lang,
-            # 'parent__is_null=True
         }
         if not self.parent:  # root
             kwargs["parent__isnull"] = True
 
-        entries = MenuEntry.objects.filter(**kwargs)
+        entries = MenuEntry.objects.filter(**kwargs).exclude(pk=self.pk)
         if self.parent:  # not root
             root = self.parent.get_root()  # pylint: disable=no-member
+            for entry in entries:
+                if entry.get_root() == root:
+                    raise ValidationError(_("An entry with this title and language already exists in menu"))
+        else:  # root
             if entries:
-                for entry in entries:
-                    is_same = self.pk and self.pk == entry.pk
-                    if not is_same and entry.get_root() == root:
-                        raise ValidationError(_("An entry with this title and language already exists in menu"))
-            else:  # root
-                if entries:
-                    raise ValidationError(_("A menu with this title and language already exists"))
+                raise ValidationError(_("A menu with this title and language already exists"))
 
     def __str__(self):
         return "%s%s" % (self.title, (" (%s)" % self.lang) if self.lang else "")
@@ -176,7 +173,7 @@ class Menu(MenuEntry):
     def full_clean(self, *args, **kwargs):
         found = Menu.objects.filter(title=self.title, lang="").exclude(pk=self.pk)
         if found:
-            raise ValidationError({"__all__": ("Language Error",)})
+            raise ValidationError({"__all__": _("Menu with no language exists. No others allowed")})
         return super().full_clean(*args, **kwargs)
 
     def update_cache(self):
@@ -193,10 +190,9 @@ class Menu(MenuEntry):
         menu = super().save(*args, **kwargs)
         for child in self.get_children():
             slug = getattr(child.content_object, "slug", None)
-            if slug:
-                if not slug == child.slug:
-                    child.slug = slug
-                    child.save()
+            if slug and not slug == child.slug:
+                child.slug = slug
+                child.save()
         cache.menu = self
         cache.save()
         return menu

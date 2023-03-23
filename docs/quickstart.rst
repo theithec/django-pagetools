@@ -21,7 +21,7 @@ Add the pagetools apps you want to use and their requirements to ``INSTALLED_APP
             'django.contrib.sites',
             'crispy_forms',      # required for pages
             'sekizai',           # required for sections. Needs further configuration
-            'captcha'            # required for `pages.forms.CaptchaContactForm` 
+            'captcha'            # required for `pages.forms.CaptchaContactForm`
             'pagetools.core',    # needed for all pagetools modules
             'pagetools.widgets', # Widgets (e.g. for sidebars)
             'pagetools.menus',   #
@@ -37,25 +37,29 @@ Add the pagetools apps you want to use and their requirements to ``INSTALLED_APP
 
 Add the urls to your project::
 
-        #  for the section dashboard module
-        #  from pagetools.sections.views import admin_pagenodesview
 
-        # Optional
         from pagetools.pages.views import IndexView
+        from pagetools.sections.views import admin_pagenodesview
 
-        url_patterns = [
-            url(r'^$', IndexView.as_view()), # Optional
-            url(r'^grappelli/', include('grappelli.urls')),
-            url(r'^admin/', admin.site.urls),
-            ...
-            url(r'pages/', include('pagetools.pages.urls')),
-            url(r'^node/', include('pagetools.sections.urls')),
-            # url(r'^adminnodes/(?P<slug>[\w-]+)/$',
-            #     admin_pagenodesview,
-            #     name='admin_pagenodesview'),
-            url(r'search/', include('pagetools.search.urls')),
-            url(r'subscribe/', include('pagetools.subscriptions.urls')),
-            ...
+        urlpatterns = [
+            path("admin/filebrowser/", site.urls),
+            path("grappelli/", include("grappelli.urls")),
+            path("admin/", admin.site.urls),
+            # path("captcha/", include("captcha.urls")),
+            path("", IndexView.as_view(), name="index"),
+            path("", include("pagetools.urls")),
+            path("pages/", include("pagetools.pages.urls", namespace="pages")),
+            path("node/", include("pagetools.sections.urls", namespace="sections")),
+            path(
+                "adminnodes/<slug:slug>/",
+                admin_pagenodesview,
+                name="admin_pagenodesview",
+            ),
+            path("search/", include("pagetools.search.urls")),
+            path(
+                "subscribe/",
+                include("pagetools.subscriptions.urls", namespace="subscriptions"),
+            ),
         ]
 
 
@@ -79,7 +83,7 @@ and add it in settings::
         GRAPPELLI_INDEX_DASHBOARD = 'dashboard.CustomIndexDashboard'
 
 
-Edit `dashboard.py` to include the menu module::
+Edit ``dashboard.py`` to include the menu module::
 
         from pagetools.menus.dashboard_modules import MenuModule
         ...
@@ -153,11 +157,11 @@ Add something like this to your base template.::
         </sidebar>
 
 Go to admin->widgets->Pagetype-Areas. Select the one default area named "sidebar". Create a Pagetype and call it "base".
-`Save and continue editing`. Add a `Simple Text Widget`. The name is the internal name for the widget. Save and return to the Pagetype-Area. Enable the new widget. Save.
+Click ``Save and continue editing``. Next, add a `Simple Text Widget`. The name is the internal name for the widget. Save and return to the Pagetype-Area. Enable the new widget. Save.
 
-A `PageType` called  `base` is used as the default/fallback pagetype, therefor the widget is visible.
+A ``PageType`` called  `base` is used as the default/fallback pagetype, therefor the widget is visible.
 
-You could create a new `Pagetype-Area` with a new `Pagetype`, e.g. named 'special' with different widgets and change the pagetype of the former created page to the new type.
+You could create a new ``Pagetype-Area`` with a new ``Pagetype``, e.g. named 'special' with different widgets and change the pagetype of the former created page to the new type.
 
 
 
@@ -183,12 +187,6 @@ You can also set search.extra_filter to a callable that receives the resulting q
 
 The SearchView is also an example for adding a view to the Menu.
 All is required is a call to pagetools.menus.utils.entrieable_reverse_name with one or two arguments (viewname, appname).
-Because the function returns the viewname, this can be done in the urls::
+This is done in ``pagetools.search.urls``::
 
-        urlpatterns = [
-
-        url(r'^', (SearchResultsView.as_view()), name=entrieable_reverse_name('search', app_name="search")),
-        # or - if no app_name is used
-        # url(r'^', (SearchResultsView.as_view()), name=entrieable_reverse_name('search')),
-
-
+        urlpatterns = [path("", SearchResultsView.as_view(), name=entrieable_reverse_name("search"))]

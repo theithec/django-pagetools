@@ -133,8 +133,6 @@ class MenuAdminTests(TestCase):
         menu = Menu.objects.add_root(title="Menu1")
         entries = admininstance.addable_entries(obj=menu)
         len_e = len(MenusConfig.entrieable_models)
-        if not TEMPLATETAG_WIDGETS:
-            len_e -= 1
         self.assertEqual(entries.count("<li>"), len_e)
 
     def test_mk_entriableadmin(self):
