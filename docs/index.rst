@@ -20,8 +20,8 @@ Contents:
    pages
    menus
    widgets
-   search
-   sections 
+   search2
+   sections
 
 Indices and tables
 ==================

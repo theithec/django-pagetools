@@ -4,15 +4,15 @@
 Search
 ======
 
-
 A simple database search.
 
-Set `pagetools.search.search_mods` somewhere like this::
-    search_mods = (
-        # ( app.models.Model1,   ('title', 'content') ),
-        # ( app.models.Model2, ('title', 'content','footer') ),
-    )
-    
+Set ``pagetools.search.search_mods`` somewhere like this::
+
+        search_mods = (
+            ( app.models.Model1,   ('title', 'content') ),
+            ( app.models.Model2, ('title', 'content','footer') ),
+        )
+
 to define which fields from which models should be searchable.
 
 The :class:`pagetools.search.views.SearchResultView` exects one more

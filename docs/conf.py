@@ -64,7 +64,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "django-pagetools"
-copyright = "2022, Tim Heithecker"
+copyright = "2023, Tim Heithecker"
 author = "Tim Heithecker"
 
 # The version info for the project you're documenting, acts as replacement for

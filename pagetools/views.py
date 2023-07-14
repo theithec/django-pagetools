@@ -1,3 +1,5 @@
+import re
+
 from django.conf import settings
 from django.views.generic.list import ListView
 
@@ -16,6 +18,12 @@ class PaginatorMixin(ListView):
         _from = page.number - 5 if page.number > 5 else 0
         context["curr_page_range"] = paginator.page_range[_from : page.number + 5]
         url_for_page = self.request.get_full_path()
-        url_for_page += "&" if self.request.GET else "?"
-        context["url_for_page"] = url_for_page
+
+        if cpy := self.request.GET.copy():
+            if cpy.pop("page", None):
+                url_for_page = re.sub(r"[\?|&]page=\d+", "", url_for_page)
+            url_for_page += "&" if cpy else "?"
+        else:
+            url_for_page += "?"
+        context["url_for_page"] = url_for_page  # + "/a/b"
         return context

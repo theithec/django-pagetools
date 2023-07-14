@@ -40,4 +40,4 @@ RELEASE-VERSION
 .python-version
 .vscode
 pdm.lock
-.pdm.toml
+.pdm-python
