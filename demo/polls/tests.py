@@ -43,7 +43,9 @@ def create_question(question_text, days):
     in the past, positive for questions that have yet to be published).
     """
     time = timezone.now() + datetime.timedelta(days=days)
-    return Question.objects.create(question_text=question_text, pub_date=time)
+    qst = Question.objects.create(question_text=question_text, pub_date=time)
+    qst.choice_set.create(choice_text="A")
+    return qst
 
 
 class QuestionViewTests(TestCase):
@@ -96,3 +98,8 @@ class QuestionViewTests(TestCase):
             response.context["latest_question_list"],
             [q2, q1],
         )
+
+    def test_vote(self):
+        q1 = create_question(question_text="Past question 1.", days=-30)
+        choice = q1.choice_set.first()
+        response = self.client.post(reverse("polls:vote", kwargs={"question_id": q1.pk}), {"choice": choice.pk})

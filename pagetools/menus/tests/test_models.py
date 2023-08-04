@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.utils.translation import get_language
+from django.utils.translation import gettext_lazy as _
 
 from pagetools.menus.models import Menu
 from pagetools.menus.tests import MenuDataTestCase
@@ -42,10 +43,25 @@ class ModelTests(MenuDataTestCase):
         with self.assertRaises(ValidationError):
             self.menu.children.add_child(self.page1)
 
+    def test_created(self):
+        self.assertEqual(self.page1, self.menu.children.first().content_object)
 
-class M2Tests(TestCase):
-    def test_create(self):
-        menu = Menu.objects.add_root("M1")
-        page = Page.objects.create(title="t1", slug="t1", content="t1", status="published")
-        menu.children.add_child(page)
-        self.assertEqual(page, menu.children.first().content_object)
+    def test_frobidden_create(self):
+        with self.assertRaises(AttributeError) as err:
+            Menu.objects.create(name="M2")
+            self.assertEqual(str(err), _("Use 'add_child' or 'add_root' instead of 'create'"))
+
+    def test_invalid_creation(self):
+        with self.assertRaises(ValidationError) as err:
+            self.menu.children.add_child("Just as string")
+            self.assertEqual(str(err), "MenuEntry.content_object requires get_absolute_url")
+
+    def test_menu_already_exists(self):
+        with self.assertRaises(ValidationError) as err:
+            Menu.objects.add_root("MainMenu")
+            self.assertEqual(str(err), "Menu M1 already exists")
+
+    def test_entry(self):
+        with self.assertRaises(ValidationError) as ctx:
+            Menu.objects.add_child(self.page1)
+        self.assertEqual(str(ctx.exception), "['Entry P1 already exists']")

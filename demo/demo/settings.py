@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     "pagetools.search",  # Simple Search on database fields
     "pagetools.subscriptions",  # Subscriptions to whatever
     "captcha",
-    # "debug_toolbar",
+    "debug_toolbar",
 ]
 
 SITE_ID = 1  # required by contrib.sites
@@ -45,7 +45,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    # "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
