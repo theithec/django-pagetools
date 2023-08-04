@@ -70,3 +70,7 @@ def filter_expired(queryset):
     daterange = getattr(model, "expired_daterange", 1)
     expired = model.objects.filter(**{"%s__lt" % fieldname: datetime.now() - timedelta(daterange)})
     return expired
+
+
+def is_ajax(request):
+    return request.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest"

@@ -15,7 +15,7 @@ from django.utils import timezone
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
-from pagetools.utils import import_cls
+from pagetools.utils import import_cls, is_ajax
 
 from . import settings as subs_settings
 from .models import Subscriber
@@ -86,7 +86,7 @@ def subscribe(request):
         msg = subs_settings.SUBSCRIPTION_SUCCESS_MSG % form.cleaned_data["email"]
     else:
         msg = _("An error occurred")
-    if request.is_ajax():
+    if is_ajax(request):
         return _subscribe_json(form, msg)
     level = messages.ERROR if form.errors else messages.SUCCESS
     messages.add_message(request, level, msg)

@@ -1,7 +1,8 @@
+from urllib.parse import quote
+
 from django.apps import apps
 from django.core.exceptions import MultipleObjectsReturned
 from django.urls import reverse
-from django.utils.http import urlquote
 from django.utils.translation import gettext_lazy as _
 from grappelli.dashboard.modules import DashboardModule
 
@@ -53,7 +54,7 @@ class MenuModule(DashboardModule):
                     [
                         reverse("admin:menus_menu_add"),
                         "?title=",
-                        urlquote(self.menu_title),
+                        quote(self.menu_title),
                     ]
                 ),
             }

@@ -1,5 +1,5 @@
-from django.conf.urls import include, url
 from django.contrib import admin
+from django.urls import path
 from filebrowser.sites import site
 
 from demo.urls import urlpatterns
@@ -8,5 +8,5 @@ from pagetools.sections.views import admin_pagenodesview
 
 
 urlpatterns += [
-    url(r"^$", IndexView.as_view(), name="index"),
+    path("", IndexView.as_view(), name="index"),
 ]

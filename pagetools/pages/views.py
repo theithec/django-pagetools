@@ -2,10 +2,11 @@ from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import JsonResponse
 from django.http.response import Http404
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.generic.detail import DetailView
 
 from pagetools.menus.views import SelectedMenuentriesMixin
+from pagetools.utils import is_ajax
 from pagetools.widgets.views import WidgetPagelikeMixin
 
 from .models import Page
@@ -39,14 +40,14 @@ class IncludedFormMixin:
         return self.form_invalid(form)
 
     def form_valid(self, *_args, **_kwargs):
-        if self.request.is_ajax():
+        if is_ajax(self.request):
             return JsonResponse({"data": _("Mail send")}, status=200)
 
         messages.success(self.request, _("Mail send"))
         return self.get(self.request, form=None)
 
     def form_invalid(self, form):
-        if self.request.is_ajax():
+        if is_ajax(self.request):
             return JsonResponse(form.errors, status=400)
         messages.error(self.request, form.get_error_msg())
         return self.get(self.request, form=form)
