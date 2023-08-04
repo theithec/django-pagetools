@@ -14,8 +14,6 @@ class SubscriberAdmin(admin.ModelAdmin):
     readonly_fields = ["subscribtion_date"]
     list_editable = ["is_activated"]
     list_filter = ["is_activated"]
-    change_list_template = "admin/change_list.html"
-    change_list_template = "admin/change_list_filter_sidebar.html"
 
     def get_urls(self):
         urls = super().get_urls()
@@ -41,8 +39,7 @@ class SubscriberAdmin(admin.ModelAdmin):
                     Subscriber.objects.get_or_create(email=entry, is_activated=True)
                 except ValidationError:
                     failed.append(entry)
-            if failed:
-                context["failures"] = failed
+            context["failures"] = failed
 
         return TemplateResponse(
             request,

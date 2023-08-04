@@ -1,12 +1,14 @@
 {% extends "admin/base_site.html" %}
 {% load i18n %}
-{% block content %}
 
 {% block breadcrumbs %}
 <ul>
     <li><a href="..">{% trans 'Back' %}</a></li>
 </ul>
 {% endblock %}
+{% block content %}
+
+
 <form method="POST">
     {% csrf_token %}
     <textarea name="entries">

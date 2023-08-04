@@ -1,7 +1,8 @@
 import datetime
+
+from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
-from django.test import TestCase
 
 from .models import Question
 
@@ -42,7 +43,9 @@ def create_question(question_text, days):
     in the past, positive for questions that have yet to be published).
     """
     time = timezone.now() + datetime.timedelta(days=days)
-    return Question.objects.create(question_text=question_text, pub_date=time)
+    qst = Question.objects.create(question_text=question_text, pub_date=time)
+    qst.choice_set.create(choice_text="A")
+    return qst
 
 
 class QuestionViewTests(TestCase):
@@ -60,9 +63,9 @@ class QuestionViewTests(TestCase):
         Questions with a pub_date in the past should be displayed on the
         index page.
         """
-        create_question(question_text="Past question.", days=-30)
+        question = create_question(question_text="Past question.", days=-30)
         response = self.client.get(reverse("polls:index"))
-        self.assertQuerysetEqual(response.context["latest_question_list"], ["<Question: Past question.>"])
+        self.assertQuerysetEqual(response.context["latest_question_list"], [question])
 
     def test_index_view_with_a_future_question(self):
         """
@@ -79,19 +82,24 @@ class QuestionViewTests(TestCase):
         Even if both past and future questions exist, only past questions
         should be displayed.
         """
-        create_question(question_text="Past question.", days=-30)
-        create_question(question_text="Future question.", days=30)
+        q1 = create_question(question_text="Past question.", days=-30)
+        q2 = create_question(question_text="Future question.", days=30)
         response = self.client.get(reverse("polls:index"))
-        self.assertQuerysetEqual(response.context["latest_question_list"], ["<Question: Past question.>"])
+        self.assertQuerysetEqual(response.context["latest_question_list"], [q1])
 
     def test_index_view_with_two_past_questions(self):
         """
         The questions index page may display multiple questions.
         """
-        create_question(question_text="Past question 1.", days=-30)
-        create_question(question_text="Past question 2.", days=-5)
+        q1 = create_question(question_text="Past question 1.", days=-30)
+        q2 = create_question(question_text="Past question 2.", days=-5)
         response = self.client.get(reverse("polls:index"))
         self.assertQuerysetEqual(
             response.context["latest_question_list"],
-            ["<Question: Past question 2.>", "<Question: Past question 1.>"],
+            [q2, q1],
         )
+
+    def test_vote(self):
+        q1 = create_question(question_text="Past question 1.", days=-30)
+        choice = q1.choice_set.first()
+        response = self.client.post(reverse("polls:vote", kwargs={"question_id": q1.pk}), {"choice": choice.pk})

@@ -47,18 +47,6 @@ def import_cls(name):
     return getattr(importlib.import_module(modname), clsname)
 
 
-def importer(str_or_obj):
-    """
-    If the argument is a string, import it with importlib
-    """
-
-    raise PendingDeprecationWarning("importer is bad")
-    if isinstance(str_or_obj, str):
-        modname, clsname = str_or_obj.rsplit(".", 1)
-        str_or_obj = getattr(importlib.import_module(modname), clsname)
-    return str_or_obj
-
-
 def filter_expired(queryset):
     """The model needs
     define_expired = Name of a DateTimeField
@@ -70,3 +58,7 @@ def filter_expired(queryset):
     daterange = getattr(model, "expired_daterange", 1)
     expired = model.objects.filter(**{"%s__lt" % fieldname: datetime.now() - timedelta(daterange)})
     return expired
+
+
+def is_ajax(request):
+    return request.META.get("HTTP_X_REQUESTED_WITH") == "XMLHttpRequest"

@@ -27,17 +27,14 @@ class MenuEntryManager(TreeManager, LangManager):
     def add_child(self, content_object, **kwargs):
         if not getattr(content_object, "get_absolute_url", None):
             raise ValidationError(_("MenuEntry.content_object requires get_absolute_url"))
-        kwargs["title"] = kwargs.get("title", "%s" % content_object)
+        kwargs["title"] = kwargs.get("title", str(content_object))
         kwargs["content_type"] = ContentType.objects.get_for_model(content_object, for_concrete_model=False)
         kwargs["object_id"] = content_object.pk
         kwargs["slug"] = get_menukey(content_object)
-        try:
-            created = False
-            entry, created = self.get_or_create(**kwargs)
-        except KeyError:
-            pass
+        created = False
+        entry, created = self.get_or_create(**kwargs)
         if not created:
-            raise ValidationError(_("Entry %(title)s already exists in %(parent)s"), params=kwargs)
+            raise ValidationError(_("Entry %(title)s already exists"), params=kwargs)
         return entry
 
 
@@ -62,9 +59,6 @@ class MenuEntry(MPTTModel, LangModel):
     content_object = GenericForeignKey("content_type", "object_id")
     enabled = models.BooleanField(default=False)
     objects = MenuEntryManager()
-
-    def get_entry_classname(self):
-        return get_classname(self.content_object.__class__)
 
     def get_absolute_url(self):
         return self.content_object.get_absolute_url()
