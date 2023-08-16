@@ -96,7 +96,6 @@ class BasePage(IncludedEmailForm, AuthPage, PagelikeModel):
     pagetype = models.ForeignKey(PageType, blank=True, null=True, on_delete=models.CASCADE)
 
     def get_pagetype(self, **kwargs):
-        print(4, kwargs)
         return self.pagetype
 
     def get_absolute_url(self):

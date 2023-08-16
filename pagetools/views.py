@@ -25,5 +25,5 @@ class PaginatorMixin(ListView):
             url_for_page += "&" if cpy else "?"
         else:
             url_for_page += "?"
-        context["url_for_page"] = url_for_page  # + "/a/b"
+        context["url_for_page"] = url_for_page
         return context
