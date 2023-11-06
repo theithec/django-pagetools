@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-27 19:24+0100\n"
+"POT-Creation-Date: 2023-10-24 13:48+0000\n"
 "PO-Revision-Date: 2015-03-28 13:40+0100\n"
 "Last-Translator: slart@aktivix.org <slart@aktivix.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: widgets/management/commands/mk_templatetagwidgets.py:10
+#: widgets/management/commands/mk_templatetagwidgets.py:9
 msgid "create Widgets according to settings.(PT_)TEMPLATETAG_WIDGETS "
 msgstr "erstelle Widget gemäß settings.[PT_].TEMPLATETAG_WIDGETS"
 
@@ -38,47 +38,31 @@ msgstr ""
 msgid "Simple Text Widgets"
 msgstr ""
 
-#: widgets/models.py:97
+#: widgets/models.py:98
 msgid "Pagetype"
 msgstr "Seitentyp"
 
-#: widgets/models.py:98
+#: widgets/models.py:99
 #, fuzzy
 #| msgid "Pagetype"
 msgid "Pagetypes"
 msgstr "Seitentyp"
 
-#: widgets/models.py:106
-msgid "Description"
-msgstr ""
-
-#: widgets/models.py:116
-#, fuzzy
-#| msgid "Pagetype-Areas"
-msgid "Pagetype-Description"
-msgstr "Seitentyp-Bereiche"
-
-#: widgets/models.py:117
-#, fuzzy
-#| msgid "Pagetype-Areas"
-msgid "Pagetype-Descriptions"
-msgstr "Seitentyp-Bereiche"
-
-#: widgets/models.py:148
+#: widgets/models.py:124
 msgid "Pagetype-Area"
 msgstr "Seitentyp-Bereich"
 
-#: widgets/models.py:149
+#: widgets/models.py:125
 msgid "Pagetype-Areas"
 msgstr "Seitentyp-Bereiche"
 
-#: widgets/models.py:179
+#: widgets/models.py:153
 #, fuzzy
 #| msgid "Add new Widget"
 msgid "Included widget"
 msgstr "Neues Widget hinzufügen"
 
-#: widgets/models.py:180
+#: widgets/models.py:154
 #, fuzzy
 #| msgid "Add new Widget"
 msgid "Included widgets"
@@ -95,3 +79,13 @@ msgstr "Neues Widget hinzufügen"
 #: widgets/templates/admin/widgets/typearea/change_form.html:19
 msgid "Add existing Widget"
 msgstr "Existierendes Widget hinzufügen"
+
+#, fuzzy
+#~| msgid "Pagetype-Areas"
+#~ msgid "Pagetype-Description"
+#~ msgstr "Seitentyp-Bereiche"
+
+#, fuzzy
+#~| msgid "Pagetype-Areas"
+#~ msgid "Pagetype-Descriptions"
+#~ msgstr "Seitentyp-Bereiche"

@@ -31,12 +31,12 @@ class SearchResultsView(PaginatorMixin):
         self.form = self.form_cls(request.GET)
         if self.form.is_valid():
             cleaned_data = self.form.cleaned_data
-            if any(cleaned_data.values()):
-                self.search_params = cleaned_data
-                model_pks = cleaned_data.get("models")
-                if model_pks:
-                    int_pks = [int(s) for s in model_pks]
-                    self._search_mods = [search_mods[i] for i in int_pks]
+            self.search_params = cleaned_data
+
+            model_pks = cleaned_data.get("models")
+            if model_pks:
+                int_pks = [int(s) for s in model_pks]
+                self._search_mods = [search_mods[i] for i in int_pks]
         return super().get(request)
 
     def filtered_queryset(self, mod):
@@ -86,40 +86,41 @@ class SearchResultsView(PaginatorMixin):
                 result |= set(queryset2)
         return result
 
-    def result_any(self):
-        terms = self.search_params.get("contains_any", "").split()
-        return self.result_(terms, operator.or_)
-
-    def result_all(self):
-        terms = self.search_params.get("contains_all", "").split()
-        return self.result_(terms, operator.and_)
-
     def _stripped(self, txt):
-        txt = strip_tags("%s" % txt).lower()
+        txt = strip_tags(str(txt)).lower()
         return txt
 
     def get_queryset(self, **_kwargs):
         if not self.search_params:
             return tuple()
 
-        results_any = self.result_any()
-        results_all = self.result_all()
-        results_exact = set()
-        exact = self.search_params.get("contains_exact").lower() or None
+        results = []
+        exact = self.search_params.get("contains_exact")
+        terms_all = self.search_params.get("contains_all", "").split()
+        if len(terms_all) > 1 and not exact:
+            exact = " ".join(terms_all)
+        results_exact = []
         if exact:
+            exact = exact.lower()
             for mod in self._search_mods:
                 fields = mod[1]
                 queryset = self.filtered_queryset(mod)
                 for field in fields:
-                    exact_results = [
-                        r for r in queryset if (self._convert(exact, field, mod) in self._stripped(getattr(r, field)))
-                    ]
-                    results_exact |= set(exact_results)
-        results = [f for f in (results_all, results_any, results_exact) if f]
+                    cfield = self._convert(exact, field, mod)
+                    exact_results = [r for r in queryset if cfield in self._stripped(getattr(r, field))]
+                    results_exact.extend([res for res in exact_results if res not in results_exact])
+        results.append(results_exact)
+        if terms_all:
+            results.append(self.result_(terms_all, operator.and_))
+        terms_any = self.search_params.get("contains_any", "").split()
+        if terms_any:
+            results.append(self.result_(terms_any, operator.or_))
+        results = list(filter(None, results))
         if not results:
             return tuple()
-
-        reduced = reduce(operator.and_, results)
+        reduced = []
+        for res in results:
+            reduced.extend([obj for obj in res if obj not in reduced])
         return list(reduced)
 
     def get_context_data(self, **kwargs):

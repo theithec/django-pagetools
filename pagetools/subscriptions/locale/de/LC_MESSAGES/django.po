@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-27 19:24+0100\n"
+"POT-Creation-Date: 2023-10-24 13:48+0000\n"
 "PO-Revision-Date: 2015-03-28 15:07+0100\n"
 "Last-Translator: slart@aktivix.org <slart@aktivix.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,48 +22,76 @@ msgstr ""
 msgid "E-Mail"
 msgstr ""
 
-#: subscriptions/forms.py:19
+#: subscriptions/forms.py:18
 msgid "Submit"
 msgstr ""
 
-#: subscriptions/models.py:77
+#: subscriptions/models.py:71
 msgid "News-Mail"
 msgstr ""
+
+#: subscriptions/settings.py:14
+#, python-format
+msgid "subscribed: %s"
+msgstr "Eingetragen: %s"
 
 #: subscriptions/settings.py:16
 msgid "Welcome"
 msgstr "Willkommen"
 
-#: subscriptions/templates/admin/subscriptions/subscriber/mass_subscription.html:7
+#: subscriptions/settings.py:19
+msgid "Activation successfull"
+msgstr ""
+
+#: subscriptions/settings.py:22
+msgid "activation: ok"
+msgstr "Aktivierung erfolgreich"
+
+#: subscriptions/templates/admin/subscriptions/subscriber/mass_subscription.html:6
 msgid "Back"
 msgstr ""
 
-#: subscriptions/templates/admin/subscriptions/subscriber/mass_subscription.html:14
+#: subscriptions/templates/admin/subscriptions/subscriber/mass_subscription.html:16
 msgid "One line per row"
 msgstr ""
 
-#: subscriptions/templates/admin/subscriptions/subscriber/sub_change_list.html:10
+#: subscriptions/templates/admin/subscriptions/subscriber/sub_change_list.html:11
 #, python-format
 msgid "Add %(name)s"
 msgstr ""
 
-#: subscriptions/templates/admin/subscriptions/subscriber/sub_change_list.html:12
+#: subscriptions/templates/admin/subscriptions/subscriber/sub_change_list.html:13
 #, python-format
 msgid "Add many %(name)s"
 msgstr ""
 
-#: subscriptions/templates/subscriptions/activation_msg.txt:2
-#, python-format
+#: subscriptions/templates/subscriptions/activation_msg.txt:3
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "Hi,\n"
+#| "\n"
+#| "You have received this e-mail message because you have recently "
+#| "submmitted your\n"
+#| "e-mail address to %(site_url)s.\n"
+#| "\n"
+#| "To confirm that you want to subscribe, use this link:\n"
+#| "%(activation_url)s\n"
+#| "\n"
+#| "If you do not want to subscribe, do nothing.\n"
+#| "\n"
+#| "Thank you\n"
+#| "%(site_name)s\n"
+#| "\n"
 msgid ""
 "\n"
 "Hi,\n"
 "\n"
-"You have received this e-mail message because you have recently submmitted "
-"your\n"
-"e-mail address to %(site_url)s.\n"
+"You have received this e-mail message because your have recently submitted\n"
+"to %(site_name)s.\n"
 "\n"
 "To confirm that you want to subscribe, use this link:\n"
-"%(activation_url)s\n"
+"https://%(site_domain)s/%(activate_url)s\n"
 "\n"
 "If you do not want to subscribe, do nothing.\n"
 "\n"
@@ -136,23 +164,13 @@ msgstr ""
 "https://%(site_domain)s_unsubscribe_path_\n"
 "Mehr Infos: info@%(site_domain)s\n"
 
-#: subscriptions/templates/subscriptions/subscribe_msg.html:4
-msgid "back"
-msgstr "zurück"
-
-#: subscriptions/views.py:52
+#: subscriptions/views.py:65 subscriptions/views.py:88
 msgid "An error occurred"
 msgstr "Ein Fehler ist aufgetreten"
 
-#: subscriptions/views.py:59
-#, python-format
-msgid "subscribed: %s"
-msgstr "Eingetragen: %s"
-
-#: subscriptions/views.py:113 subscriptions/views.py:116
-msgid "activation: ok"
-msgstr "Aktivierung erfolgreich"
-
-#: subscriptions/views.py:125 subscriptions/views.py:128
+#: subscriptions/views.py:122 subscriptions/views.py:123
 msgid "unsubscribe: ok"
 msgstr "Abmeldung erfolgreich"
+
+#~ msgid "back"
+#~ msgstr "zurück"

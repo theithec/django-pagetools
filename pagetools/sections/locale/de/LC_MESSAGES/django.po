@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-27 19:24+0100\n"
+"POT-Creation-Date: 2023-10-24 13:48+0000\n"
 "PO-Revision-Date: 2016-02-10 16:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,28 +18,28 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.4\n"
 
-#: sections/admin.py:35
+#: sections/admin.py:28
 msgid "Admin link"
 msgstr "Bearbeiten\t"
 
-#: sections/admin.py:98 sections/admin.py:99
+#: sections/admin.py:77 sections/admin.py:78
 msgid "Parents"
 msgstr "Eltern"
 
-#: sections/models.py:105
+#: sections/models.py:102
 #, python-format
 msgid "The slug \"%s\" for language \"%s\" is already taken"
 msgstr ""
 
-#: sections/models.py:131
+#: sections/models.py:124
 msgid "Node"
 msgstr "Knoten"
 
-#: sections/models.py:132
+#: sections/models.py:125
 msgid "Nodes"
 msgstr "Knoten"
 
-#: sections/models.py:148 sections/models.py:149
+#: sections/models.py:138 sections/models.py:139
 msgid "Included Content"
 msgstr ""
 

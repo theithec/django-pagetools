@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-27 19:24+0100\n"
+"POT-Creation-Date: 2023-10-24 13:48+0000\n"
 "PO-Revision-Date: 2015-12-20 20:24+0100\n"
 "Last-Translator: slart@aktivix.org <slart@aktivix.org>\n"
 "Language-Team: \n"
@@ -40,15 +40,15 @@ msgstr "Seite"
 msgid "ChoiceField name must be \"name: option1, option2 [...])"
 msgstr "ChoiceField Name muss sein \"name: option1, option2[, ...]\""
 
-#: pages/forms.py:50
+#: pages/forms.py:48
 msgid "Submit"
 msgstr ""
 
-#: pages/forms.py:63
+#: pages/forms.py:60
 msgid "Form submission"
 msgstr ""
 
-#: pages/forms.py:86 pages/views.py:52
+#: pages/forms.py:83 pages/forms.py:87
 msgid "An error occured"
 msgstr "Ein Fehler ist aufgetreten"
 
@@ -68,31 +68,31 @@ msgstr "E-Mail"
 msgid "Message"
 msgstr "Nachricht"
 
-#: pages/models.py:62
+#: pages/models.py:59
 msgid "Email Receivers"
 msgstr "E-Mail Empfänger"
 
-#: pages/models.py:71
+#: pages/models.py:68
 msgid "The selected form requires \"email_receivers\""
 msgstr ""
 
-#: pages/models.py:90
+#: pages/models.py:85
 msgid "Login required"
 msgstr "Anmeldung erforderlich"
 
-#: pages/models.py:99 pages/models.py:125
+#: pages/models.py:94 pages/models.py:120
 msgid "Content"
 msgstr "Inhalt"
 
-#: pages/models.py:112
+#: pages/models.py:107
 msgid "Page"
 msgstr "Seite"
 
-#: pages/models.py:113
+#: pages/models.py:108
 msgid "Pages"
 msgstr "Seiten"
 
-#: pages/models.py:126
+#: pages/models.py:121
 msgid "Visible"
 msgstr "Sichtbar"
 

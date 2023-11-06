@@ -168,7 +168,7 @@ enable=c-extension-no-member
 
 # Exceptions that will emit a warning when caught.
 overgeneral-exceptions=BaseException,
-                       Exception
+                       buildins.Exception
 
 
 [LOGGING]

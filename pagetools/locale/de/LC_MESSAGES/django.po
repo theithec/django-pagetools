@@ -7,38 +7,38 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-04 19:33+0000\n"
-"PO-Revision-Date: 2022-02-04 20:36+0100\n"
+"POT-Creation-Date: 2023-10-24 13:48+0000\n"
+"PO-Revision-Date: 2023-10-24 15:49+0200\n"
 "Last-Translator: slart@aktivix.org <slart@aktivix.org>\n"
+"Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
-"Language-Team: \n"
+"X-Generator: Poedit 3.0.1\n"
 
-#: admin.py:29
+#: admin.py:30
 msgid "Admin link"
 msgstr ""
 
-#: admin.py:39
+#: admin.py:40
 msgid "Delete expired"
 msgstr ""
 
-#: models.py:58
+#: models.py:69
 msgid "language"
 msgstr "Sprache"
 
-#: models.py:142
+#: models.py:146
 msgid "Title"
 msgstr "Titel"
 
-#: models.py:143
+#: models.py:147
 msgid "Slug"
 msgstr "Url-Schreibweise"
 
-#: models.py:145
+#: models.py:149
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -81,7 +81,7 @@ msgstr "Entwurf"
 msgid "published"
 msgstr "Veröffentlicht"
 
-#: templates/core/admin/change_form_help_text.html:4
+#: templates/pagetools/admin/change_form_help_text.html:4
 #, python-format
 msgid " %(ht)s \n"
 msgstr ""
