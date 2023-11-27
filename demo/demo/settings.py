@@ -11,6 +11,7 @@ SECRET_KEY = "#c##*+s7^=1m^p-=m&fvs8v(8p&#esxlqbq_3i+v(5)4z3ud)@"
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
+    "tinymce",
     "grappelli.dashboard",  # optional (pagetools provides two dashboard modules),
     # needs further configuration
     "grappelli",  # required
@@ -152,3 +153,17 @@ PT_MENU_TEMPLATE = "foundation6_nav_menu.html"
 PT_MAILFORM_RECEIVERS = ["nobody@localhost.localdomain"]
 INTERNAL_IPS = ["127.0.0.1"]
 from crispy_forms_foundation.settings import *
+
+TINYMCE_DEFAULT_CONFIG = {
+    "theme": "silver",
+    "height": 500,
+    "menubar": False,
+    "plugins": "link,advlist,autolink,lists,link,image,charmap,print,preview,anchor,"
+    "searchreplace,visualblocks,code,fullscreen,insertdatetime,media,table,paste,"
+    "code,help,wordcount",
+    "toolbar": "undo redo | formatselect | "
+    "bold italic backcolor | alignleft aligncenter "
+    "alignright alignjustify | bullist numlist outdent indent | "
+    "removeformat | link |help",
+}
+X_FRAME_OPTIONS = "SAMEORIGIN"

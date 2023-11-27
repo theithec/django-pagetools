@@ -8,11 +8,11 @@ from django.forms import Form
 from django.urls import reverse
 from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
+from tinymce.models import HTMLField
 
 from pagetools.models import PagelikeModel
 from pagetools.widgets.models import PageType
 
-from .settings import INDEX_VIEW_SLUG
 from .validators import validate_emails_str
 
 
@@ -91,7 +91,7 @@ class AuthPage(models.Model):
 class BasePage(IncludedEmailForm, AuthPage, PagelikeModel):
     """A basemodel for a page with one main content area"""
 
-    content = models.TextField(_("Content"))
+    content = HTMLField(_("Content"))
     objects = models.Manager()
     pagetype = models.ForeignKey(PageType, blank=True, null=True, on_delete=models.CASCADE)
 
@@ -99,8 +99,6 @@ class BasePage(IncludedEmailForm, AuthPage, PagelikeModel):
         return self.pagetype
 
     def get_absolute_url(self):
-        if self.slug == INDEX_VIEW_SLUG:
-            return "/"
         return reverse("pages:pageview", kwargs={"slug": self.slug})
 
     class Meta(PagelikeModel.Meta):
@@ -117,7 +115,7 @@ class Page(BasePage):
 class PageBlockMixin(models.Model):
     """Abstract Content blocks for pages"""
 
-    content = models.TextField(_("Content"), blank=True)
+    content = HTMLField(_("Content"), blank=True)
     visible = models.BooleanField(_("Visible"), default=True)
     # in concrete model:
     # page = models.ForeignKey(MyBlockPage)

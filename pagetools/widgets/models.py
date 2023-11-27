@@ -9,6 +9,8 @@ from django.utils.translation import gettext_lazy as _
 
 from pagetools.models import LangManager, LangModel
 from pagetools.utils import get_adminedit_url, import_cls
+from tinymce.models import  HTMLField
+
 
 from . import settings
 
@@ -46,7 +48,7 @@ class ContentWidget(BaseWidget):
     A wiget with a text area
     """
 
-    content = models.TextField(_("Content"))
+    content = HTMLField(_("Content"))
 
     def get_content(self, context, request):  # pylint: disable=unused-argument
         return self.content

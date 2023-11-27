@@ -1,24 +1,9 @@
-from django.conf import settings
 from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
 
 from .models import admin_attr_decorator
 from .utils import filter_expired, get_adminedit_url
-
-
-class TinyMCEMixin(admin.ModelAdmin):
-    """
-    Add tinymce media files
-    """
-
-    class Media:
-        url = settings.STATIC_URL
-        js = [
-            f"{url}grappelli/tinymce/jscripts/tiny_mce/tiny_mce.js",
-            f"{url}grappelli/tinymce_setup/tinymce_setup.js",
-        ]
-        """Sphinx shows this as a hardcoded string, but it is not."""
 
 
 class AdminLinkMixin:
@@ -42,9 +27,9 @@ class DeleteExpiredMixinAdmin:
         return actions
 
 
-class PagelikeAdmin(AdminLinkMixin, DeleteExpiredMixinAdmin, TinyMCEMixin):
+class PagelikeAdmin(AdminLinkMixin, DeleteExpiredMixinAdmin):
     """
-    Prepopulate slug from title and add tinymce-media
+    Prepopulate slug from title
     """
 
     prepopulated_fields = {"slug": ("title",)}

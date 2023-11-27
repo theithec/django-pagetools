@@ -64,7 +64,7 @@ dev = [
     include = ["pagetools*"]  # p
 [project]
 name = "django-pagetools"
-version = "0.9.8"
+version = "0.9.9"
 description = "Some CMS-like Feaures"
 authors = [
     {name = "Tim Heithecker", email = "tim.heithecker@gmail.com"},
@@ -83,10 +83,7 @@ dependencies = [
     "Pillow",
     "setuptools>=65.7.0",
     "crispy-forms-foundation>=0.9.0",
+    "django-tinymce>=3.6.1",
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 license = {text = "MIT"}
-
-#[build-system]
-#requires = ["pdm-pep517>=1.0.0"]
-#build-backend = "pdm.pep517.api"

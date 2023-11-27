@@ -1,12 +1,13 @@
 """Core models, managers and querysets for pagetools
 """
 # pylint: disable=arguments-differ  # because of kwargs
-from typing import Any, Protocol
+from typing import Any, ClassVar, Protocol
 
 from django.conf import settings
 from django.db import models
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
+from django_stubs_ext import StrOrPromise
 from model_utils.choices import Choices
 from model_utils.models import StatusModel, TimeStampedModel
 
@@ -14,7 +15,7 @@ from . import settings as ptsettings
 
 
 class AdminAttributes(Protocol):
-    short_description: str
+    short_description: StrOrPromise
     allow_tags: bool
     boolean: bool
     admin_order_field: str
@@ -36,6 +37,7 @@ class LangQueryset(models.QuerySet):
         if self.use_lang and not kwargs.pop("skip_lang", False):
             if lang is False:
                 lang = get_language() or ""
+            assert isinstance(lang, str)
             kwargs.update(lang__in=(lang, lang.split("-")[0], ""))
         return self.filter(**kwargs)
 
@@ -61,7 +63,7 @@ class LangModel(models.Model):
         empty lang is saved as "".
     """
 
-    objects = models.Manager()
+    objects: ClassVar[models.Manager] = models.Manager()
     lang = models.CharField(
         max_length=20,
         choices=settings.LANGUAGES,
@@ -119,7 +121,7 @@ class PublishableLangModel(LangModel, StatusModel):
 
     _translated_choices = [(slug, _(name)) for (slug, name) in ptsettings.STATUS_CHOICES]
     STATUS = Choices(*_translated_choices)
-    public = PublishableLangManager()
+    public: ClassVar[PublishableLangManager] = PublishableLangManager()
 
     @admin_attr_decorator
     def _is_published(self):

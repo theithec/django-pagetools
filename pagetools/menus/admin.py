@@ -9,7 +9,6 @@ from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
-from pagetools.admin import TinyMCEMixin
 from pagetools.utils import get_adminadd_url, get_classname
 
 from .apps import MenusConfig
@@ -75,7 +74,7 @@ class MenuChangeForm(forms.ModelForm):
         }
 
 
-class MenuAdmin(TinyMCEMixin, admin.ModelAdmin):
+class MenuAdmin(admin.ModelAdmin):
     save_as = True
     list_display = ("title", "lang")
 
@@ -206,8 +205,8 @@ class EntrieableForm(forms.ModelForm):
                 self.existing_menuentries.append(entry)
         return cleaned_data
 
-    class Media(TinyMCEMixin.Media):
-        js = TinyMCEMixin.Media.js + [settings.STATIC_URL + "pagetools/admin/js/pre_sel_menu.js"]
+    class Media:
+        js = [settings.STATIC_URL + "pagetools/admin/js/pre_sel_menu.js"]
 
 
 class EntrieableAdmin(admin.ModelAdmin):

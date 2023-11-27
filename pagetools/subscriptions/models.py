@@ -12,6 +12,7 @@ from django.db.utils import ProgrammingError
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from tinymce.models import  HTMLField
 
 from pagetools.models import LangManager, LangModel
 from pagetools.utils import import_cls
@@ -65,7 +66,7 @@ class QueuedEmail(LangModel):
     modifydate = models.DateTimeField("Last modified on", auto_now_add=True, blank=True, editable=False)
     senddate = models.DateTimeField("Send after", auto_now_add=True, blank=True, editable=True)
     subject = models.CharField(verbose_name="Subject", default="", unique=False, blank=True, max_length=255)
-    body = models.TextField(verbose_name="Body", default="", unique=False, blank=True)
+    body = HTMLField(verbose_name="Body", default="", unique=False, blank=True)
 
     class Meta:
         verbose_name = _("News-Mail")
