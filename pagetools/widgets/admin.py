@@ -3,7 +3,6 @@ from django.contrib.contenttypes.models import ContentType
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse
 
-from pagetools.admin import TinyMCEMixin
 from pagetools.utils import get_classname, get_perm_str
 
 from .models import (
@@ -126,7 +125,7 @@ class PageTypeAdmin(admin.ModelAdmin):
     model = PageType
 
 
-class ContentWidgetAdmin(BaseWidgetAdmin, TinyMCEMixin):
+class ContentWidgetAdmin(BaseWidgetAdmin):
     pass
 
 
