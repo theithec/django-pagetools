@@ -84,6 +84,7 @@ dependencies = [
     "setuptools>=65.7.0",
     "crispy-forms-foundation>=0.9.0",
     "django-tinymce>=3.6.1",
+    "django-stubs>=4.2.6",
 ]
 requires-python = ">=3.10"
 license = {text = "MIT"}

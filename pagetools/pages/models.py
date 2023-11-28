@@ -10,7 +10,7 @@ from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
 from tinymce.models import HTMLField
 
-from pagetools.models import PagelikeModel
+from pagetools.models import PagelikeModel, PublishableLangManager
 from pagetools.widgets.models import PageType
 
 from .validators import validate_emails_str
@@ -109,7 +109,7 @@ class BasePage(IncludedEmailForm, AuthPage, PagelikeModel):
 
 
 class Page(BasePage):
-    objects = models.Manager()
+    objects = PublishableLangManager()
 
 
 class PageBlockMixin(models.Model):

@@ -16,7 +16,7 @@ from .forms import AdvSearchForm
 
 
 class SearchResultsView(PaginatorMixin):
-    template_name = "search_results.html"
+    template_name = "search/search_results.html"
     context_object_name = "results"
     search_params: Dict[str, Any] = {}
     _search_mods: List = search_mods[:]
