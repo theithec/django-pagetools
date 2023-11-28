@@ -70,7 +70,7 @@ authors = [
     {name = "Tim Heithecker", email = "tim.heithecker@gmail.com"},
 ]
 dependencies = [
-    "Django==4.2.3",
+    "Django==4.2.7",
     "django-crispy-forms",
     "django-grappelli",
     "beautifulsoup4",
