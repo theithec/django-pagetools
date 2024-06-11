@@ -33,6 +33,7 @@ exclude = [
 django_settings_module = "tests.settings"
 
 [tool.pdm]
+distribution = false
 [[tool.pdm.source]]
 url = "https://pypi.org/simple"
 verify_ssl = true
@@ -64,13 +65,13 @@ dev = [
     include = ["pagetools*"]  # p
 [project]
 name = "django-pagetools"
-version = "0.9.9"
+version = "0.9.11"
 description = "Some CMS-like Feaures"
 authors = [
     {name = "Tim Heithecker", email = "tim.heithecker@gmail.com"},
 ]
 dependencies = [
-    "Django==4.2.3",
+    "Django==4.2.*",
     "django-crispy-forms",
     "django-grappelli",
     "beautifulsoup4",
@@ -88,3 +89,4 @@ dependencies = [
 ]
 requires-python = ">=3.10"
 license = {text = "MIT"}
+readme = "README.md"
