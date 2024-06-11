@@ -89,4 +89,4 @@ dependencies = [
 ]
 requires-python = ">=3.10"
 license = {text = "MIT"}
-readme = "README.md"
+readme = "README.rst"
