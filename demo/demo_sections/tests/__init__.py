@@ -4,6 +4,7 @@ from demo_sections.models import Article, Section, SectionList
 from django.conf import settings
 from django.test import TestCase
 from filebrowser.base import FileObject
+from filebrowser.sites import site
 
 from pagetools.sections.models import PageNodePos
 
