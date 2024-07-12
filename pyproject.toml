@@ -48,20 +48,19 @@ cov = "coverage run runtests.py"
 
 [tool.pdm.dev-dependencies]
 dev = [
-    "invoke",
-    "django-debug-toolbar",
-    "sphinx-rtd-theme",
     "black",
-    "pylint",
-    "flake8",
-    "coverage",
-    "pylint-django",
-    "pudb",
-    "sphinx",
-    "tox>=4.2.8",
     "build>=0.10.0",
-    "django-stubs>=4.2.6",
+    "coverage",
+    "django-debug-toolbar",
+    "flake8",
+    "invoke",
+    "pudb",
+    "pylint",
+    "pylint-django",
     "setuptools>=65.7.0",
+    "sphinx",
+    "sphinx-rtd-theme",
+    "tox>=4.2.8",
 ]
 [tool.setuptools.packages.find]
     include = ["pagetools*"]  # p
@@ -75,18 +74,19 @@ authors = [
 ]
 dependencies = [
     "Django==4.2.*",
-    "django-crispy-forms",
-    "django-grappelli",
+    "Pillow",
     "beautifulsoup4",
+    "crispy-forms-foundation>=0.9.0",
+    "django-crispy-forms",
     "django-filebrowser",
+    "django-grappelli",
+    "django-model-utils",
     "django-mptt",
     "django-sekizai",
-    "django-model-utils",
     "django-simple-captcha",
-    "djangoajax",
-    "Pillow",
-    "crispy-forms-foundation>=0.9.0",
+    "django-stubs>=4.2.6",
     "django-tinymce>=3.6.1",
+    "djangoajax",
 ]
 requires-python = ">=3.10"
 license = {text = "MIT"}
