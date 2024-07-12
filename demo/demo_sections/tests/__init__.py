@@ -1,7 +1,10 @@
+import os
+
 from demo_sections.models import Article, Section, SectionList
 from django.conf import settings
 from django.test import TestCase
 from filebrowser.base import FileObject
+from filebrowser.sites import site
 
 from pagetools.sections.models import PageNodePos
 
@@ -22,7 +25,7 @@ class SectionsDataTestCase(TestCase):
                 slug="slug%s" % i,
                 content="Text%s" % i,
                 teaser="Teaser%s" % i,
-                image=FileObject("%s/foo.jpg" % settings.MEDIA_ROOT),
+                image=FileObject(os.path.join(site.directory, "foo.jpg")),  # % settings.MEDIA_ROOT),
                 status="published",
             )
             self.articles.append(article)
