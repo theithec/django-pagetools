@@ -2,8 +2,9 @@ from django.contrib import admin
 from django.contrib.contenttypes.models import ContentType
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse
+from django.utils.safestring import mark_safe
 
-from pagetools.utils import get_classname, get_perm_str
+from pagetools.utils import get_adminedit_url, get_classname, get_perm_str
 
 from .models import (
     BaseWidget,
@@ -92,6 +93,10 @@ class TypeAreaAdmin(admin.ModelAdmin):
 
 class BaseWidgetAdmin(admin.ModelAdmin):
     save_as = True
+    list_display = ["name", "title", "used_by"]
+    readonly_fields = [
+        "used_by",
+    ]
 
     def save_model(self, request, obj, form, change):
         obj.user = request.user
@@ -119,6 +124,16 @@ class BaseWidgetAdmin(admin.ModelAdmin):
 
     def response_change(self, request, obj, *args, **kwargs):
         return self._redirect("change", request, obj, *args, **kwargs)
+
+    def used_by(self, obj):
+        return mark_safe(
+            ", ".join(
+                [
+                    f'<a href="{get_adminedit_url(wia.typearea)}">{wia.typearea}</a>'
+                    for wia in obj.adapter.select_related("typearea").filter(enabled=True)
+                ]
+            )
+        )
 
 
 class PageTypeAdmin(admin.ModelAdmin):
