@@ -60,12 +60,15 @@ dev = [
     "sphinx",
     "tox>=4.2.8",
     "build>=0.10.0",
+    "django-stubs>=4.2.6",
+    "setuptools>=65.7.0",
 ]
 [tool.setuptools.packages.find]
     include = ["pagetools*"]  # p
+
 [project]
 name = "django-pagetools"
-version = "0.9.11"
+version = "0.9.13"
 description = "Some CMS-like Feaures"
 authors = [
     {name = "Tim Heithecker", email = "tim.heithecker@gmail.com"},
@@ -82,10 +85,8 @@ dependencies = [
     "django-simple-captcha",
     "djangoajax",
     "Pillow",
-    "setuptools>=65.7.0",
     "crispy-forms-foundation>=0.9.0",
     "django-tinymce>=3.6.1",
-    "django-stubs>=4.2.6",
 ]
 requires-python = ">=3.10"
 license = {text = "MIT"}
