@@ -34,19 +34,21 @@ jobs:
         #     # app-dir: ~/project/package-directory/  # If you're requirements.txt isn't in the root directory.
         #     # pip-dependency-file: test-requirements.txt  # if you have a different name for your requirements file, maybe one that combines your runtime and test requirements.
 
-
       - run: sudo apt update
       - run: sudo apt install libjpeg-dev zlib1g-dev npm
-      - run: pip install Django==3.2 coverage build
       - run:
           name: Install
-          command: pip install .
+          command: |
+            python -m pip install --upgrade pip
+            python -m pip install pdm
+            python -m pdm install --prod
+            python -m pdm add -dG build
       - run:
           name: Run tests
           command: |
-            coverage run runtests.py
+            python -m pdm run coverage run runtests.py
             mkdir -p coverage
-            coverage lcov -o coverage/lcov.info
+            python -m pdm run coverage lcov -o coverage/lcov.info
             # coverage report
             # coverage html  # open htmlcov/index.html in a browser
             # - store_artifacts:

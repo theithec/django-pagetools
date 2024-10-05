@@ -1,4 +1,5 @@
 """Models (mostly) for pages."""
+
 from typing import Dict
 
 from django.apps import apps

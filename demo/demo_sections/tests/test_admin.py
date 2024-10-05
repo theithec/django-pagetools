@@ -26,7 +26,6 @@ class AdminTest(SectionsDataTestCase):
 
     def test_adminnodeview(self):
         pagetools.sections.dashboard_modules.PageNodesModule.model = SectionList
-        #  print("ALL", SectionList.objects.all())
         response = self.client.get(
             "/adminnodes/%s/" % self.sectionlist1.slug,
             HTTP_X_REQUESTED_WITH="XMLHttpRequest",

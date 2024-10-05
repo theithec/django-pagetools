@@ -1,5 +1,6 @@
 """Core models, managers and querysets for pagetools
 """
+
 # pylint: disable=arguments-differ  # because of kwargs
 from typing import Any, ClassVar, Protocol
 

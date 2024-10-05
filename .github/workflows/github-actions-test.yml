@@ -7,7 +7,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: ["3.10", 3.12]
+        python-version: ["3.11", 3.12]
 
     steps:
     - uses: actions/checkout@v4
@@ -18,7 +18,9 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -e .
+        python -m pip install pdm
+        python -m pdm install --prod
+        python -m pdm add -dG build
     - name: Run Tests
       run: |
         python runtests.py

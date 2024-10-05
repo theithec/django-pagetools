@@ -1,3 +1,5 @@
+from typing import Sequence
+from django.db import models
 from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
@@ -31,8 +33,8 @@ class PagelikeAdmin(AdminLinkMixin, DeleteExpiredMixinAdmin):
     """
     Prepopulate slug from title
     """
-
-    prepopulated_fields = {"slug": ("title",)}
+    model: models.Model
+    prepopulated_fields: dict[str, Sequence[str]] = {"slug": ["title",]}
 
 
 def delete_expired_action(modeladmin, request, queryset):

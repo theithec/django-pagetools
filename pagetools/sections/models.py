@@ -38,6 +38,7 @@ class TypeMixin(models.Model):
 
 
 class PageNode(PagelikeModel):
+    positioned_content: models.ForeignObjectRel
     classes = models.CharField("Classes", max_length=512, blank=True, null=True)
     content_type_pk = models.ForeignKey(
         ContentType,
@@ -47,7 +48,7 @@ class PageNode(PagelikeModel):
         db_column="content_type_pk",
     )
     content_object = GenericForeignKey("content_type_pk", "id")
-    in_nodes = models.ManyToManyField(
+    in_nodes: models.ManyToManyField = models.ManyToManyField(
         "self",
         through="PageNodePos",
         related_name="positioned_content",

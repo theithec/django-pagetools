@@ -30,5 +30,4 @@ demo/media/foo_*
 docs/_build
 docs/build
 htmlcov
-pdm.lock
 tasks.py

@@ -1,6 +1,6 @@
 [tool.black]
 line-length = 120
-target-version = ['py310']
+target-version = ['py311']
 include = '\.pyi?$'
 exclude = '''
 (
@@ -44,24 +44,38 @@ name = "pypi"
 _.env_file = ".env"
 lint = "pylint pagetools demo -vvv"
 cov = "coverage run runtests.py"
-#start = "source ./.venv/bin/acivate && source .env"
 
 [tool.pdm.dev-dependencies]
-dev = [
-    "black",
+build = [
     "build>=0.10.0",
     "coverage",
-    "django-debug-toolbar",
-    "flake8",
-    "invoke",
-    "pudb",
-    "pylint",
-    "pylint-django",
-    "setuptools>=65.7.0",
     "sphinx",
     "sphinx-rtd-theme",
-    "tox>=4.2.8",
 ]
+
+dev = [
+    "django-debug-toolbar",
+    "ipython",
+    "pudb",
+    "tox>=4.2.8",
+    "types-requests>=2.32.0.20240914",
+
+]
+lint = [
+    "black",
+    "flake8>=7.1.1",
+    "isort==5.*",
+    "mypy-extensions>=1.0.0",
+    "mypy>=1.11.2",
+    "pylint-django>=2.5.5",
+    "pylint-venv>=3.0.3",
+    "pylint>=3.3.1",
+    "pylsp-mypy>=0.6.9",
+    "python-lsp-black>=2.0.0",
+    "python-lsp-isort>=0.1",
+    "python-lsp-server>=1.12.0",
+]
+
 [tool.setuptools.packages.find]
     include = ["pagetools*"]  # p
 
@@ -87,8 +101,155 @@ dependencies = [
     "django-stubs>=4.2.6",
     "django-tinymce>=3.6.1",
     "djangoajax",
-    "setuptools",
+    "setuptools>=65.7.0",
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 license = {text = "MIT"}
 readme = "README.rst"
+
+
+[tool.pylint.main]
+
+# Files or directories to be skipped. They should be base names, not paths.
+ignore = ["CVS", "migrations"]
+
+# Python code to execute, usually for sys.path manipulation such as
+# pygtk.require().
+init-hook = '''
+import pylint_venv
+pylint_venv.inithook(force_venv_activation=True,quiet=True)
+'''
+
+# List of plugins (as comma separated values of python module names) to load,
+# usually to register additional checkers.
+load-plugins = ["pylint_django"]
+
+# Pickle collected data for later comparisons.
+persistent = true
+
+# Minimum Python version to use for version dependent checks. Will default to the
+# version used to run pylint.
+py-version = "3.11"
+
+
+[tool.pylint.basic]
+
+# Good variable names which should always be accepted, separated by a comma.
+good-names = ["i", "j", "k", "ex", "Run", "_", "to", "q1", "q2"]
+
+# List of decorators that produce properties, such as abc.abstractproperty. Add
+# to this list to register other decorators that produce valid properties. These
+# decorators are taken in consideration only for invalid-name.
+property-classes = ["abc.abstractproperty"]
+
+[tool.pylint.design]
+# List of regular expressions of class ancestor names to ignore when counting
+# public methods (see R0903)
+exclude-too-few-public-methods = ["Protocol", "Mixin"]
+
+# Maximum number of arguments for function / method.
+max-args = 7
+
+# Maximum number of parents for a class (see R0901).
+max-parents = 8
+
+# Maximum number of positional arguments for function / method.
+max-positional-arguments = 7
+
+[tool.pylint.exceptions]
+# Exceptions that will emit a warning when caught.
+overgeneral-exceptions = ["buildins.BaseException", "buildins.Exception"]
+
+[tool.pylint.format]
+# Expected format of line ending, e.g. empty (any line ending), LF or CRLF.
+# expected-line-ending-format =
+
+# Regexp for a line that is allowed to be longer than the limit.
+ignore-long-lines = "^\\s*(# )?<?https?://\\S+>?$"
+
+# Maximum number of characters on a single line.
+max-line-length = 120
+
+[tool.pylint.imports]
+# List of modules that can be imported at any level, not just the top level one.
+# allow-any-import-level =
+
+# Allow explicit reexports by alias from a package __init__.
+# allow-reexport-from-package =
+
+# Allow wildcard imports from modules that define __all__.
+# allow-wildcard-with-all =
+
+# Deprecated modules which should not be used, separated by a comma.
+# deprecated-modules =
+
+# Output a graph (.gv or any supported image format) of external dependencies to
+# the given file (report RP0402 must not be disabled).
+# ext-import-graph =
+
+# Output a graph (.gv or any supported image format) of all (i.e. internal and
+# external) dependencies to the given file (report RP0402 must not be disabled).
+# import-graph =
+
+# Output a graph (.gv or any supported image format) of internal dependencies to
+# the given file (report RP0402 must not be disabled).
+# int-import-graph =
+
+# Force import order to recognize a module as part of the standard compatibility
+# libraries.
+# known-standard-library =
+
+# Force import order to recognize a module as part of a third party library.
+known-third-party = ["enchant"]
+
+# Couples of modules and preferred modules, separated by a comma.
+# preferred-modules =
+
+[tool.pylint.logging]
+# Disable the message, report, category or checker with the given id(s). You can
+# either give multiple identifiers separated by comma (,) or put this option
+# multiple times (only on the command line, not in the configuration file where
+# it should appear only once). You can also use "--disable=all" to disable
+# everything first and then re-enable specific checks. For example, if you want
+# to run only the similarities checker, you can use "--disable=all
+# --enable=similarities". If you want to run only the classes checker, but have
+# no Warning level messages displayed, use "--disable=all --enable=classes
+# --disable=W".
+disable = ["raw-checker-failed", "bad-inline-option", "locally-disabled", "file-ignored", "suppressed-message", "useless-suppression", "deprecated-pragma", "use-symbolic-message-instead", "use-implicit-booleaness-not-comparison-to-string", "use-implicit-booleaness-not-comparison-to-zero", "missing-function-docstring", "missing-module-docstring", "missing-class-docstring", "consider-using-f-string", "import-outside-toplevel", "too-few-public-methods"]
+
+
+[tool.pylint.refactoring]
+# Maximum number of nested blocks for function / method body
+max-nested-blocks = 5
+
+# Complete name of functions that never returns. When checking for inconsistent-
+# return-statements if a never returning function is called then it will be
+# considered as an explicit return statement and no message will be printed.
+never-returning-functions = ["sys.exit", "argparse.parse_error"]
+
+# Let 'consider-using-join' be raised when the separator to join on would be non-
+# empty (resulting in expected fixes of the type: ``"- " + " - ".join(items)``)
+suggest-join-with-non-empty-separator = true
+
+[tool.pylint.reports]
+# Python expression which should return a score less than or equal to 10. You
+# have access to the variables 'fatal', 'error', 'warning', 'refactor',
+# 'convention', and 'info' which contain the number of messages in each category,
+# as well as 'statement' which is the total number of statements analyzed. This
+# score is used by the global evaluation report (RP0004).
+evaluation = "max(0, 0 if fatal else 10.0 - ((float(5 * error + warning + refactor + convention) / statement) * 10))"
+
+# Template used to display messages. This is a python new-style format string
+# used to format the message information. See doc for all details.
+# msg-template =
+
+# Set the output format. Available formats are: text, parseable, colorized, json2
+# (improved json format), json (old json format) and msvs (visual studio). You
+# can also give a reporter class, e.g. mypackage.mymodule.MyReporterClass.
+# output-format =
+
+# Tells whether to display a full report or only the messages.
+# reports =
+
+# Activate the evaluation score.
+score = true
