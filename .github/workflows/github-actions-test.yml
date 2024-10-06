@@ -23,4 +23,4 @@ jobs:
         python -m pdm add -dG build
     - name: Run Tests
       run: |
-        python runtests.py
+        pdm run python runtests.py
