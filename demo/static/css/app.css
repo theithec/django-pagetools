@@ -6,3 +6,9 @@ div.unpublished, div.unpublished>div.columns>article
 div.pagination a{
     display: inline;
 }
+div.pagination a.is_selected{
+    font-weight: bold;
+}
+div.pagination a.hidden{
+    visibility: hidden;
+}

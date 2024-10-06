@@ -81,7 +81,7 @@ lint = [
 
 [project]
 name = "django-pagetools"
-version = "0.9.14"
+version = "0.9.15"
 description = "Some CMS-like Feaures"
 authors = [
     {name = "Tim Heithecker", email = "tim.heithecker@gmail.com"},
