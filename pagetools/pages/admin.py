@@ -8,7 +8,7 @@ from pagetools.menus.utils import entrieable_auto_populated
 from pagetools.pages.models import Page  # , DynFormField, PageDynFormField
 
 
-class BasePageAdmin(EntrieableAdmin, PagelikeAdmin):
+class BasePageAdmin(PagelikeAdmin, EntrieableAdmin):  # type: ignore
     readonly_fields = ("status_changed",)
     list_display = ("title", "lang", "slug", "status")
     list_filter = ("lang", "status")
