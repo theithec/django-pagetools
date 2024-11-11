@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 from filebrowser.fields import FileBrowseField
 
-from pagetools.sections.models import TypeMixin, PageNode, PageNodeManager
+from pagetools.sections.models import PageNode, PageNodeManager, TypeMixin
 
 
 class Article(PageNode):

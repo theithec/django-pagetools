@@ -4,7 +4,7 @@
 <h1>Articles</h1>
 <ul>
 {% for article in article_list %}
-<li>{{ article }}</li>
+<li><a href="{{ article.get_absolute_url  }}">{{ article.title }}</a></li>
 {% endfor %}
 </ul>
 {{ block.super }}

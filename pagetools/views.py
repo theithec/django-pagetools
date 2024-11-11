@@ -11,21 +11,16 @@ class PaginatorMixin(ListView):
     """
 
     paginate_by = getattr(settings, "PAGINATE_BY", 10)
-    num_pagelinks = getattr(settings, "PAGINATION_NUM_PAGELINKS", 5)
+    on_each_side = getattr(settings, "PAGINATION_ON_EACH_SIDE", 2)
+    on_ends = getattr(settings, "PAGINATION_ON_ENDS", 1)
 
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         page: Page = context["page_obj"]
         paginator: Paginator = page.paginator
-        halfrange = self.num_pagelinks // 2
-        _from = max(0, page.number - halfrange - 1)
-        if page.number > paginator.num_pages - halfrange:
-            _from = max(0, _from - (halfrange - (paginator.num_pages - page.number)))
-        until = halfrange + page.number
-        if page.number <= halfrange:
-            until += halfrange - page.number + 1
-        context["curr_page_range"] = paginator.page_range[_from:until]
-
+        context["curr_page_range"] = paginator.get_elided_page_range(
+            page.number, on_each_side=self.on_each_side, on_ends=self.on_ends
+        )
         url_for_page = self.request.get_full_path()
         if cpy := self.request.GET.copy():
             if cpy.pop("page", None):

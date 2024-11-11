@@ -1,17 +1,19 @@
 {% extends "base.html" %} {% load i18n %}
 {% block main %}
 {% if is_paginated %}
-    <div class="pagination">
+<div class="pagination">
     <span class="page-links">
-    	<a {% if not page_obj.has_previous %} class="hidden"{% endif %} href="{{ url_for_page }}page=1">&lt;&lt;</a>
-    	<a {% if not page_obj.has_previous %} class="hidden"{% endif %} href="{{ url_for_page }}page={% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% endif %}">&lt;</a>
-    {% for nr in curr_page_range %}
-        <a	class="paginator-link {% if nr == page_obj.number %}is_selected{% endif %}"
-           href="{{url_for_page}}page={{ nr }}"> {{ nr }} </a>
-    {% endfor %}
-    	<a {% if not page_obj.has_next %} class="hidden"{% endif %}href="{{ url_for_page }}page={% if page_obj.has_next %}{{ page_obj.next_page_number }}{% endif %}">&gt;</a>
-    	<a {% if not page_obj.has_next %} class="hidden"{% endif %}href="{{ url_for_page }}page={% if page_obj.has_next %}{{ page_obj.paginator.num_pages }}{% endif %}">&gt;&gt;</a>
+        <a {% if not page_obj.has_previous %} class="hidden"{% endif %} href="{{ url_for_page }}page={% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% endif %}">&lt;</a>
+        {% for  part in  curr_page_range %}
+        {% if part == "..." %}
+        {{ part }}
+        {% else %}
+        <a	class="paginator-link{% if part == page_obj.number %} is_selected{% endif %}"
+            href="{{url_for_page}}page={{ part }}">{{ part }}</a>
+        {% endif %}
+        {% endfor %}
+        <a {% if not page_obj.has_next %} class="hidden"{% endif %}href="{{ url_for_page }}page={% if page_obj.has_next %}{{ page_obj.next_page_number }}{% endif %}">&gt;</a>
     </span>
-    </div>
+</div>
 {% endif %}
 {% endblock main %}

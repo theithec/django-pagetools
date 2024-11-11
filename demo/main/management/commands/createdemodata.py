@@ -7,7 +7,7 @@ from django.core import management
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from filebrowser.base import FileObject
-from polls.models import Choice, Question  # noqa
+from polls.models import Question  # noqa
 
 from pagetools.menus.models import AutoPopulated, Menu, ViewLink  # noqa
 from pagetools.pages.models import Page  # noqa
@@ -106,6 +106,8 @@ def create():
 
     vl_polls = ViewLink.objects.create(title="Polls", name="polls:index")
     menu.children.add_child(vl_polls, enabled=True, title="Polls")
+    articles_viewlink = ViewLink.objects.create(title="Articles", name="articles")
+    menu.children.add_child(articles_viewlink, enabled=True, title="Paginated Articles")
 
 
 class Command(BaseCommand):

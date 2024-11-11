@@ -1,12 +1,11 @@
+from demo_sections.views import ArticleListView
 from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 from filebrowser.sites import site
-from main.views import ArticleListView
 
 from pagetools.pages.views import IndexView
 from pagetools.sections.views import admin_pagenodesview
-
 
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),  # Optional
