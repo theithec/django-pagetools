@@ -1,0 +1,11 @@
+{
+	"devDependencies": {
+		"cypress": "^13.15.0",
+		"start-server-and-test": "^2.0.8"
+	},
+	"scripts": {
+		"start": "pdm run ./demo/manage.py createdemodata && pdm run ./demo/manage.py runserver",
+		"cy:run": "cypress run",
+		"test": "start-server-and-test start http://127.0.0.1:8000 cy:run"
+	}
+}

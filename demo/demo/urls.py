@@ -29,7 +29,7 @@ urlpatterns = [
         include("pagetools.subscriptions.urls", namespace="subscriptions"),
     ),
 ]
-if settings.DEBUG:
+if settings.DEBUG and "debug_toolbar" in settings.INSTALLED_APPS:
     import debug_toolbar
 
     urlpatterns = [

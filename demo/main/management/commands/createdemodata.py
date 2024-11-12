@@ -88,7 +88,7 @@ def create():
     sl1 = SectionList.objects.create(title="Sectionlist1", slug="sectionlist1", status=STATUS_PUBLISHED)
     menu.children.add_child(sl1, enabled=True, title="Sections")
     s1 = Section.objects.create(title="Section1", slug="section1", status=STATUS_PUBLISHED)
-    pp = s1.pagenodepos_set.create(position=1, content=s1, owner=sl1)
+    s1.pagenodepos_set.create(position=1, content=s1, owner=sl1)
 
     for i in range(40):
         kwargs = {}
@@ -102,7 +102,7 @@ def create():
             slug="article%s" % i,
             **kwargs,
         )
-        pp = a.pagenodepos_set.create(position=i, content=a, owner=s1)
+        a.pagenodepos_set.create(position=i, content=a, owner=s1)
 
     vl_polls = ViewLink.objects.create(title="Polls", name="polls:index")
     menu.children.add_child(vl_polls, enabled=True, title="Polls")
