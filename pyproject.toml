@@ -32,6 +32,10 @@ exclude = [
 [tool.django-stubs]
 django_settings_module = "tests.settings"
 
+[tool.setuptools.packages.find]
+    include = ["pagetools*"]  # p
+
+
 [tool.pdm]
 distribution = false
 [[tool.pdm.source]]
@@ -59,7 +63,7 @@ dev = [
     "pudb",
     "tox>=4.2.8",
     "types-requests>=2.32.0.20240914",
-
+    "python-lsp-server>=1.12.0",
 ]
 lint = [
     "black",
@@ -75,9 +79,6 @@ lint = [
     "python-lsp-isort>=0.1",
     "python-lsp-server>=1.12.0",
 ]
-
-[tool.setuptools.packages.find]
-    include = ["pagetools*"]  # p
 
 [project]
 name = "django-pagetools"
