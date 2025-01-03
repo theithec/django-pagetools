@@ -3,7 +3,7 @@ name: Pagetools CI
 on: [push]
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       max-parallel: 4
       matrix:
@@ -13,13 +13,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name:  apt update
-      run: apt update
     - uses: tecolicom/actions-use-apt-tools@v1
       with:
-        tools: libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+        tools: libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2t64 libxtst6 xauth xvfb
         method: timestamp
-        key: key-${{ matrix.python-version }}
+        key: key-${{ matrix.python-version }}-2
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
@@ -34,11 +32,6 @@ jobs:
       run: |
         pdm run python runtests.py
     - uses: actions/setup-node@v4
-        #- name: Install celerey dependencies
-        #  if: steps.cache.outputs.cache-hit != 'true'
-        #  run: | 
-        #    apt update
-        #    apt install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2 libxtst6 xauth xvfb
     - name: Install celery
       run: | 
         npm i --save-dev
