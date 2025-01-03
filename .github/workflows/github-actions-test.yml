@@ -18,7 +18,7 @@ jobs:
     - uses: tecolicom/actions-use-apt-tools@v1
       with:
         tools: libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2 libxtst6 xauth xvfb
-        # method: timestamp
+        method: timestamp
         key: key-${{ matrix.python-version }}
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
