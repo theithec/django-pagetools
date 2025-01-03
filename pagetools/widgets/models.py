@@ -3,14 +3,12 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
+from tinymce.models import HTMLField
 
 from pagetools.models import LangManager, LangModel
-from pagetools.utils import get_adminedit_url, import_cls
-from tinymce.models import  HTMLField
-
+from pagetools.utils import import_cls
 
 from . import settings
 
@@ -37,7 +35,7 @@ class BaseWidget(models.Model):
         raise NotImplementedError()
 
     def __str__(self):
-        return "%s:%s" % (self.name, self.title)
+        return str(self.title or self.name)
 
     class Meta:
         abstract = True
@@ -85,7 +83,9 @@ class TemplateTagWidget(BaseWidget):
             return self.templatetag_instance.render(context)
 
         return None
-
+    class Meta:
+        verbose_name = _("Auto generated widget")
+        verbose_name_plural = _("Auto generated widgets")
 
 class PageType(models.Model):
     """A key that defines which additional context should be added to the context."""
@@ -94,7 +94,7 @@ class PageType(models.Model):
     parent = models.ForeignKey("self", blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
     class Meta:
         verbose_name = _("Pagetype")
@@ -106,7 +106,7 @@ class TypeArea(LangModel):
 
     area = models.CharField(max_length=64, choices=sorted(settings.AREAS))
     pagetype = models.ForeignKey(PageType, on_delete=models.CASCADE)
-    objects = LangManager()
+    objects: LangManager = LangManager()
 
     def clean(self):
         super().clean()
@@ -143,10 +143,7 @@ class WidgetInArea(models.Model):
     def get_content(self, contextdict, request):
         return self.content_object.render(contextdict, request)
 
-    def adminedit_url(self):
-        obj = self.content_object
-        return format_html('<a href="{0}">{1}</a>', get_adminedit_url(obj), obj)
-
+    
     def __str__(self):
         return "%s@%s" % (self.content_object, self.typearea.pagetype)
 

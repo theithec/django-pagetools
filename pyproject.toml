@@ -1,3 +1,56 @@
+[project]
+name = "django-pagetools"
+version = "0.9.16"
+description = "Some CMS-like Feaures"
+authors = [{ name = "Tim Heithecker", email = "tim.heithecker@gmail.com" }]
+dependencies = [
+    "Django==4.2.*",
+    "Pillow",
+    "beautifulsoup4",
+    "crispy-forms-foundation>=1.0.2",
+    "django-crispy-forms",
+    "django-filebrowser",
+    "django-grappelli",
+    "django-model-utils",
+    "django-mptt",
+    "django-sekizai",
+    "django-simple-captcha",
+    "django-stubs>=4.2.6",
+    "django-tinymce>=3.6.1",
+    "djangoajax",
+    "setuptools>=65.7.0",
+]
+
+lint = [
+    "black",
+    "flake8>=7.1.1",
+    "isort==5.*",
+    "mypy-extensions>=1.0.0",
+    "mypy>=1.11.2",
+    "pylint-django>=2.5.5",
+    "pylint>=3.3.1",
+]
+requires-python = ">=3.11"
+license = { text = "MIT" }
+readme = "README.rst"
+
+
+[tool.pdm]
+distribution = false
+[[tool.pdm.source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[tool.pdm.scripts]
+_.env_file = ".env"
+lint = "pylint pagetools demo -vvv"
+cov = "coverage run runtests.py"
+
+[tool.pdm.dev-dependencies]
+build = ["build>=0.10.0", "coverage", "sphinx", "sphinx-rtd-theme"]
+
 [tool.black]
 line-length = 120
 target-version = ['py311']
@@ -24,89 +77,14 @@ profile = "black"
 [tool.mypy]
 plugins = ["mypy_django_plugin.main"]
 ignore_missing_imports = true
-files = [ "pagetools" ]
-exclude = [
-    "migrations"
-]
+files = ["pagetools"]
+exclude = ["migrations"]
 
 [tool.django-stubs]
 django_settings_module = "tests.settings"
 
 [tool.setuptools.packages.find]
-    include = ["pagetools*"]  # p
-
-
-[tool.pdm]
-distribution = false
-[[tool.pdm.source]]
-url = "https://pypi.org/simple"
-verify_ssl = true
-name = "pypi"
-
-
-[tool.pdm.scripts]
-_.env_file = ".env"
-lint = "pylint pagetools demo -vvv"
-cov = "coverage run runtests.py"
-
-[tool.pdm.dev-dependencies]
-build = [
-    "build>=0.10.0",
-    "coverage",
-    "sphinx",
-    "sphinx-rtd-theme",
-]
-
-dev = [
-    "django-debug-toolbar",
-    "ipython",
-    "pudb",
-    "tox>=4.2.8",
-    "types-requests>=2.32.0.20240914",
-    "python-lsp-server>=1.12.0",
-]
-lint = [
-    "black",
-    "flake8>=7.1.1",
-    "isort==5.*",
-    "mypy-extensions>=1.0.0",
-    "mypy>=1.11.2",
-    "pylint-django>=2.5.5",
-    "pylint-venv>=3.0.3",
-    "pylint>=3.3.1",
-    "pylsp-mypy>=0.6.9",
-    "python-lsp-black>=2.0.0",
-    "python-lsp-isort>=0.1",
-    "python-lsp-server>=1.12.0",
-]
-
-[project]
-name = "django-pagetools"
-version = "0.9.15"
-description = "Some CMS-like Feaures"
-authors = [
-    {name = "Tim Heithecker", email = "tim.heithecker@gmail.com"},
-]
-dependencies = [
-    "Django==4.2.*",
-    "Pillow",
-    "beautifulsoup4",
-    "crispy-forms-foundation>=1.0.2",
-    "django-crispy-forms",
-    "django-filebrowser",
-    "django-grappelli",
-    "django-model-utils",
-    "django-mptt",
-    "django-sekizai",
-    "django-simple-captcha",
-    "django-stubs>=4.2.6",
-    "django-tinymce>=3.6.1",
-    "djangoajax",
-    "setuptools>=65.7.0",
-]
-requires-python = ">=3.11"
-license = {text = "MIT"}
-readme = "README.rst"
+include = ["pagetools*"] # p
 
 
 [tool.pylint.main]
@@ -153,9 +131,6 @@ max-args = 7
 
 # Maximum number of parents for a class (see R0901).
 max-parents = 8
-
-# Maximum number of positional arguments for function / method.
-max-positional-arguments = 7
 
 [tool.pylint.exceptions]
 # Exceptions that will emit a warning when caught.
@@ -216,7 +191,24 @@ known-third-party = ["enchant"]
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use "--disable=all --enable=classes
 # --disable=W".
-disable = ["raw-checker-failed", "bad-inline-option", "locally-disabled", "file-ignored", "suppressed-message", "useless-suppression", "deprecated-pragma", "use-symbolic-message-instead", "use-implicit-booleaness-not-comparison-to-string", "use-implicit-booleaness-not-comparison-to-zero", "missing-function-docstring", "missing-module-docstring", "missing-class-docstring", "consider-using-f-string", "import-outside-toplevel", "too-few-public-methods"]
+disable = [
+    "raw-checker-failed",
+    "bad-inline-option",
+    "locally-disabled",
+    "file-ignored",
+    "suppressed-message",
+    "useless-suppression",
+    "deprecated-pragma",
+    "use-symbolic-message-instead",
+    "use-implicit-booleaness-not-comparison-to-string",
+    "use-implicit-booleaness-not-comparison-to-zero",
+    "missing-function-docstring",
+    "missing-module-docstring",
+    "missing-class-docstring",
+    "consider-using-f-string",
+    "import-outside-toplevel",
+    "too-few-public-methods",
+]
 
 
 [tool.pylint.refactoring]
@@ -254,3 +246,29 @@ evaluation = "max(0, 0 if fatal else 10.0 - ((float(5 * error + warning + refact
 
 # Activate the evaluation score.
 score = true
+
+[dependency-groups]
+dev = [
+    "django-debug-toolbar",
+    "ipython",
+    "pudb",
+    "tox>=4.2.8",
+    "types-requests>=2.32.0.20240914",
+    "python-lsp-server>=1.12.0",
+    "pylint>=3.3.3",
+]
+build = ["build>=0.10.0", "coverage", "sphinx", "sphinx-rtd-theme"]
+lint = [
+    "black",
+    "flake8>=7.1.1",
+    "isort==5.*",
+    "mypy-extensions>=1.0.0",
+    "mypy>=1.11.2",
+    "pylint-django>=2.5.5",
+    "pylint-venv>=3.0.3",
+    "pylint>=3.3.1",
+    "pylsp-mypy>=0.6.9",
+    "python-lsp-black>=2.0.0",
+    "python-lsp-isort>=0.1",
+    "python-lsp-server>=1.12.0",
+]

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-24 13:48+0000\n"
-"PO-Revision-Date: 2023-10-24 15:49+0200\n"
+"POT-Creation-Date: 2025-01-03 11:26+0000\n"
+"PO-Revision-Date: 2025-01-03 12:34+0100\n"
 "Last-Translator: slart@aktivix.org <slart@aktivix.org>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -16,29 +16,29 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.4.2\n"
 
-#: admin.py:30
+#: admin.py:17
 msgid "Admin link"
 msgstr ""
 
-#: admin.py:40
+#: admin.py:27
 msgid "Delete expired"
-msgstr ""
+msgstr "Abgelaufene entfernen"
 
-#: models.py:69
+#: models.py:72
 msgid "language"
 msgstr "Sprache"
 
-#: models.py:146
+#: models.py:149
 msgid "Title"
 msgstr "Titel"
 
-#: models.py:147
+#: models.py:150
 msgid "Slug"
 msgstr "Url-Schreibweise"
 
-#: models.py:149
+#: models.py:152
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -55,21 +55,20 @@ msgid "contains exact"
 msgstr "enthält exakt"
 
 #: search/forms.py:15
-msgid "contains not "
+#, fuzzy
+#| msgid "contains not "
+msgid "contains not"
 msgstr "enthält nicht"
 
 #: search/templates/search/search_results.html:22
-#: search/templates/search_results.html:22
 msgid "Results"
 msgstr "Ergebnisse"
 
 #: search/templates/search/search_results.html:23
-#: search/templates/search_results.html:23
 msgid "more options"
 msgstr "Mehr Optionen"
 
 #: search/templates/search/search_results.html:24
-#: search/templates/search_results.html:24
 msgid "less options"
 msgstr "Weniger Optionen"
 

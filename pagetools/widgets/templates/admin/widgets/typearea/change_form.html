@@ -8,8 +8,6 @@
 	{{ c|safe }}
 	{% endfor %}
 	</ol>
-	<input name="entry-order"
-		value="" type="hidden" />
 </div>
 {% endif %}
 
@@ -17,15 +15,10 @@
 <fieldset class="grp-module ">
 <div class="grp-module grp-dashboard-module typearea-exist-entries">
 	<h2>{% trans "Add existing Widget" %}</h2>
-	<select name="add_objs" multiple="multiple">
 	{% for c in addable_objs %}
-	{{ c|safe }}
+	{{ c|safe}}
 	{% endfor %}
-	</select>
-	<input name="entry-order"
-		value="" type="hidden" />
 </div>
 </fieldset>
 {% endif %}
-
 {% endblock after_related_objects %}

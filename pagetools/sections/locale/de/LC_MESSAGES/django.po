@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-24 13:48+0000\n"
+"POT-Creation-Date: 2025-01-03 11:22+0000\n"
 "PO-Revision-Date: 2016-02-10 16:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -26,25 +26,19 @@ msgstr "Bearbeiten\t"
 msgid "Parents"
 msgstr "Eltern"
 
-#: sections/models.py:102
+#: sections/models.py:103
 #, python-format
 msgid "The slug \"%s\" for language \"%s\" is already taken"
 msgstr ""
 
-#: sections/models.py:124
+#: sections/models.py:125
 msgid "Node"
 msgstr "Knoten"
 
-#: sections/models.py:125
+#: sections/models.py:126
 msgid "Nodes"
 msgstr "Knoten"
 
-#: sections/models.py:138 sections/models.py:139
+#: sections/models.py:139 sections/models.py:140
 msgid "Included Content"
 msgstr ""
-
-#~ msgid "Content Position"
-#~ msgstr "Positionierter Inhalt"
-
-#~ msgid "Content Positions"
-#~ msgstr "Positionierte Inhalte"

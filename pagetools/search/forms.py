@@ -12,7 +12,7 @@ class AdvSearchForm(forms.Form):
     contains_all = forms.CharField(label=_("contains all"), required=False)
     contains_any = forms.CharField(label=_("contains any"), required=False)
     contains_exact = forms.CharField(label=_("contains exact"), required=False)
-    contains_not = forms.CharField(label=_("contains not "), required=False)
+    contains_not = forms.CharField(label=_("contains not"), required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

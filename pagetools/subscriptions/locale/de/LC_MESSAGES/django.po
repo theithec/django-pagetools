@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-24 13:48+0000\n"
+"POT-Creation-Date: 2025-01-03 11:22+0000\n"
 "PO-Revision-Date: 2015-03-28 15:07+0100\n"
 "Last-Translator: slart@aktivix.org <slart@aktivix.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: subscriptions/models.py:71
+#: subscriptions/models.py:72
 msgid "News-Mail"
 msgstr ""
 
@@ -171,6 +171,3 @@ msgstr "Ein Fehler ist aufgetreten"
 #: subscriptions/views.py:122 subscriptions/views.py:123
 msgid "unsubscribe: ok"
 msgstr "Abmeldung erfolgreich"
-
-#~ msgid "back"
-#~ msgstr "zurück"

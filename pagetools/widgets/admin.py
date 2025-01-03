@@ -2,8 +2,11 @@ from django.contrib import admin
 from django.contrib.contenttypes.models import ContentType
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
 
+from pagetools.models import admin_attr_decorator
 from pagetools.utils import get_adminedit_url, get_classname, get_perm_str
 
 from .models import (
@@ -29,30 +32,38 @@ class WidgetInAreaAdmin(admin.TabularInline):
     max_num = 0
     readonly_fields = ("adminedit_url",)
 
+    @admin_attr_decorator
+    def adminedit_url(self, instance):
+        obj = instance.content_object
+        return format_html('<a href="{0}">{1}</a>', get_adminedit_url(obj), f"{obj} ({obj._meta.verbose_name})" )
+    adminedit_url.short_description = "Widget"
+
 
 class TypeAreaAdmin(admin.ModelAdmin):
     inlines = (WidgetInAreaAdmin,)
+    list_filter = ["area", "pagetype"]
+    fields = ["lang", "pagetype", "area"]
+    list_display = ["get_name", "widgets_overview"]
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
-        objs_to_add = form.data.get("add_objs")
-        if objs_to_add:
-            pks = objs_to_add.split("_")
+        objs_to_add = form.data.getlist("add_objs[]")
+        for txt in objs_to_add:
+            pks = txt.split("_")
             contenttype = ContentType.objects.get_for_id(int(pks[0]))
             obj_id = int(pks[1])
-            pos = obj.widgets.all().count()
+            pos = obj.widgets.count()
             WidgetInArea.objects.get_or_create(typearea=obj, content_type=contenttype, object_id=obj_id, position=pos)
 
     def render_change_form(self, request, context, add=False, change=False, form_url="", obj=None):
         if obj:
-            user = request.user
-            clslist = itersubclasses(BaseWidget)
             context["addable_objs"] = []
             context["addable_widgets"] = []
             found = [widget.content_object for widget in obj.widgets.all()]
             self.readonly_fields = ("area", "pagetype")
+            clslist = sorted(itersubclasses(BaseWidget), key=lambda cls: cls.__name__)
             for cls in clslist:
-                if not user.has_perm(get_perm_str(cls)):
+                if not request.user.has_perm(get_perm_str(cls)):
                     continue
 
                 context["addable_widgets"].append(
@@ -65,19 +76,14 @@ class TypeAreaAdmin(admin.ModelAdmin):
                         get_classname(cls),
                     )
                 )
-                instances = cls.objects.all()
+                instances = cls.objects.order_by("-title")
                 ctpk = ContentType.objects.get_for_model(cls).pk
                 for inst in instances:
                     if inst in found:
                         continue
-
                     context["addable_objs"].append(
-                        '<option value="%s_%s">%s</option>'
-                        % (
-                            ctpk,
-                            inst.pk,
-                            inst,
-                        )
+                        #'<option value="%s_%s">%s</option>'
+                        f'<input type="checkbox" name="add_objs[]" value="{ctpk}_{inst.pk}">{inst} ({inst._meta.verbose_name})<br>'
                     )
             self.change_form_template = "admin/widgets/typearea/change_form.html"
         else:
@@ -87,8 +93,22 @@ class TypeAreaAdmin(admin.ModelAdmin):
             self, request, context, add=add, change=change, form_url=form_url, obj=obj
         )
 
+    @admin_attr_decorator
+    def widgets_overview(self, instance):
+        if instance:
+            return ", ".join([str(wdg.content_object) for wdg in instance.widgets.all()])
+        return "-"
+    widgets_overview.short_description = _("Included Widgets")
+
+    @admin_attr_decorator
+    def get_name(self, instance):
+        if instance:
+            return str(instance)
+        return "-"
+    get_name.short_description = _("Pagetype-Area")
+
     def get_readonly_fields(self, request, obj=None):
-        return ["area", "pagetype"] if obj else []
+        return ["area", "pagetype", "widgets_overview"] if obj else []
 
 
 class BaseWidgetAdmin(admin.ModelAdmin):

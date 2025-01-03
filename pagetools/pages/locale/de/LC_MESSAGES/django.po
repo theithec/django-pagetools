@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-24 13:48+0000\n"
-"PO-Revision-Date: 2015-12-20 20:24+0100\n"
+"POT-Creation-Date: 2025-01-03 11:22+0000\n"
+"PO-Revision-Date: 2025-01-03 12:40+0100\n"
 "Last-Translator: slart@aktivix.org <slart@aktivix.org>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -16,25 +16,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.4\n"
+"X-Generator: Poedit 3.4.2\n"
 
-#: pages/admin.py:35 pages/models.py:38
+#: pages/admin.py:35 pages/models.py:39
 msgid "Included form"
-msgstr "eingebundenes Formular"
+msgstr "Eingebundenes Formular"
 
 #: pages/admin.py:44
 msgid "Protection"
-msgstr ""
+msgstr "Seitenschutz"
 
 #: pages/admin.py:52
 msgid "Show in menus"
-msgstr ""
+msgstr "In Menüs anzeigen"
 
 #: pages/admin.py:60
-#, fuzzy
-#| msgid "Page"
 msgid "Pagetype"
-msgstr "Seite"
+msgstr "Seitentyp"
 
 #: pages/forms.py:28
 msgid "ChoiceField name must be \"name: option1, option2 [...])"
@@ -42,11 +40,11 @@ msgstr "ChoiceField Name muss sein \"name: option1, option2[, ...]\""
 
 #: pages/forms.py:48
 msgid "Submit"
-msgstr ""
+msgstr "Senden"
 
 #: pages/forms.py:60
 msgid "Form submission"
-msgstr ""
+msgstr "Formular"
 
 #: pages/forms.py:83 pages/forms.py:87
 msgid "An error occured"
@@ -68,99 +66,34 @@ msgstr "E-Mail"
 msgid "Message"
 msgstr "Nachricht"
 
-#: pages/models.py:59
+#: pages/models.py:60
 msgid "Email Receivers"
 msgstr "E-Mail Empfänger"
 
-#: pages/models.py:68
+#: pages/models.py:69
 msgid "The selected form requires \"email_receivers\""
-msgstr ""
+msgstr "Das benutzte Formular benötigt  \"email_receivers\""
 
-#: pages/models.py:85
+#: pages/models.py:86
 msgid "Login required"
 msgstr "Anmeldung erforderlich"
 
-#: pages/models.py:94 pages/models.py:120
+#: pages/models.py:95 pages/models.py:119
 msgid "Content"
 msgstr "Inhalt"
 
-#: pages/models.py:107
+#: pages/models.py:106
 msgid "Page"
 msgstr "Seite"
 
-#: pages/models.py:108
+#: pages/models.py:107
 msgid "Pages"
 msgstr "Seiten"
 
-#: pages/models.py:121
+#: pages/models.py:120
 msgid "Visible"
 msgstr "Sichtbar"
 
 #: pages/views.py:44 pages/views.py:46
 msgid "Mail send"
 msgstr "E-Mail wurde versandt"
-
-#~ msgid "comma separated list of e-mails"
-#~ msgstr "Kommaseparierte Liste von E-Mails"
-
-#~ msgid "Form processed"
-#~ msgstr "Formular abgearbeitet"
-
-#~ msgid "Form"
-#~ msgstr "Formular"
-
-#~ msgid "The type of the field (e.g. textfield)"
-#~ msgstr "Typ des Feldes (z.B. Textfield)"
-
-#~ msgid "Value"
-#~ msgstr "Wert"
-
-#~ msgid "The visible name of the field"
-#~ msgstr "Der sichtbare Name des Feldes"
-
-#~ msgid "required"
-#~ msgstr "notwendig"
-
-#~ msgid "Is the field required?"
-#~ msgstr "Pflichtfeld?"
-
-#~ msgid "Helptext"
-#~ msgstr "Hilfstext"
-
-#~ msgid "Default"
-#~ msgstr "Default"
-
-#~ msgid "The default value of the field"
-#~ msgstr "Der Defaultwert des Feldes"
-
-#~ msgid "TextField"
-#~ msgstr "Textfeld"
-
-#~ msgid "EmailField"
-#~ msgstr "E-Mailfeld"
-
-#~ msgid "ChoiceField"
-#~ msgstr "Auswahlfeld"
-
-#~ msgid "CheckField"
-#~ msgstr "Ankreuzfeld"
-
-#~ msgid "Dynamic Form Field"
-#~ msgstr "Dynamisches Formularfeld"
-
-#~ msgid "Dynamic Form Fields"
-#~ msgstr "Dynamische Formularfelder"
-
-#, fuzzy
-#~| msgid "Dynamic Form Field"
-#~ msgid "Form field"
-#~ msgstr "Dynamisches Formularfeld"
-
-#~ msgid "Additional form fields"
-#~ msgstr "Zusätzliche Formularfelder"
-
-#~ msgid "MailReceiverField"
-#~ msgstr "Formular-Empfänger"
-
-#~ msgid "Name"
-#~ msgstr "Name"

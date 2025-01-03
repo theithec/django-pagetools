@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-24 13:48+0000\n"
-"PO-Revision-Date: 2022-05-24 23:07+0200\n"
+"POT-Creation-Date: 2025-01-03 11:42+0000\n"
+"PO-Revision-Date: 2025-01-03 16:21+0100\n"
 "Last-Translator: slart@aktivix.org <slart@aktivix.org>\n"
 "Language-Team: \n"
 "Language: de\n"
@@ -16,124 +16,118 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.4.2\n"
 
-#: menus/admin.py:66
+#: admin.py:65
 #, python-format
 msgid "Entry \"%s\" already exists"
-msgstr ""
+msgstr "Eintrag \"%s\" existiert bereits"
 
-#: menus/admin.py:103
+#: admin.py:102
 msgid "Add"
-msgstr ""
+msgstr "Hinzufügen"
 
-#: menus/admin.py:186
+#: admin.py:185
 msgid "Menus"
-msgstr ""
+msgstr "Menüs"
 
-#: menus/admin.py:247
+#: admin.py:246
 msgid "In menus"
-msgstr ""
+msgstr "In Menüs"
 
-#: menus/dashboard_modules.py:30
+#: dashboard_modules.py:30
 msgid "Menu Overview"
 msgstr "Menü-Übersicht"
 
-#: menus/dashboard_modules.py:49
+#: dashboard_modules.py:49
 msgid "Menu not found!"
-msgstr ""
+msgstr "Menü nicht gefunden"
 
-#: menus/models.py:29
+#: models.py:29
 msgid "MenuEntry.content_object requires get_absolute_url"
 msgstr ""
 
-#: menus/models.py:37
+#: models.py:37
 #, python-format
 msgid "Entry %(title)s already exists"
-msgstr ""
+msgstr "Eintrag %(title)s existiert bereits"
 
-#: menus/models.py:43 menus/tests/test_models.py:52
+#: models.py:43 tests/test_models.py:52
 msgid "Use 'add_child' or 'add_root' instead of 'create'"
 msgstr ""
 
-#: menus/models.py:48
+#: models.py:48
 #, python-format
 msgid "Menu %(name)s already exists"
 msgstr ""
 
-#: menus/models.py:53 menus/models.py:278
+#: models.py:53 models.py:278
 msgid "Title"
 msgstr "Titel"
 
-#: menus/models.py:54
+#: models.py:54
 #, fuzzy
 #| msgid "slugs"
 msgid "slug"
 msgstr "URL-Schreibweise"
 
-#: menus/models.py:54
+#: models.py:54
 msgid "Slug"
-msgstr ""
+msgstr "URL-Schreibweise"
 
-#: menus/models.py:79
+#: models.py:79
 msgid "An entry with this title and language already exists in menu"
 msgstr ""
 
-#: menus/models.py:82
+#: models.py:82
 msgid "A menu with this title and language already exists"
 msgstr ""
 
-#: menus/models.py:170
+#: models.py:170
 msgid "Menu with no language exists. No others allowed"
 msgstr ""
 
-#: menus/models.py:273
+#: models.py:273
 msgid "Menu"
 msgstr ""
 
-#: menus/models.py:279
+#: models.py:279
 msgid "enabled"
 msgstr "aktiviert"
 
-#: menus/models.py:289
+#: models.py:289
 msgid "URL"
 msgstr ""
 
-#: menus/models.py:298
+#: models.py:298
 msgid "Link"
 msgstr ""
 
-#: menus/models.py:299
+#: models.py:299
 msgid "Links"
 msgstr ""
 
-#: menus/models.py:303 menus/models.py:329
+#: models.py:303 models.py:329
 msgid "Name"
 msgstr ""
 
-#: menus/models.py:318 menus/models.py:319
+#: models.py:318 models.py:319
 msgctxt "menus"
 msgid "View"
 msgstr "Ansicht"
 
-#: menus/models.py:347
+#: models.py:347
 msgid "Autopopulated Entry"
-msgstr ""
+msgstr "Automatisch generierter Eintrag"
 
-#: menus/models.py:348
+#: models.py:348
 msgid "Autopopulated Entries"
-msgstr ""
+msgstr "Automatisch generierter Einträge"
 
-#: menus/templates/menus/admin/dashboard_menu_module.html:8
+#: templates/menus/admin/dashboard_menu_module.html:8
 msgid "Existing entries"
 msgstr "Bestehende Einträge"
 
-#: menus/templates/menus/admin/dashboard_menu_module.html:23
+#: templates/menus/admin/dashboard_menu_module.html:23
 msgid "Create new entry"
 msgstr "Neuer Eintrag"
-
-#~ msgid "Add New Entry"
-#~ msgstr "Neuen Eintrag hinzufügen"
-
-#~ msgid "Entries"
-#~ msgstr "Einträge"

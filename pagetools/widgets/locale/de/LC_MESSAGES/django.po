@@ -5,87 +5,85 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-24 13:48+0000\n"
-"PO-Revision-Date: 2015-03-28 13:40+0100\n"
+"POT-Creation-Date: 2025-01-03 18:41+0000\n"
+"PO-Revision-Date: 2025-01-03 19:42+0100\n"
 "Last-Translator: slart@aktivix.org <slart@aktivix.org>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language-Team: \n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 3.4.2\n"
 
-#: widgets/management/commands/mk_templatetagwidgets.py:9
+#: admin.py:106
+msgid "Included Widgets"
+msgstr "Eingefügtes Widget"
+
+#: admin.py:114 models.py:127
+msgid "Pagetype-Area"
+msgstr "Seitentyp-Bereich"
+
+#: management/commands/mk_templatetagwidgets.py:9
 msgid "create Widgets according to settings.(PT_)TEMPLATETAG_WIDGETS "
 msgstr "erstelle Widget gemäß settings.[PT_].TEMPLATETAG_WIDGETS"
 
-#: widgets/models.py:19
+#: models.py:20
 msgid "name"
 msgstr "Name"
 
-#: widgets/models.py:49
+#: models.py:50
 msgid "Content"
 msgstr "Inhalt"
 
-#: widgets/models.py:55
+#: models.py:56
 msgid "Simple Text Widget"
-msgstr ""
+msgstr "Text-Kasten"
 
-#: widgets/models.py:56
+#: models.py:57
 msgid "Simple Text Widgets"
-msgstr ""
+msgstr "Text-Kästen"
 
-#: widgets/models.py:98
+#: models.py:88
+msgid "Auto generated widget"
+msgstr "Automatisch erzeugtes Widget"
+
+#: models.py:89
+msgid "Auto generated widgets"
+msgstr "Automatisch erzeugtes Widgets"
+
+#: models.py:101
 msgid "Pagetype"
 msgstr "Seitentyp"
 
-#: widgets/models.py:99
+#: models.py:102
 #, fuzzy
 #| msgid "Pagetype"
 msgid "Pagetypes"
 msgstr "Seitentyp"
 
-#: widgets/models.py:124
-msgid "Pagetype-Area"
-msgstr "Seitentyp-Bereich"
-
-#: widgets/models.py:125
+#: models.py:128
 msgid "Pagetype-Areas"
 msgstr "Seitentyp-Bereiche"
 
-#: widgets/models.py:153
-#, fuzzy
-#| msgid "Add new Widget"
+#: models.py:153
 msgid "Included widget"
-msgstr "Neues Widget hinzufügen"
+msgstr "Eingefügtes Widget"
 
-#: widgets/models.py:154
-#, fuzzy
-#| msgid "Add new Widget"
+#: models.py:154
 msgid "Included widgets"
-msgstr "Neues Widget hinzufügen"
+msgstr "Eingefügte Widgets"
 
-#: widgets/settings.py:14
+#: settings.py:14
 msgid "Sidebar"
 msgstr "Seitenleiste"
 
-#: widgets/templates/admin/widgets/typearea/change_form.html:5
+#: templates/admin/widgets/typearea/change_form.html:5
 msgid "Add new Widget"
 msgstr "Neues Widget hinzufügen"
 
-#: widgets/templates/admin/widgets/typearea/change_form.html:19
+#: templates/admin/widgets/typearea/change_form.html:17
 msgid "Add existing Widget"
 msgstr "Existierendes Widget hinzufügen"
-
-#, fuzzy
-#~| msgid "Pagetype-Areas"
-#~ msgid "Pagetype-Description"
-#~ msgstr "Seitentyp-Bereiche"
-
-#, fuzzy
-#~| msgid "Pagetype-Areas"
-#~ msgid "Pagetype-Descriptions"
-#~ msgstr "Seitentyp-Bereiche"
