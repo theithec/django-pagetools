@@ -5,7 +5,7 @@
 groups = ["default", "build", "dev", "lint"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:4ac9b71878e538de962f0263c185623be65acf4ef86d420ed6857e463736917d"
+content_hash = "sha256:8598fef019e3a55d96e643e724a24d40c3bdc7b9aa77eb97a4efe88153d55a76"
 
 [[metadata.targets]]
 requires_python = ">=3.11"
@@ -390,8 +390,8 @@ files = [
 
 [[package]]
 name = "django-debug-toolbar"
-version = "4.4.6"
-requires_python = ">=3.8"
+version = "5.0.1"
+requires_python = ">=3.9"
 summary = "A configurable set of panels that display various debug information about the current request/response."
 groups = ["dev"]
 dependencies = [
@@ -399,8 +399,8 @@ dependencies = [
     "sqlparse>=0.2",
 ]
 files = [
-    {file = "django_debug_toolbar-4.4.6-py3-none-any.whl", hash = "sha256:3beb671c9ec44ffb817fad2780667f172bd1c067dbcabad6268ce39a81335f45"},
-    {file = "django_debug_toolbar-4.4.6.tar.gz", hash = "sha256:36e421cb908c2f0675e07f9f41e3d1d8618dc386392ec82d23bcfcd5d29c7044"},
+    {file = "django_debug_toolbar-5.0.1-py3-none-any.whl", hash = "sha256:7456cc2e951db37dab335686db7803c4a0ecb6736d120705f6668db9548bf49f"},
+    {file = "django_debug_toolbar-5.0.1.tar.gz", hash = "sha256:296f6f18a80710e84fbb8361538ae5ec522a75ebe9ab67db34bcf1026cbeb420"},
 ]
 
 [[package]]
@@ -1110,8 +1110,8 @@ files = [
 
 [[package]]
 name = "pylsp-mypy"
-version = "0.6.9"
-requires_python = ">=3.8"
+version = "0.7.0"
+requires_python = ">=3.9"
 summary = "Mypy linter for the Python LSP Server"
 groups = ["lint"]
 dependencies = [
@@ -1120,8 +1120,8 @@ dependencies = [
     "tomli>=1.1.0; python_version < \"3.11\"",
 ]
 files = [
-    {file = "pylsp_mypy-0.6.9-py3-none-any.whl", hash = "sha256:9b73ece2977b22b5fc75dfec1cc491bf2031955e3da4062d924a5cc22a278151"},
-    {file = "pylsp_mypy-0.6.9.tar.gz", hash = "sha256:d28994a6ba123c3918ce3274a5cad768418650e575001002101c425ad6c7bbaa"},
+    {file = "pylsp_mypy-0.7.0-py3-none-any.whl", hash = "sha256:756377d05d251d2e31d1963397654149b9c1ea5b0ba1aedd74adef76decd32e9"},
+    {file = "pylsp_mypy-0.7.0.tar.gz", hash = "sha256:e94f531d4ce523222c2af7471abe396cfeb4cc3c4b181d54462fb6d553e1e0b3"},
 ]
 
 [[package]]

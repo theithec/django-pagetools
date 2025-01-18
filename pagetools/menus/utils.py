@@ -23,6 +23,13 @@ def entrieable_auto_populated(name, callback):
     MenusConfig.auto_children_funcs[name] = callback
 
 
-def get_menukey(obj):
-    slug = getattr(obj, "menukey", getattr(obj, "slug", slugify(obj)))
-    return ".".join((obj.__class__.__name__.lower(), slug))
+def get_menukey(obj, entry=None, **kwargs):
+    fullkey =   ""
+    if hasattr(obj, "get_menukey"):
+        fullkey = obj.get_menukey()
+    if not fullkey:     
+        key = getattr(obj, "menukey", getattr(obj, "slug", slugify(obj)))
+        modparts =  obj.__module__.split(".")
+        modname = modparts[len(modparts)-2]
+        fullkey = slugify("-".join(filter(None,(modname, obj.__class__.__name__, key))))
+    return fullkey

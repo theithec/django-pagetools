@@ -1,10 +1,12 @@
 from django.views.generic import DetailView, TemplateView
+from django.urls import path, get_resolver, reverse
+from django.test import RequestFactory, override_settings
 
 from pagetools.menus.tests import MenuDataTestCase
 from pagetools.menus.views import SelectedMenuentriesMixin
 from pagetools.tests.test_models import ConcretePublishableLangModel
 
-
+from pagetools.menus.utils import get_menukey
 class DummyDetailView(SelectedMenuentriesMixin, DetailView):
     """
     To test get_context_data with DetailView
@@ -15,19 +17,23 @@ class DummyDetailView(SelectedMenuentriesMixin, DetailView):
         super(*args, **kwargs)
 
     model = ConcretePublishableLangModel
-    # template_name = "any_template.html"  # TemplateView requires this
 
 
 class DummyNonDetailView(SelectedMenuentriesMixin, TemplateView):
     """
-
     To test get_context_data with Non-DetailView
     """
 
-    template_name = "any_template.html"
-    menukey = "nondetail"
+    template_name = "test.html"
+
+urlpatterns = [
+    # custom urlconf
+    path("/detail/", DummyDetailView.as_view(), name="detail"),
+    path("/nondetail/", DummyNonDetailView.as_view(), name="nondetail"),
+]
 
 
+@override_settings(ROOT_URLCONF=__name__)
 class SelectedMenuentriesMixinTest(MenuDataTestCase):
     """
     Tests context-data in a Django Mixin like a boss
@@ -38,9 +44,8 @@ class SelectedMenuentriesMixinTest(MenuDataTestCase):
     def test_detail_context_data(self):
         view = DummyDetailView()
         context = view.get_context_data()
-        self.assertEqual(context["menukeys"], ["concretepublishablelangmodel.foo1"])
+        self.assertEqual(context["menukey"], "tests-concretepublishablelangmodel-foo1")
 
     def test_nondetail_context_data(self):
-        view = DummyNonDetailView()
-        context = view.get_context_data()
-        self.assertEqual(context["menukeys"], ["dummynondetailview.nondetail"])
+        response = self.client.get(reverse('nondetail'))
+        self.assertEqual(response.context_data["menukey"], "nondetail")

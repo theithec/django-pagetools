@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     "pagetools.search",  # Simple Search on database fields
     "pagetools.subscriptions",  # Subscriptions to whatever
     "captcha",
-    # "debug_toolbar",
 ]
 
 SITE_ID = 1  # required by contrib.sites
@@ -168,4 +167,3 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 PAGINATE_BY = 5
 PAGINATION_NUM_PAGELINKS = 5
 LANGUAGE_CODE = "en-us"
-# LANGUAGE_CODE="de-de"

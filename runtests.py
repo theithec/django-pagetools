@@ -7,11 +7,11 @@ from django.test.utils import get_runner
 
 
 def runtests():
-    os.environ["DJANGO_SETTINGS_MODULE"] = "tests.settings"
+    os.environ["DJANGO_SETTINGS_MODULE"] = "demo.settings.tests"
     sys.path.append("./demo")
     django.setup()
     TestRunner = get_runner(settings)
-    test_runner = TestRunner()
+    test_runner = TestRunner(failfast=False)
     failures = test_runner.run_tests(["pagetools", "polls", "demo_sections"])
     sys.exit(bool(failures))
 

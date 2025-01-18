@@ -19,7 +19,6 @@ class MenuFormTests(TestCase):
         menu = Menu.objects.add_root(title="Menu1")
         Menu.objects.add_child(
             parent=menu,
-            slug="l1",
             title="l1",
             content_object=Link.objects.create(url="#1"),
         )
@@ -31,13 +30,11 @@ class MenuFormTests(TestCase):
         menu = Menu.objects.add_root(title="Menu1")
         Menu.objects.add_child(
             parent=menu,
-            slug="l1",
             title="l1",
             content_object=Link.objects.create(url="#1"),
         )
         Menu.objects.add_child(
             parent=menu,
-            slug="l2",
             title="l2",
             content_object=Link.objects.create(url="#2"),
         )

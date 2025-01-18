@@ -31,7 +31,6 @@ class MenuAdminTests(TestCase):
                 "id",
                 "lang",
                 "title",
-                "slug",
                 "content_type_id",
                 "object_id",
                 "enabled",

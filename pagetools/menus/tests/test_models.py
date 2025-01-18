@@ -30,14 +30,6 @@ class ModelTests(MenuDataTestCase):
             url0 = url0[3:]
         self.assertEqual(url0, self.page1.get_absolute_url())
 
-    def test_entry_slugs(self):
-        self.assertEqual(self.entry_page1.slug, "page.start")
-
-    def test_renamed_entry_slugs(self):
-        self.page1.slug = "P1"
-        self.page1.save()
-        self.menu.save()
-        self.assertEqual(self.menu.get_children()[0].slug, "P1")
 
     def test_doubleslug(self):
         with self.assertRaises(ValidationError):

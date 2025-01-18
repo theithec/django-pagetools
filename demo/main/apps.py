@@ -1,6 +1,8 @@
 from django.apps import AppConfig
 from django.utils import timezone
 from django.urls import reverse
+from django.utils.text import slugify
+
 from django.db.models.signals import post_save
 
 from django.dispatch import receiver
@@ -45,10 +47,13 @@ class MainConfig(AppConfig):
         # To enable questions to be added easily to a menu, tweak their admin:
         make_entrieable_admin(polls.admin.QuestionAdmin)
 
-        # (But) ...
+        # But ...
         # A content_object in a `MenuEntry` needs `get_absolute_url`,
         # so add one to ``Question``.
         Question.add_to_class("get_absolute_url", question_get_absolute_url)
+        # And make a menukey available for highlighting the active menuentry 
+        Question.add_to_class("get_menukey", lambda q: "question:" + slugify(q))
+
 
         # For a dynamic menu entry with all questions as children
         # we need a function to define the dynamic entries:

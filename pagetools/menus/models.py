@@ -8,6 +8,7 @@ from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 from django.urls import reverse
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
 from mptt.fields import TreeForeignKey
@@ -30,7 +31,6 @@ class MenuEntryManager(TreeManager, LangManager):
         kwargs["title"] = kwargs.get("title", str(content_object))
         kwargs["content_type"] = ContentType.objects.get_for_model(content_object, for_concrete_model=False)
         kwargs["object_id"] = content_object.pk
-        kwargs["slug"] = get_menukey(content_object)
         created = False
         entry, created = self.get_or_create(**kwargs)
         if not created:
@@ -51,7 +51,6 @@ class MenuManager(MenuEntryManager):
 
 class MenuEntry(MPTTModel, LangModel):
     title = models.CharField(_("Title"), max_length=128)
-    slug = models.CharField(_("slug"), max_length=512, help_text=(_("Slug")), default="", blank=True)
     parent = TreeForeignKey("self", null=True, blank=True, related_name="children", on_delete=models.CASCADE)
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
@@ -135,7 +134,7 @@ class Menu(MenuEntry):
             tmplstr = MenuCache.objects.get(menu=self).cache
         else:
             tmplstr = self._render_no_sel()
-        logger.debug(
+        logger.info(
             " TEMPLATE %s,  SELECTED: %s, KEYS: %s",
             tmplstr,
             selected,
@@ -181,15 +180,10 @@ class Menu(MenuEntry):
         if not cache:
             self.content_object = MenuCache.objects.create()
             cache = self.content_object
-        menu = super().save(*args, **kwargs)
-        for child in self.get_children():
-            slug = getattr(child.content_object, "slug", None)
-            if slug and not slug == child.slug:
-                child.slug = slug
-                child.save()
+        super().save(*args, **kwargs)
         cache.menu = self
         cache.save()
-        return menu
+        return self
 
     def children_list(self, for_admin=False):
         entry_cnt = 0
@@ -215,7 +209,8 @@ class Menu(MenuEntry):
                 "entry_url": entry.get_absolute_url(),
                 "dict_parent": dict_parent,
             }
-            ckey = get_menukey(obj)
+            ckey = get_menukey(obj, entry=entry)
+
             curr_dict = child_data
             while curr_dict:
                 curr_dict["select_class_marker"] = curr_dict.get("select_class_marker", "")
@@ -278,8 +273,12 @@ class AbstractLink(models.Model):
     title = models.CharField(_("Title"), max_length=128)
     enabled = models.BooleanField(_("enabled"), default=True)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.menukey = slugify(self.title)
+
     def __str__(self):
-        return self.title
+        return str(self.title)
 
     class Meta:
         abstract = True
@@ -289,7 +288,7 @@ class Link(AbstractLink):
     url = models.CharField(_("URL"), max_length=255)
 
     def __str__(self):
-        return self.url
+        return str(self.url)
 
     def get_absolute_url(self):
         return self.url
@@ -310,9 +309,21 @@ class ViewLink(AbstractLink):
     def get_absolute_url(self):
         return reverse(self.name)
 
+    def get_menukey(self):
+        return self.name
+        # print("s", self.name)
+        # print("MC", MenusConfig.entrieable_reverse_names)
+        # return "mk"
+
     @classmethod
     def show_in_menu_add(cls):
         return len(MenusConfig.entrieable_reverse_names) > 0
+
+    def get_menukey2(self):
+        slug = reverse(self.name)[1:-1]
+        key = "menus-viewlink-" + slug
+        print("viewlink.get_menukey", slug, key)
+        return key
 
     class Meta:
         verbose_name = pgettext_lazy("menus", "View")
