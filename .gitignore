@@ -32,3 +32,4 @@ docs/build
 htmlcov
 tasks.py
 node_modules
+db.sqlite3

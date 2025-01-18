@@ -45,10 +45,13 @@ class MainConfig(AppConfig):
         # To enable questions to be added easily to a menu, tweak their admin:
         make_entrieable_admin(polls.admin.QuestionAdmin)
 
-        # (But) ...
+        # But ...
         # A content_object in a `MenuEntry` needs `get_absolute_url`,
         # so add one to ``Question``.
         Question.add_to_class("get_absolute_url", question_get_absolute_url)
+        # And make a menukey available for highlighting the active menuentry 
+        Question.add_to_class("get_menukey", Question.__str__)
+
 
         # For a dynamic menu entry with all questions as children
         # we need a function to define the dynamic entries:

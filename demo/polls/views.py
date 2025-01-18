@@ -9,7 +9,7 @@ from pagetools.menus.views import SelectedMenuentriesMixin
 from .models import Choice, Question
 
 
-class IndexView(generic.ListView):
+class IndexView(SelectedMenuentriesMixin, generic.ListView):
     template_name = "polls/index.html"
     context_object_name = "latest_question_list"
 
