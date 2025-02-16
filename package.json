@@ -4,8 +4,8 @@
 		"start-server-and-test": "^2.0.8"
 	},
 	"scripts": {
-		"start": "pdm run ./demo/manage.py createdemodata && pdm run ./demo/manage.py runserver",
-		"cy:run": "cypress run",
-		"test": "start-server-and-test start http://127.0.0.1:8000 cy:run"
+		"start": "DJANGO_SETTINGS_MODULE=demo.settings.tests pdm run ./demo/manage.py createdemodata && pdm run ./demo/manage.py runserver",
+		"cy:run": "DJANGO_SETTINGS_MODULE=demo.settings.tests cypress run",
+		"test": "DJANGO_SETTINGS_MODULE=demo.settings.tests start-server-and-test start http://127.0.0.1:8000 cy:run"
 	}
 }
