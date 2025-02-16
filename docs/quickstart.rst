@@ -118,7 +118,7 @@ Call the menu in your template::
         ...
 
         <ul>
-                {% menu MainMenu menukeys%}
+                {% menu MainMenu menukey %}
         </ul>
 
 

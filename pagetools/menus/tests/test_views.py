@@ -13,19 +13,21 @@ class DummyDetailView(SelectedMenuentriesMixin, DetailView):
     def __init__(self, *args, **kwargs):
         self.object = ConcretePublishableLangModel.objects.first()
         super(*args, **kwargs)
+        # self.menukey = f"concretepublishablelangmodel-{self.object.foo}"
 
     model = ConcretePublishableLangModel
-    # template_name = "any_template.html"  # TemplateView requires this
 
 
 class DummyNonDetailView(SelectedMenuentriesMixin, TemplateView):
     """
-
     To test get_context_data with Non-DetailView
     """
 
     template_name = "any_template.html"
-    menukey = "nondetail"
+    menukey = "" #tests-dummynondetailview"
+
+    #def __str__(self):
+    #    return "tests-dummynondetailview"
 
 
 class SelectedMenuentriesMixinTest(MenuDataTestCase):
@@ -38,9 +40,10 @@ class SelectedMenuentriesMixinTest(MenuDataTestCase):
     def test_detail_context_data(self):
         view = DummyDetailView()
         context = view.get_context_data()
-        self.assertEqual(context["menukeys"], ["concretepublishablelangmodel.foo1"])
+        self.assertEqual(context["menukey"], "tests-concretepublishablelangmodel-foo1")
 
     def test_nondetail_context_data(self):
         view = DummyNonDetailView()
         context = view.get_context_data()
-        self.assertEqual(context["menukeys"], ["dummynondetailview.nondetail"])
+        print("CC", context["menukey"])
+        self.assertEqual(context["menukey"], "tests-dummynondetailview")

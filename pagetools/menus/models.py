@@ -8,6 +8,7 @@ from django.db import models
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 from django.urls import reverse
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
 from mptt.fields import TreeForeignKey
@@ -135,7 +136,7 @@ class Menu(MenuEntry):
             tmplstr = MenuCache.objects.get(menu=self).cache
         else:
             tmplstr = self._render_no_sel()
-        logger.debug(
+        logger.info(
             " TEMPLATE %s,  SELECTED: %s, KEYS: %s",
             tmplstr,
             selected,
@@ -215,7 +216,9 @@ class Menu(MenuEntry):
                 "entry_url": entry.get_absolute_url(),
                 "dict_parent": dict_parent,
             }
-            ckey = get_menukey(obj)
+            ckey = entry.slug or get_menukey(obj)
+
+            print("ckey", ckey)
             curr_dict = child_data
             while curr_dict:
                 curr_dict["select_class_marker"] = curr_dict.get("select_class_marker", "")
@@ -278,8 +281,12 @@ class AbstractLink(models.Model):
     title = models.CharField(_("Title"), max_length=128)
     enabled = models.BooleanField(_("enabled"), default=True)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.menukey = slugify(self.title)
+
     def __str__(self):
-        return self.title
+        return str(self.title)
 
     class Meta:
         abstract = True
@@ -289,7 +296,7 @@ class Link(AbstractLink):
     url = models.CharField(_("URL"), max_length=255)
 
     def __str__(self):
-        return self.url
+        return str(self.url)
 
     def get_absolute_url(self):
         return self.url

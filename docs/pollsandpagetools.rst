@@ -44,7 +44,7 @@ There is still one problem:
 All question detail pages would have no highlighting for the corresponding menu entry (the ``class="active"`` is missing
 on the list item).
 
-The menu tag expects a parameter ``menukeys`` - a string or a list - that indicates which entries are active.
+The menu tag expects a parameter ``menukey`` - a string that indicates which entry is active.
 For pagetools's models this is done in the ``pagetools.menus.views.SelectedMenuentriesMixin``,
 so a subclass of ´´polls.views.DetailView´´ that inherits the mixin would solve this.
 
@@ -55,8 +55,8 @@ detail.html::
         {% load menus_tags %}
 
         {% block menu %}
-        {% with question|slugify as menukeys %}
-        {% menu "MainMenu" menukeys %}
+        {% with question|slugify as menukey %}
+        {% menu "MainMenu" menukey %}
         {% endwith %}
         {% endblock menu %}
 

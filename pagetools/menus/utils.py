@@ -24,5 +24,10 @@ def entrieable_auto_populated(name, callback):
 
 
 def get_menukey(obj):
-    slug = getattr(obj, "menukey", getattr(obj, "slug", slugify(obj)))
-    return ".".join((obj.__class__.__name__.lower(), slug))
+    try:
+        key = obj.get_menukey()
+    except AttributeError:
+        key = getattr(obj, "menukey", getattr(obj, "slug", str(obj)))
+    modparts =  obj.__module__.split(".")
+    modname = modparts[len(modparts)-2]
+    return slugify("-".join(filter(None,(modname, obj.__class__.__name__, key))))

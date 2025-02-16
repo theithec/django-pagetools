@@ -38,8 +38,8 @@ But there is no limitation of the number of menus, so this possible::
         {% load menus_tags %}
 
         <ul class="menu ...">
-        {% menu CommonMenu menukeys %} {# enabled=True = use cache #}
-        {% menu UserMenu menukeys %}   {# enabled=False = no cache #}
+        {% menu CommonMenu menukey %} {# enabled=True = use cache #}
+        {% menu UserMenu menukey %}   {# enabled=False = no cache #}
         </ul>
 
 

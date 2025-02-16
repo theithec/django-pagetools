@@ -5,23 +5,23 @@ class SelectedMenuentriesMixin:
     """Tries to find a slug from view or model add adds it to
     context. Used for find the selected menu-entries.
     """
+    menukey: str
 
     def get_context_data(self, **kwargs):
         kwargs = super().get_context_data(**kwargs)
-        sel = kwargs.get("menukeys", [])
-        sel.append(self.get_menukey())
-        kwargs["menukeys"] = sel
+        menukey = kwargs.get("menukey", getattr(self, "menukey", None))
+        if not menukey:
+            menukey = get_menukey(self.get_object())
+        kwargs["menukey"] = menukey
+        print("\nMK", kwargs["menukey"])
         return kwargs
+            
 
-    def get_menukey(self):
-        try:
-            obj = self.get_object()
-        except AttributeError:
-            obj = self
-        return get_menukey(obj)
-
-    # reduce queries
     def get_object(self, *args, **kwargs):
         if not getattr(self, "object", None):
-            self.object = super().get_object()
+            try:
+                self.object = super().get_object()
+            except AttributeError:
+                self.object = self
+        print("VIEW GO", self, self.object)
         return self.object
