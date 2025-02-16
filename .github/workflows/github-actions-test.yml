@@ -34,7 +34,7 @@ jobs:
       with:
         tools: libgbm-dev libnotify-dev libnss3 libxss1 libasound2 libxtst6 xauth xvfb
         method: timestamp
-        key: key-${{ matrix.python-version }}-3
+        key: key-${{ matrix.python-version }}-4
     - uses: actions/setup-node@v4
     - name: Install celery
       run: | 
