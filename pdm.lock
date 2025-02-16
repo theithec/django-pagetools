@@ -5,7 +5,7 @@
 groups = ["default", "build", "dev", "lint"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:0ab5b4c89a5dcd9f939de2aff31f1d93ec7f2eff213660c268bc83cd80295dd5"
+content_hash = "sha256:8598fef019e3a55d96e643e724a24d40c3bdc7b9aa77eb97a4efe88153d55a76"
 
 [[metadata.targets]]
 requires_python = ">=3.11"
@@ -26,7 +26,7 @@ name = "asgiref"
 version = "3.8.1"
 requires_python = ">=3.8"
 summary = "ASGI specs, helper code, and adapters"
-groups = ["default"]
+groups = ["default", "dev"]
 dependencies = [
     "typing-extensions>=4; python_version < \"3.11\"",
 ]
@@ -348,7 +348,7 @@ name = "django"
 version = "4.2.17"
 requires_python = ">=3.8"
 summary = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
-groups = ["default"]
+groups = ["default", "dev"]
 dependencies = [
     "asgiref<4,>=3.6.0",
     "backports-zoneinfo; python_version < \"3.9\"",
@@ -386,6 +386,21 @@ dependencies = [
 files = [
     {file = "django_crispy_forms-2.3-py3-none-any.whl", hash = "sha256:efc4c31e5202bbec6af70d383a35e12fc80ea769d464fb0e7fe21768bb138a20"},
     {file = "django_crispy_forms-2.3.tar.gz", hash = "sha256:2db17ae08527201be1273f0df789e5f92819e23dd28fec69cffba7f3762e1a38"},
+]
+
+[[package]]
+name = "django-debug-toolbar"
+version = "5.0.1"
+requires_python = ">=3.9"
+summary = "A configurable set of panels that display various debug information about the current request/response."
+groups = ["dev"]
+dependencies = [
+    "django>=4.2.9",
+    "sqlparse>=0.2",
+]
+files = [
+    {file = "django_debug_toolbar-5.0.1-py3-none-any.whl", hash = "sha256:7456cc2e951db37dab335686db7803c4a0ecb6736d120705f6668db9548bf49f"},
+    {file = "django_debug_toolbar-5.0.1.tar.gz", hash = "sha256:296f6f18a80710e84fbb8361538ae5ec522a75ebe9ab67db34bcf1026cbeb420"},
 ]
 
 [[package]]
@@ -563,7 +578,7 @@ name = "docstring-to-markdown"
 version = "0.15"
 requires_python = ">=3.6"
 summary = "On the fly conversion of Python docstrings to markdown"
-groups = ["dev"]
+groups = ["dev", "lint"]
 files = [
     {file = "docstring-to-markdown-0.15.tar.gz", hash = "sha256:e146114d9c50c181b1d25505054a8d0f7a476837f0da2c19f07e06eaed52b73d"},
     {file = "docstring_to_markdown-0.15-py3-none-any.whl", hash = "sha256:27afb3faedba81e34c33521c32bbd258d7fbb79eedf7d29bc4e81080e854aec0"},
@@ -680,7 +695,7 @@ name = "jedi"
 version = "0.19.2"
 requires_python = ">=3.6"
 summary = "An autocompletion tool for Python that can be used for text editors."
-groups = ["dev"]
+groups = ["dev", "lint"]
 dependencies = [
     "parso<0.9.0,>=0.8.4",
 ]
@@ -839,7 +854,7 @@ name = "parso"
 version = "0.8.4"
 requires_python = ">=3.6"
 summary = "A Python Parser"
-groups = ["dev"]
+groups = ["dev", "lint"]
 files = [
     {file = "parso-0.8.4-py2.py3-none-any.whl", hash = "sha256:a418670a20291dacd2dddc80c377c5c3791378ee1e8d12bffc35420643d43f18"},
     {file = "parso-0.8.4.tar.gz", hash = "sha256:eb3a7b58240fb99099a345571deecc0f9540ea5f4dd2fe14c2a99d6b281ab92d"},
@@ -937,7 +952,7 @@ name = "pluggy"
 version = "1.5.0"
 requires_python = ">=3.8"
 summary = "plugin and hook calling mechanisms for python"
-groups = ["dev"]
+groups = ["dev", "lint"]
 files = [
     {file = "pluggy-1.5.0-py3-none-any.whl", hash = "sha256:44e1ad92c8ca002de6377e165f3e0f1be63266ab4d554740532335b9d75ea669"},
     {file = "pluggy-1.5.0.tar.gz", hash = "sha256:2cffa88e94fdc978c4c574f15f9e59b7f4201d439195c3715ca9e2486f1d0cf1"},
@@ -1083,6 +1098,33 @@ files = [
 ]
 
 [[package]]
+name = "pylint-venv"
+version = "3.0.4"
+requires_python = "<4.0.0,>=3.7.2"
+summary = "pylint-venv provides a Pylint init-hook to use the same Pylint installation with different virtual environments."
+groups = ["lint"]
+files = [
+    {file = "pylint_venv-3.0.4-py3-none-any.whl", hash = "sha256:31006a3df398f58f962c9e5620e756b284e8b2bc490594ce5ee5da41920cb32c"},
+    {file = "pylint_venv-3.0.4.tar.gz", hash = "sha256:4c71c2ad14fc0549699440bcc460994ffddc1481b9078404b4c43d2806ef0f59"},
+]
+
+[[package]]
+name = "pylsp-mypy"
+version = "0.7.0"
+requires_python = ">=3.9"
+summary = "Mypy linter for the Python LSP Server"
+groups = ["lint"]
+dependencies = [
+    "mypy>=0.981",
+    "python-lsp-server>=1.7.0",
+    "tomli>=1.1.0; python_version < \"3.11\"",
+]
+files = [
+    {file = "pylsp_mypy-0.7.0-py3-none-any.whl", hash = "sha256:756377d05d251d2e31d1963397654149b9c1ea5b0ba1aedd74adef76decd32e9"},
+    {file = "pylsp_mypy-0.7.0.tar.gz", hash = "sha256:e94f531d4ce523222c2af7471abe396cfeb4cc3c4b181d54462fb6d553e1e0b3"},
+]
+
+[[package]]
 name = "pyproject-api"
 version = "1.8.0"
 requires_python = ">=3.8"
@@ -1109,11 +1151,42 @@ files = [
 ]
 
 [[package]]
+name = "python-lsp-black"
+version = "2.0.0"
+requires_python = ">=3.8"
+summary = "Black plugin for the Python LSP Server"
+groups = ["lint"]
+dependencies = [
+    "black>=23.11.0",
+    "python-lsp-server>=1.4.0",
+    "tomli; python_version < \"3.11\"",
+]
+files = [
+    {file = "python-lsp-black-2.0.0.tar.gz", hash = "sha256:8286d2d310c566844b3c116b824ada6fccfa6ba228b1a09a0526b74c04e0805f"},
+    {file = "python_lsp_black-2.0.0-py3-none-any.whl", hash = "sha256:d5efdee45f5fa9e5241f5d4d396cd46127f45c85817916b1fd92c2986652bf7e"},
+]
+
+[[package]]
+name = "python-lsp-isort"
+version = "0.2.0"
+requires_python = ">=3.7"
+summary = "isort plugin for the Python LSP Server"
+groups = ["lint"]
+dependencies = [
+    "isort>=5.0",
+    "python-lsp-server",
+]
+files = [
+    {file = "python_lsp_isort-0.2.0-py3-none-any.whl", hash = "sha256:a11964af4626bb7b4dc077483a3382f352b63e3bf8ac73f2f425ae7fd9398a97"},
+    {file = "python_lsp_isort-0.2.0.tar.gz", hash = "sha256:79fe15ae71d33ab2a4ee8b7fb4727b434dfb26c7fc264527564056cdc48aa380"},
+]
+
+[[package]]
 name = "python-lsp-jsonrpc"
 version = "1.1.2"
 requires_python = ">=3.8"
 summary = "JSON RPC 2.0 server library"
-groups = ["dev"]
+groups = ["dev", "lint"]
 dependencies = [
     "ujson>=3.0.0",
 ]
@@ -1127,7 +1200,7 @@ name = "python-lsp-server"
 version = "1.12.0"
 requires_python = ">=3.8"
 summary = "Python Language Server for the Language Server Protocol"
-groups = ["dev"]
+groups = ["dev", "lint"]
 dependencies = [
     "docstring-to-markdown",
     "importlib-metadata>=4.8.3; python_version < \"3.10\"",
@@ -1332,7 +1405,7 @@ name = "sqlparse"
 version = "0.5.3"
 requires_python = ">=3.8"
 summary = "A non-validating SQL parser."
-groups = ["default"]
+groups = ["default", "dev"]
 files = [
     {file = "sqlparse-0.5.3-py3-none-any.whl", hash = "sha256:cf2196ed3418f3ba5de6af7e82c694a9fbdbfecccdfc72e281548517081f16ca"},
     {file = "sqlparse-0.5.3.tar.gz", hash = "sha256:09f67787f56a0b16ecdbde1bfc7f5d9c3371ca683cfeaa8e6ff60b4807ec9272"},
@@ -1440,7 +1513,7 @@ name = "tzdata"
 version = "2024.2"
 requires_python = ">=2"
 summary = "Provider of IANA time zone data"
-groups = ["default"]
+groups = ["default", "dev"]
 marker = "sys_platform == \"win32\""
 files = [
     {file = "tzdata-2024.2-py2.py3-none-any.whl", hash = "sha256:a48093786cdcde33cad18c2555e8532f34422074448fbc874186f0abd79565cd"},
@@ -1452,7 +1525,7 @@ name = "ujson"
 version = "5.10.0"
 requires_python = ">=3.8"
 summary = "Ultra fast JSON encoder and decoder for Python"
-groups = ["dev"]
+groups = ["dev", "lint"]
 files = [
     {file = "ujson-5.10.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:a5b366812c90e69d0f379a53648be10a5db38f9d4ad212b60af00bd4048d0f00"},
     {file = "ujson-5.10.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:502bf475781e8167f0f9d0e41cd32879d120a524b22358e7f205294224c71126"},

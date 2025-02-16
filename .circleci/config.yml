@@ -41,7 +41,7 @@ jobs:
           command: |
             python -m pip install --upgrade pip
             python -m pip install pdm
-            python -m pdm install --prod
+            python -m pdm install -G prod -G build
             python -m pdm add -dG build
       - run:
           name: Run tests
