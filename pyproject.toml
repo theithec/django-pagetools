@@ -1,6 +1,6 @@
 [project]
 name = "django-pagetools"
-version = "0.9.17"
+version = "0.9.18"
 description = "Some CMS-like Feaures"
 authors = [{ name = "Tim Heithecker", email = "tim.heithecker@gmail.com" }]
 dependencies = [
@@ -40,7 +40,17 @@ _.env_file = ".env"
 lint = "pylint pagetools demo -vvv"
 cov = "coverage run runtests.py"
 
-[tool.pdm.dev-dependencies]
+
+[dependency-groups]
+dev = [
+    "django-debug-toolbar",
+    "ipython",
+    "pudb",
+    "tox>=4.2.8",
+    "types-requests>=2.32.0.20240914",
+    "python-lsp-server>=1.12.0",
+    "pylint>=3.3.3",
+]
 build = ["build>=0.10.0", "coverage", "sphinx", "sphinx-rtd-theme"]
 lint = [
     "black",
@@ -49,7 +59,12 @@ lint = [
     "mypy-extensions>=1.0.0",
     "mypy>=1.11.2",
     "pylint-django>=2.5.5",
+    "pylint-venv>=3.0.3",
     "pylint>=3.3.1",
+    "pylsp-mypy>=0.6.9",
+    "python-lsp-black>=2.0.0",
+    "python-lsp-isort>=0.1",
+    "python-lsp-server>=1.12.0",
 ]
 [tool.black]
 line-length = 120
@@ -246,29 +261,3 @@ evaluation = "max(0, 0 if fatal else 10.0 - ((float(5 * error + warning + refact
 
 # Activate the evaluation score.
 score = true
-
-[dependency-groups]
-dev = [
-    "django-debug-toolbar",
-    "ipython",
-    "pudb",
-    "tox>=4.2.8",
-    "types-requests>=2.32.0.20240914",
-    "python-lsp-server>=1.12.0",
-    "pylint>=3.3.3",
-]
-build = ["build>=0.10.0", "coverage", "sphinx", "sphinx-rtd-theme"]
-lint = [
-    "black",
-    "flake8>=7.1.1",
-    "isort==5.*",
-    "mypy-extensions>=1.0.0",
-    "mypy>=1.11.2",
-    "pylint-django>=2.5.5",
-    "pylint-venv>=3.0.3",
-    "pylint>=3.3.1",
-    "pylsp-mypy>=0.6.9",
-    "python-lsp-black>=2.0.0",
-    "python-lsp-isort>=0.1",
-    "python-lsp-server>=1.12.0",
-]
