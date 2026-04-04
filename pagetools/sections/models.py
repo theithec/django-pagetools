@@ -4,6 +4,7 @@ A PageNode is a model which may contains other PageNodes.
 Inheritated models with own fields needs concrete inheritance,
 otherwise a proxy model is sufficient.
 """
+
 from typing import Iterable, List, Tuple, Type, Union
 
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -18,7 +19,13 @@ from pagetools.utils import get_adminadd_url, get_classname, import_cls
 
 
 class PageNodeManager(PublishableLangManager):
-    pass
+    def get_queryset(self):
+        kwargs = {}
+        if self.model._meta.proxy:
+            kwargs.update(
+                {"content_type_pk": ContentType.objects.get_for_model(self.model, for_concrete_model=False).pk}
+            )
+        return super().get_queryset().filter(**kwargs)
 
 
 class TypeMixin(models.Model):
