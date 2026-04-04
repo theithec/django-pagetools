@@ -1,6 +1,6 @@
 [project]
 name = "django-pagetools"
-version = "0.9.19"
+version = "0.9.20"
 description = "Some CMS-like Feaures"
 authors = [{ name = "Tim Heithecker", email = "tim.heithecker@gmail.com" }]
 dependencies = [

@@ -1,11 +1,9 @@
 from django.core.exceptions import ValidationError
-from django.test import TestCase
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
 from pagetools.menus.models import Menu
 from pagetools.menus.tests import MenuDataTestCase
-from pagetools.pages.models import Page
 
 
 class ModelTests(MenuDataTestCase):
@@ -30,7 +28,6 @@ class ModelTests(MenuDataTestCase):
             url0 = url0[3:]
         self.assertEqual(url0, self.page1.get_absolute_url())
 
-
     def test_doubleslug(self):
         with self.assertRaises(ValidationError):
             self.menu.children.add_child(self.page1)
@@ -51,9 +48,16 @@ class ModelTests(MenuDataTestCase):
     def test_menu_already_exists(self):
         with self.assertRaises(ValidationError) as err:
             Menu.objects.add_root("MainMenu")
-            self.assertEqual(str(err), "Menu M1 already exists")
+
+            translated = _("Menu %(name)s already exists") % {"name": "MainMenu"}
+            self.assertEqual(str(err), translated)
 
     def test_entry(self):
+        from django.utils.translation import activate
+
+        activate("de-de")
         with self.assertRaises(ValidationError) as ctx:
             Menu.objects.add_child(self.page1)
-        self.assertEqual(str(ctx.exception), "['Entry P1 already exists']")
+
+        translated = _("Entry %(title)s already exists") % {"title": self.page1.title}
+        self.assertEqual(str(ctx.exception), f"['{translated}']")
