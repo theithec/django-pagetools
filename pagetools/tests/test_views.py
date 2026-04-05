@@ -1,10 +1,9 @@
 from django.contrib.auth import get_user_model
-from django.urls import reverse, resolve
 from django.test import RequestFactory, TestCase, override_settings
+from django.urls import path
 
 from pagetools.tests.test_models import ConcretePublishableLangModel
 from pagetools.views import PaginatorMixin
-from django.urls import path, get_resolver
 
 
 class CPLMListView(PaginatorMixin):
@@ -34,8 +33,3 @@ class PaginatorTest(TestCase):
         request = self.factory.get("/")
         view = CPLMListView.as_view()(request)
         self.assertEqual(list(view.context_data["curr_page_range"]), list(range(1, 3)))
-    
-    # def test_view2(self):
-    #     response = self.client.get(reverse("view1"))
-    #     self.assertEqual(response.status_code, 200)
-    #     #self.assertEqual(list(view.context_data["curr_page_range"]), list(range(1, 3)))

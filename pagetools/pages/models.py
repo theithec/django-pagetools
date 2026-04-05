@@ -42,7 +42,7 @@ class IncludedForm(models.Model):
         super().__init__(*args, **kwargs)
         appconf = apps.get_app_config("pages")
         self.__class__.includable_forms = self.__class__.includable_forms or appconf.includable_forms
-        choices = [(i, _(i)) for i in self.includable_forms.keys()]
+        choices = [(i, _(i)) for i in self.includable_forms]
         self._meta.get_field("included_form").choices = choices
 
     class Meta:

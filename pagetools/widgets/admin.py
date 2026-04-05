@@ -1,5 +1,7 @@
+from django import forms
 from django.contrib import admin
 from django.contrib.contenttypes.models import ContentType
+from django.db import models
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.html import format_html
@@ -31,11 +33,15 @@ class WidgetInAreaAdmin(admin.TabularInline):
     extra = 0
     max_num = 0
     readonly_fields = ("adminedit_url",)
+    formfield_overrides = {
+        models.IntegerField: {"widget": forms.HiddenInput},
+    }
 
     @admin_attr_decorator
     def adminedit_url(self, instance):
         obj = instance.content_object
-        return format_html('<a href="{0}">{1}</a>', get_adminedit_url(obj), f"{obj} ({obj._meta.verbose_name})" )
+        return format_html('<a href="{0}">{1}</a>', get_adminedit_url(obj), f"{obj} ({obj._meta.verbose_name})")
+
     adminedit_url.short_description = "Widget"
 
 
@@ -82,8 +88,8 @@ class TypeAreaAdmin(admin.ModelAdmin):
                     if inst in found:
                         continue
                     context["addable_objs"].append(
-                        #'<option value="%s_%s">%s</option>'
-                        f'<input type="checkbox" name="add_objs[]" value="{ctpk}_{inst.pk}">{inst} ({inst._meta.verbose_name})<br>'
+                        f'<input type="checkbox" name="add_objs[]" '
+                        f'value="{ctpk}_{inst.pk}">{inst} ({inst._meta.verbose_name})<br>'
                     )
             self.change_form_template = "admin/widgets/typearea/change_form.html"
         else:
@@ -98,6 +104,7 @@ class TypeAreaAdmin(admin.ModelAdmin):
         if instance:
             return ", ".join([str(wdg.content_object) for wdg in instance.widgets.all()])
         return "-"
+
     widgets_overview.short_description = _("Included Widgets")
 
     @admin_attr_decorator
@@ -105,6 +112,7 @@ class TypeAreaAdmin(admin.ModelAdmin):
         if instance:
             return str(instance)
         return "-"
+
     get_name.short_description = _("Pagetype-Area")
 
     def get_readonly_fields(self, request, obj=None):

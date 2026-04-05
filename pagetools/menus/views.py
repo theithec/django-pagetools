@@ -1,6 +1,5 @@
 from pagetools.menus.utils import get_menukey
 
-from .apps import MenusConfig
 
 class SelectedMenuentriesMixin:
     """Tries to find a menukey from view or model add adds it to
@@ -20,8 +19,7 @@ class SelectedMenuentriesMixin:
                 self.object = self
         return self.object
 
-
-    def get_menukey(self):   
+    def get_menukey(self):
         rmatch = self.request.resolver_match
         parts = rmatch.namespaces + [rmatch.url_name]
         return ":".join(filter(None, parts))

@@ -1,12 +1,12 @@
+from django.test import override_settings
+from django.urls import path, reverse
 from django.views.generic import DetailView, TemplateView
-from django.urls import path, get_resolver, reverse
-from django.test import RequestFactory, override_settings
 
 from pagetools.menus.tests import MenuDataTestCase
 from pagetools.menus.views import SelectedMenuentriesMixin
 from pagetools.tests.test_models import ConcretePublishableLangModel
 
-from pagetools.menus.utils import get_menukey
+
 class DummyDetailView(SelectedMenuentriesMixin, DetailView):
     """
     To test get_context_data with DetailView
@@ -25,6 +25,7 @@ class DummyNonDetailView(SelectedMenuentriesMixin, TemplateView):
     """
 
     template_name = "test.html"
+
 
 urlpatterns = [
     # custom urlconf
@@ -47,5 +48,5 @@ class SelectedMenuentriesMixinTest(MenuDataTestCase):
         self.assertEqual(context["menukey"], "tests-concretepublishablelangmodel-foo1")
 
     def test_nondetail_context_data(self):
-        response = self.client.get(reverse('nondetail'))
+        response = self.client.get(reverse("nondetail"))
         self.assertEqual(response.context_data["menukey"], "nondetail")

@@ -8,7 +8,6 @@ from pagetools.menus.apps import MenusConfig
 from pagetools.menus.models import Link, Menu, MenuEntry
 from pagetools.tests.test_models import ConcretePublishableLangModel
 from pagetools.utils import get_adminedit_url
-from pagetools.widgets.settings import TEMPLATETAG_WIDGETS
 
 
 class CPMAdmin(admin.ModelAdmin):

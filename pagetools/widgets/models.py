@@ -83,9 +83,11 @@ class TemplateTagWidget(BaseWidget):
             return self.templatetag_instance.render(context)
 
         return None
+
     class Meta:
         verbose_name = _("Auto generated widget")
         verbose_name_plural = _("Auto generated widgets")
+
 
 class PageType(models.Model):
     """A key that defines which additional context should be added to the context."""
@@ -143,7 +145,6 @@ class WidgetInArea(models.Model):
     def get_content(self, contextdict, request):
         return self.content_object.render(contextdict, request)
 
-    
     def __str__(self):
         return "%s@%s" % (self.content_object, self.typearea.pagetype)
 
